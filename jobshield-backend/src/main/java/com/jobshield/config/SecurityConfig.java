@@ -45,6 +45,9 @@ public class SecurityConfig {
                 // Permit preflight OPTIONS requests across all endpoints
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                // Public root & health check
+                .requestMatchers("/", "/api/health").permitAll()
+
                 // Public authentication endpoints
                 .requestMatchers("/api/auth/**").permitAll()
 
