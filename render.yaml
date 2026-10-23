@@ -1,0 +1,40 @@
+services:
+  # ====================================================
+  # Spring Boot 4 Backend Web Service
+  # ====================================================
+  - type: web
+    name: jobshield-backend
+    runtime: docker
+    dockerfilePath: jobshield-backend/Dockerfile
+    dockerContext: jobshield-backend
+    plan: free
+    envVars:
+      # MySQL Connection from your cloud database (e.g. Aiven, TiDB Cloud, Railway)
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      # Google Gemini API Key
+      - key: GEMINI_API_KEY
+        sync: false
+
+  # ====================================================
+  # React 19 / Vite Frontend Static Site
+  # ====================================================
+  - type: web
+    name: jobshield-frontend
+    runtime: static
+    rootDir: jobshield-frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      # SPA rewrite rule to route all pages to index.html
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # Set this to your deployed backend URL: https://jobshield-backend.onrender.com
+      - key: VITE_API_BASE_URL
+        sync: false
