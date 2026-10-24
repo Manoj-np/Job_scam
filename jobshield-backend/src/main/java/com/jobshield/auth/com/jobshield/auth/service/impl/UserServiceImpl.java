@@ -45,6 +45,7 @@ this.passwordEncoder = passwordEncoder;
 
         user.setPhoneNumber(request.getPhoneNumber());
 
+        user.setRole("USER");
         user.setAccountStatus("ACTIVE");
         user.setEmailVerified(false);
         user.setCreatedAt(LocalDateTime.now());

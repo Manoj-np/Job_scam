@@ -34,7 +34,7 @@ public class User {
 	private String phoneNumber;
 	
 	@Column(name = "role", nullable = false)
-	private String role;
+	private String role = "USER";
 	
 
 	@Column(name = "account_status")
