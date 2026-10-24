@@ -14,6 +14,24 @@ export default function PdfScannerPage() {
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
+  const handleLoadSamplePdf = async (filename) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(`/sample_pdfs/${filename}`);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${filename} (status: ${response.status})`);
+      }
+      const blob = await response.blob();
+      const file = new File([blob], filename, { type: 'application/pdf' });
+      setSelectedFile(file);
+    } catch (err) {
+      setError(`Error loading sample PDF: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleFileChange = (file) => {
     setError(null);
     if (!file) return;
@@ -99,6 +117,55 @@ export default function PdfScannerPage() {
       {/* Upload Zone */}
       {!result && !loading && (
         <div className="card">
+          {/* Interviewer 1-Click Demo PDFs */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(37,99,235,0.06), rgba(99,102,241,0.08))',
+            border: '1px solid rgba(99,102,241,0.25)',
+            borderRadius: '10px',
+            padding: '1rem 1.25rem',
+            marginBottom: '1.5rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '1.2rem' }}>⚡</span>
+                <span style={{ fontWeight: 700, color: '#1e293b', fontSize: '0.95rem' }}>
+                  Recruiter & Interviewer 1-Click Demo PDFs:
+                </span>
+              </div>
+              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                Click below to instantly attach a real PDF offer letter without uploading
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                className="btn btn-sm"
+                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 600 }}
+                onClick={() => handleLoadSamplePdf('Sample_Scam_Job_Offer_Letter.pdf')}
+              >
+                🚨 1-Click Attach: Scam Offer Letter PDF
+              </button>
+              <button
+                type="button"
+                className="btn btn-sm"
+                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 600 }}
+                onClick={() => handleLoadSamplePdf('Sample_Legitimate_Job_Offer_Letter.pdf')}
+              >
+                ✅ 1-Click Attach: Legitimate Offer Letter PDF
+              </button>
+              <a
+                href="/sample_pdfs/Sample_Scam_Job_Offer_Letter.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-sm btn-secondary"
+                style={{ fontSize: '0.8rem', textDecoration: 'none' }}
+              >
+                👁️ Preview Raw Scam PDF
+              </a>
+            </div>
+          </div>
+
           <div
             className={`pdf-dropzone ${isDragOver ? 'drag-active' : ''}`}
             onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}

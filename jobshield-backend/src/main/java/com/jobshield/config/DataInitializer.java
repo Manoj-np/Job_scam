@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.jobshield.auth.entity.User;
 import com.jobshield.auth.repository.UserRepository;
+import com.jobshield.campaign.entity.ScamCampaign;
+import com.jobshield.campaign.repository.ScamCampaignRepository;
 import com.jobshield.jobs.entity.JobAnalysis;
 import com.jobshield.jobs.repository.JobAnalysisRepository;
 
@@ -16,13 +18,16 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final JobAnalysisRepository jobAnalysisRepository;
+    private final ScamCampaignRepository scamCampaignRepository;
     private final PasswordEncoder passwordEncoder;
 
     public DataInitializer(UserRepository userRepository,
                            JobAnalysisRepository jobAnalysisRepository,
+                           ScamCampaignRepository scamCampaignRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.jobAnalysisRepository = jobAnalysisRepository;
+        this.scamCampaignRepository = scamCampaignRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -46,8 +51,17 @@ public class DataInitializer implements CommandLineRunner {
 
         // Seed realistic sample scan records if the demo user has none
         if (jobAnalysisRepository.countByUser(demoUser) == 0) {
+            ScamCampaign campaign = scamCampaignRepository.findByCampaignCode("CAMP-2026-ADVANCE-FEE")
+                    .orElseGet(() -> {
+                        ScamCampaign c = new ScamCampaign();
+                        c.setCampaignCode("CAMP-2026-ADVANCE-FEE");
+                        c.setCreatedAt(LocalDateTime.now().minusDays(5));
+                        return scamCampaignRepository.save(c);
+                    });
+
             JobAnalysis scamScan = new JobAnalysis();
             scamScan.setUser(demoUser);
+            scamScan.setCampaign(campaign);
             scamScan.setCompanyName("Apex Global Staffing");
             scamScan.setJobTitle("Remote Data Entry Clerk");
             scamScan.setSalary("$45.00/hr (Immediate Start)");
@@ -57,6 +71,19 @@ public class DataInitializer implements CommandLineRunner {
             scamScan.setJobDescription("Work from home data entry. Earn $45/hr without interview. Contact recruiter on Telegram @apex_recruiter. A refundable deposit of $150 is required for company laptop setup.");
             scamScan.setCreatedAt(LocalDateTime.now().minusDays(1));
             jobAnalysisRepository.save(scamScan);
+
+            JobAnalysis linkedScamScan = new JobAnalysis();
+            linkedScamScan.setUser(demoUser);
+            linkedScamScan.setCampaign(campaign);
+            linkedScamScan.setCompanyName("Apex Talent Partners");
+            linkedScamScan.setJobTitle("Executive Virtual Assistant");
+            linkedScamScan.setSalary("$48.00/hr + Weekly Bonus");
+            linkedScamScan.setRiskScore(92);
+            linkedScamScan.setRiskLevel("HIGH");
+            linkedScamScan.setAiReason("Identical Telegram handler @apex_recruiter and cashier check equipment purchase scam discovered under alternate company registration.");
+            linkedScamScan.setJobDescription("High-paying virtual assistant role. Instant interview on Telegram @apex_recruiter. Equipment deposit required via certified bank check.");
+            linkedScamScan.setCreatedAt(LocalDateTime.now().minusDays(2));
+            jobAnalysisRepository.save(linkedScamScan);
 
             JobAnalysis safeScan = new JobAnalysis();
             safeScan.setUser(demoUser);

@@ -3,6 +3,51 @@ import { jobApi } from '../services/api';
 import AnalysisResultCard from '../components/AnalysisResultCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+const SAMPLES = {
+  scam: {
+    companyName: 'Apex Global Staffing Corp',
+    jobTitle: 'Remote Data Entry Specialist / Virtual Assistant',
+    salary: '$55/hour ($4,400/week) + Sign-on Bonus',
+    jobDescription: `Urgently hiring Remote Data Entry Operators and Virtual Assistants! No previous experience or resume required. Work from home 2-3 hours daily. Earn $55/hr paid daily via Zelle or Crypto.
+
+Interview conducted entirely via Telegram text chat (Contact @HRApexRecruiter on Telegram).
+
+Selected candidates must purchase home office equipment (MacBook Pro & specialized data entry software) from our certified vendor. We will mail you a company cashier's check for $2,400 to cover these expenses. You must immediately deposit the check and wire $2,200 via Western Union / Bitcoin ATM to the vendor to expedite your shipment.
+
+Send your full name, SSN, copy of driver's license, and bank routing details to careers.apexglobal@gmail.com to claim your slot.`
+  },
+  suspicious: {
+    companyName: 'FastTrack Global Media Ltd',
+    jobTitle: 'Social Media Rating Agent & Video Optimizer',
+    salary: '$250 - $600 daily (Commission-based)',
+    jobDescription: `Earn daily income simply by liking videos, boosting seller product ratings, and rating mobile apps! Flexible part-time job from home, 1-2 hours a day.
+
+Payment will be credited immediately to your digital wallet upon completion of 30 review tasks.
+
+Requirement: To unlock task set #1 and register on our platform portal, all applicants must deposit a refundable security balance of $120 in USDT to activate your VIP worker tier. Your deposit is guaranteed to be returned within 24 hours plus 25% commission. Contact our hiring assistant on WhatsApp at +1-987-555-0199.`
+  },
+  legit: {
+    companyName: 'Google LLC',
+    jobTitle: 'Senior Java Backend Engineer (Cloud Services)',
+    salary: '$165,000 - $190,000 / year + Equity + Full Benefits',
+    jobDescription: `About the Role:
+Google Cloud is seeking an experienced Senior Software Engineer to design, implement, and operate highly available microservices in Java 17 and Spring Boot.
+
+Requirements:
+- 5+ years of software development experience with Java, Spring Boot, or Kotlin.
+- Strong proficiency in distributed databases (PostgreSQL, Cloud Spanner) and message queues (Kafka, GCP PubSub).
+- Experience with containerization (Docker, Kubernetes) and CI/CD pipelines.
+- Bachelor's or Master's degree in Computer Science or equivalent practical experience.
+
+Hiring Process:
+1. Recruiter Screen (Google Meet)
+2. Technical Coding Assessment (Data Structures & System Design)
+3. Virtual Onsite Interviews
+
+Note: Google recruiters will only contact you from @google.com email domains and will NEVER ask for banking credentials, crypto transactions, or equipment prepayments. Apply officially via careers.google.com.`
+  }
+};
+
 /**
  * AnalyzeJobPage Component
  * Submits structured job details to POST /api/jobs/analyze for AI evaluation.
@@ -18,6 +63,13 @@ export default function AnalyzeJobPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
+
+  const handleLoadSample = (key) => {
+    if (SAMPLES[key]) {
+      setFormData(SAMPLES[key]);
+      setError(null);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -109,6 +161,54 @@ export default function AnalyzeJobPage() {
       {/* Job Entry Form */}
       {!result && !loading && (
         <div className="card">
+          {/* Quick Demo Presets for Interviewer */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(37,99,235,0.06), rgba(99,102,241,0.08))',
+            border: '1px solid rgba(99,102,241,0.25)',
+            borderRadius: '10px',
+            padding: '1rem 1.25rem',
+            marginBottom: '1.5rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '1.2rem' }}>⚡</span>
+                <span style={{ fontWeight: 700, color: '#1e293b', fontSize: '0.95rem' }}>
+                  Recruiter & Interviewer Demo Presets:
+                </span>
+              </div>
+              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                Click below to auto-fill realistic postings and test AI analysis instantly
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                className="btn btn-sm"
+                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 600 }}
+                onClick={() => handleLoadSample('scam')}
+              >
+                🚨 1-Click Load: Fake Check Scam
+              </button>
+              <button
+                type="button"
+                className="btn btn-sm"
+                style={{ background: '#fef3c7', color: '#b45309', border: '1px solid #fcd34d', fontWeight: 600 }}
+                onClick={() => handleLoadSample('suspicious')}
+              >
+                ⚠️ 1-Click Load: Task Deposit Scheme
+              </button>
+              <button
+                type="button"
+                className="btn btn-sm"
+                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 600 }}
+                onClick={() => handleLoadSample('legit')}
+              >
+                ✅ 1-Click Load: Legitimate Tech Role
+              </button>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit}>
             <div className="auth-row">
               <div className="form-group">
