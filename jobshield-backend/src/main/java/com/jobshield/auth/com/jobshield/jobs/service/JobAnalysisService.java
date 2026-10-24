@@ -11,6 +11,7 @@ import com.jobshield.jobs.dto.AnalyzeJobRequest;
 import com.jobshield.jobs.dto.AnalyzeJobResponse;
 import com.jobshield.jobs.dto.JobDetailsResponse;
 import com.jobshield.jobs.dto.DashboardResponse;
+import com.jobshield.jobs.entity.JobAnalysis;
 
 public interface JobAnalysisService {
 
@@ -20,6 +21,7 @@ public interface JobAnalysisService {
     DashboardResponse getDashboard();
 
     JobDetailsResponse getAnalysisById(Long analysisId);
+    JobAnalysis getAnalysisEntity(Long analysisId);
     List<CampaignSummaryResponse> getCampaignSummary();
     AnalyzeJobResponse analyzePdf(MultipartFile file);
     

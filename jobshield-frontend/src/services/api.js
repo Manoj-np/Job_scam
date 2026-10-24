@@ -235,4 +235,31 @@ export const jobApi = {
       method: 'GET',
     });
   },
+
+  /**
+   * Download dynamically generated PDF Security Audit Report
+   * GET /api/jobs/{analysisId}/export-pdf
+   */
+  downloadPdfReport: async (analysisId) => {
+    const token = getToken();
+    const headers = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    const res = await fetch(`${API_BASE_URL}/api/jobs/${analysisId}/export-pdf`, {
+      headers,
+    });
+    if (!res.ok) {
+      throw new Error('Failed to download PDF audit report.');
+    }
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `JobShield_Audit_Report_${analysisId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  },
 };

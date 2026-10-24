@@ -18,7 +18,7 @@ public interface JobAnalysisRepository
     Page<JobAnalysis> findByUser(User user, Pageable pageable);
     Optional<JobAnalysis> findByAnalysisIdAndUser(Long analysisId, User user);
     long countByUser(User user);
-
+    long countByRiskLevel(String riskLevel);
     long countByUserAndRiskLevel(User user, String riskLevel);
     List<JobAnalysis> findByScamPattern(String scamPattern);
 

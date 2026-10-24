@@ -6,6 +6,9 @@ import com.jobshield.jobs.dto.JobDetailsResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,6 +70,24 @@ public class JobAnalysisController {
                 jobAnalysisService.getAnalysisById(analysisId);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{analysisId}/export-pdf")
+    public ResponseEntity<byte[]> exportPdfReport(@PathVariable Long analysisId) {
+        com.jobshield.jobs.entity.JobAnalysis analysis =
+                jobAnalysisService.getAnalysisEntity(analysisId);
+
+        byte[] pdfBytes = pdfService.generateAuditReport(analysis);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.attachment()
+                .filename("JobShield_Audit_Report_" + analysisId + ".pdf")
+                .build());
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfBytes);
     }
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardResponse> getDashboard() {

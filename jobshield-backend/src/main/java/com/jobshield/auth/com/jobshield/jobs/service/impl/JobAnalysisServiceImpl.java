@@ -150,6 +150,23 @@ public class JobAnalysisServiceImpl implements JobAnalysisService {
                 analysis.getCreatedAt()
         );
     }
+
+    @Override
+    public JobAnalysis getAnalysisEntity(Long analysisId) {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
+
+        return jobAnalysisRepository
+                .findByAnalysisIdAndUser(analysisId, user)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Analysis not found"));
+    }
     @Override
     public DashboardResponse getDashboard() {
 

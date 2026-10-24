@@ -11,6 +11,18 @@ export default function JobDetailModal({ analysisId, onClose }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    try {
+      setDownloading(true);
+      await jobApi.downloadPdfReport(analysisId);
+    } catch (err) {
+      alert('Failed to download report: ' + err.message);
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   useEffect(() => {
     if (!analysisId) return;
@@ -111,7 +123,18 @@ export default function JobDetailModal({ analysisId, onClose }) {
           )}
         </div>
 
-        <div className="modal-footer">
+        <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {data ? (
+            <button
+              onClick={handleDownloadPdf}
+              disabled={downloading}
+              className="btn btn-primary"
+              style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.85rem' }}
+            >
+              <span>{downloading ? '⏳' : '📥'}</span>
+              <span>{downloading ? 'Generating Report...' : 'Download PDF Audit Report'}</span>
+            </button>
+          ) : <div />}
           <button onClick={onClose} className="btn btn-secondary">
             Close
           </button>
