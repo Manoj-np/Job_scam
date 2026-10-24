@@ -45,8 +45,17 @@ public class SecurityConfig {
                 // Permit preflight OPTIONS requests across all endpoints
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // Public root, health check, and system telemetry metrics
-                .requestMatchers("/", "/api/health", "/api/system/**").permitAll()
+                // Public root, health check, system telemetry metrics, and Swagger/OpenAPI docs
+                .requestMatchers(
+                    "/",
+                    "/api/health",
+                    "/api/system/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/swagger-resources/**",
+                    "/webjars/**"
+                ).permitAll()
 
                 // Public authentication endpoints
                 .requestMatchers("/api/auth/**").permitAll()

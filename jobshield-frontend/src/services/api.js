@@ -44,6 +44,13 @@ export const isAuthenticated = () => {
   return !!token && token.trim().length > 0;
 };
 
+export const getSwaggerUrl = () => {
+  const base = (ENV_URL && !ENV_URL.includes('localhost:8081'))
+    ? ENV_URL
+    : (import.meta.env.DEV ? 'http://localhost:8081' : 'https://jobshield-backend.onrender.com');
+  return `${base}/swagger-ui/index.html`;
+};
+
 /**
  * Execute fetch request with automatic JWT auth header, error handling, and proxy support.
  */

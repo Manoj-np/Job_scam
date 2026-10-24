@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { isAuthenticated, authApi } from '../services/api';
+import { isAuthenticated, authApi, getSwaggerUrl } from '../services/api';
 import RiskBadge from '../components/RiskBadge';
 
 const PREVIEWS = {
@@ -186,6 +186,27 @@ export default function LandingPage() {
               {tech}
             </span>
           ))}
+          <a
+            href={getSwaggerUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              background: 'rgba(59, 130, 246, 0.25)',
+              border: '1px solid rgba(59, 130, 246, 0.6)',
+              color: '#93c5fd',
+              padding: '0.3rem 0.75rem',
+              borderRadius: '20px',
+              fontSize: '0.78rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem'
+            }}
+          >
+            <span>📚</span>
+            <span>OpenAPI / Swagger Docs ↗</span>
+          </a>
         </div>
       </section>
 

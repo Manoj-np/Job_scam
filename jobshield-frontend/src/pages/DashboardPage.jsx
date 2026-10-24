@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { jobApi, getSavedUser } from '../services/api';
+import { jobApi, getSavedUser, getSwaggerUrl } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 /**
@@ -108,6 +108,15 @@ export default function DashboardPage() {
           <Link to="/history" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem' }}>
             📥 Audit PDF Reports
           </Link>
+          <a
+            href={getSwaggerUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-secondary"
+            style={{ fontSize: '0.825rem', textDecoration: 'none' }}
+          >
+            📚 Swagger API Docs ↗
+          </a>
         </div>
       </div>
 
