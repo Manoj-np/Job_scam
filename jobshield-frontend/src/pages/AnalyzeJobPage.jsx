@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { jobApi } from '../services/api';
 import AnalysisResultCard from '../components/AnalysisResultCard';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -53,6 +54,7 @@ Note: Google recruiters will only contact you from @google.com email domains and
  * Submits structured job details to POST /api/jobs/analyze for AI evaluation.
  */
 export default function AnalyzeJobPage() {
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     companyName: '',
     jobTitle: '',
@@ -64,12 +66,44 @@ export default function AnalyzeJobPage() {
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
-  const handleLoadSample = (key) => {
+  const handleLoadAndAnalyze = async (key) => {
+    const sample = SAMPLES[key];
+    if (!sample) return;
+
+    setFormData(sample);
+    setError(null);
+    setLoading(true);
+
+    try {
+      const payload = {
+        companyName: sample.companyName.trim(),
+        jobTitle: sample.jobTitle.trim(),
+        salary: sample.salary.trim() || null,
+        jobDescription: sample.jobDescription.trim(),
+      };
+
+      const response = await jobApi.analyzeJob(payload);
+      setResult(response);
+    } catch (err) {
+      setError(err.message || 'Failed to analyze job posting.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLoadSampleOnly = (key) => {
     if (SAMPLES[key]) {
       setFormData(SAMPLES[key]);
       setError(null);
     }
   };
+
+  useEffect(() => {
+    const demoParam = searchParams.get('demo');
+    if (demoParam && SAMPLES[demoParam]) {
+      handleLoadAndAnalyze(demoParam);
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -173,11 +207,11 @@ export default function AnalyzeJobPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '1.2rem' }}>⚡</span>
                 <span style={{ fontWeight: 700, color: '#1e293b', fontSize: '0.95rem' }}>
-                  Recruiter & Interviewer Demo Presets:
+                  Recruiter 1-Click Instant AI Evaluation:
                 </span>
               </div>
               <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                Click below to auto-fill realistic postings and test AI analysis instantly
+                Single click fills form and executes live Gemini AI analysis immediately
               </span>
             </div>
 
@@ -185,26 +219,37 @@ export default function AnalyzeJobPage() {
               <button
                 type="button"
                 className="btn btn-sm"
-                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 600 }}
-                onClick={() => handleLoadSample('scam')}
+                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 700, cursor: 'pointer' }}
+                onClick={() => handleLoadAndAnalyze('scam')}
               >
-                🚨 1-Click Load: Fake Check Scam
+                🚨 1-Click Run: Fake Check Scam
               </button>
               <button
                 type="button"
                 className="btn btn-sm"
-                style={{ background: '#fef3c7', color: '#b45309', border: '1px solid #fcd34d', fontWeight: 600 }}
-                onClick={() => handleLoadSample('suspicious')}
+                style={{ background: '#fef3c7', color: '#b45309', border: '1px solid #fcd34d', fontWeight: 700, cursor: 'pointer' }}
+                onClick={() => handleLoadAndAnalyze('suspicious')}
               >
-                ⚠️ 1-Click Load: Task Deposit Scheme
+                ⚠️ 1-Click Run: Task Deposit Scheme
               </button>
               <button
                 type="button"
                 className="btn btn-sm"
-                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 600 }}
-                onClick={() => handleLoadSample('legit')}
+                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700, cursor: 'pointer' }}
+                onClick={() => handleLoadAndAnalyze('legit')}
               >
-                ✅ 1-Click Load: Legitimate Tech Role
+                ✅ 1-Click Run: Legitimate Tech Role
+              </button>
+            </div>
+            
+            <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#64748b' }}>
+              <span>Want to edit manually first? </span>
+              <button
+                type="button"
+                onClick={() => handleLoadSampleOnly('scam')}
+                style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+              >
+                Fill scam text without running
               </button>
             </div>
           </div>

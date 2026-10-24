@@ -96,11 +96,11 @@ export default function DashboardPage() {
         </div>
 
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <Link to="/analyze" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem' }}>
-            ⚡ 1-Click Job Presets
+          <Link to="/analyze?demo=scam" className="btn btn-sm btn-primary" style={{ fontSize: '0.825rem', fontWeight: 700 }}>
+            🚨 Auto-Run Scam AI Check
           </Link>
-          <Link to="/scan-pdf" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem' }}>
-            📄 1-Click PDF Scanner
+          <Link to="/scan-pdf?demo=scam" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem', fontWeight: 700 }}>
+            📄 Auto-Scan Sample PDF
           </Link>
           <Link to="/campaigns" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem' }}>
             🕸️ Threat Syndicates

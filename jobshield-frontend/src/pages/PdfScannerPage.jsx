@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { jobApi } from '../services/api';
 import AnalysisResultCard from '../components/AnalysisResultCard';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -8,13 +9,36 @@ import LoadingSpinner from '../components/LoadingSpinner';
  * Uploads an offer letter or job document PDF to POST /api/jobs/analyze-pdf.
  */
 export default function PdfScannerPage() {
+  const [searchParams] = useSearchParams();
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
-  const handleLoadSamplePdf = async (filename) => {
+  const handleLoadAndScanPdf = async (filename) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(`/sample_pdfs/${filename}`);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${filename} (status: ${response.status})`);
+      }
+      const blob = await response.blob();
+      const file = new File([blob], filename, { type: 'application/pdf' });
+      setSelectedFile(file);
+
+      // Instantly run analysis
+      const scanResponse = await jobApi.analyzePdf(file);
+      setResult(scanResponse);
+    } catch (err) {
+      setError(`Error scanning sample PDF: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLoadSamplePdfOnly = async (filename) => {
     try {
       setLoading(true);
       setError(null);
@@ -31,6 +55,15 @@ export default function PdfScannerPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const demoParam = searchParams.get('demo');
+    if (demoParam === 'scam') {
+      handleLoadAndScanPdf('Sample_Scam_Job_Offer_Letter.pdf');
+    } else if (demoParam === 'legit') {
+      handleLoadAndScanPdf('Sample_Legitimate_Job_Offer_Letter.pdf');
+    }
+  }, [searchParams]);
 
   const handleFileChange = (file) => {
     setError(null);
@@ -129,11 +162,11 @@ export default function PdfScannerPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '1.2rem' }}>⚡</span>
                 <span style={{ fontWeight: 700, color: '#1e293b', fontSize: '0.95rem' }}>
-                  Recruiter & Interviewer 1-Click Demo PDFs:
+                  Recruiter 1-Click Instant PDF Scanner:
                 </span>
               </div>
               <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                Click below to instantly attach a real PDF offer letter without uploading
+                Single click loads sample PDF and triggers Apache PDFBox & Gemini AI extraction immediately
               </span>
             </div>
 
@@ -141,18 +174,18 @@ export default function PdfScannerPage() {
               <button
                 type="button"
                 className="btn btn-sm"
-                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 600 }}
-                onClick={() => handleLoadSamplePdf('Sample_Scam_Job_Offer_Letter.pdf')}
+                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 700, cursor: 'pointer' }}
+                onClick={() => handleLoadAndScanPdf('Sample_Scam_Job_Offer_Letter.pdf')}
               >
-                🚨 1-Click Attach: Scam Offer Letter PDF
+                🚨 1-Click Scan: Scam Offer Letter PDF
               </button>
               <button
                 type="button"
                 className="btn btn-sm"
-                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 600 }}
-                onClick={() => handleLoadSamplePdf('Sample_Legitimate_Job_Offer_Letter.pdf')}
+                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700, cursor: 'pointer' }}
+                onClick={() => handleLoadAndScanPdf('Sample_Legitimate_Job_Offer_Letter.pdf')}
               >
-                ✅ 1-Click Attach: Legitimate Offer Letter PDF
+                ✅ 1-Click Scan: Legitimate Offer Letter PDF
               </button>
               <a
                 href="/sample_pdfs/Sample_Scam_Job_Offer_Letter.pdf"
@@ -163,6 +196,17 @@ export default function PdfScannerPage() {
               >
                 👁️ Preview Raw Scam PDF
               </a>
+            </div>
+
+            <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#64748b' }}>
+              <span>Want to inspect the file without scanning? </span>
+              <button
+                type="button"
+                onClick={() => handleLoadSamplePdfOnly('Sample_Scam_Job_Offer_Letter.pdf')}
+                style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+              >
+                Attach scam PDF without running
+              </button>
             </div>
           </div>
 
