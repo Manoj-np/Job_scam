@@ -64,6 +64,7 @@ const PREVIEWS = {
 export default function LandingPage() {
   const navigate = useNavigate();
   const loggedIn = isAuthenticated();
+  const ctaLink = loggedIn ? '/dashboard' : '/register';
   const [activeTab, setActiveTab] = useState('checkScam');
   const [loggingIn, setLoggingIn] = useState(false);
 
