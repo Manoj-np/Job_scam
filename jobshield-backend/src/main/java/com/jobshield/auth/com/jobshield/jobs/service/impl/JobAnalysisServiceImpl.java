@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 import com.jobshield.jobs.util.ScamPatternGenerator.ScamPatternGenerator;
 import com.jobshield.jobs.util.ScamSimilarityEngine.ScamSimilarityEngine;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -92,6 +94,31 @@ public class JobAnalysisServiceImpl implements JobAnalysisService {
                         job.getCreatedAt()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<JobHistoryResponse> getHistory(Pageable pageable) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
+
+        Page<JobAnalysis> analyses =
+                jobAnalysisRepository.findByUser(user, pageable);
+
+        return analyses.map(job -> new JobHistoryResponse(
+                job.getAnalysisId(),
+                job.getCompanyName(),
+                job.getJobTitle(),
+                job.getRiskScore(),
+                job.getRiskLevel(),
+                job.getCreatedAt()
+        ));
     }
 
     @Override

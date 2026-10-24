@@ -14,6 +14,10 @@ public class PdfServiceImpl implements PdfService {
     @Override
     public String extractText(MultipartFile file) {
 
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("PDF file is required and cannot be empty");
+        }
+
         try (PDDocument document = Loader.loadPDF(file.getBytes())) {
 
             PDFTextStripper stripper = new PDFTextStripper();

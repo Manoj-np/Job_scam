@@ -3,6 +3,9 @@ package com.jobshield.jobs.controller;
 import java.util.List;
 import com.jobshield.jobs.dto.JobDetailsResponse;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +45,14 @@ public class JobAnalysisController {
         
     }
     @GetMapping("/history")
-    public ResponseEntity<List<JobHistoryResponse>> getHistory() {
+    public ResponseEntity<?> getHistory(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size) {
+
+        if (page != null && size != null) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+            return ResponseEntity.ok(jobAnalysisService.getHistory(pageable));
+        }
 
         List<JobHistoryResponse> history =
                 jobAnalysisService.getHistory();

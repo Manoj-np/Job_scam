@@ -3,6 +3,8 @@ package com.jobshield.jobs.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jobshield.auth.entity.User;
@@ -13,6 +15,7 @@ public interface JobAnalysisRepository
         extends JpaRepository<JobAnalysis, Long> {
 
     List<JobAnalysis> findByUser(User user);
+    Page<JobAnalysis> findByUser(User user, Pageable pageable);
     Optional<JobAnalysis> findByAnalysisIdAndUser(Long analysisId, User user);
     long countByUser(User user);
 

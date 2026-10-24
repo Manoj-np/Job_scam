@@ -1,6 +1,8 @@
 package com.jobshield.jobs.service;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jobshield.jobs.dto.JobHistoryResponse;
@@ -14,6 +16,7 @@ public interface JobAnalysisService {
 
     AnalyzeJobResponse analyzeJob(AnalyzeJobRequest request);
     List<JobHistoryResponse> getHistory();
+    Page<JobHistoryResponse> getHistory(Pageable pageable);
     DashboardResponse getDashboard();
 
     JobDetailsResponse getAnalysisById(Long analysisId);
