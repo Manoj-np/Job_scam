@@ -74,14 +74,14 @@ async function apiFetch(endpoint, options = {}) {
   } catch (err) {
     // Typical browser network error when server is unreachable or CORS blocked
     throw new Error(
-      'Cannot connect to JobShield backend at http://localhost:8081. Please ensure your Spring Boot server is started and running.'
+      `Cannot connect to JobShield backend at ${API_BASE_URL || 'configured API URL'}. Please ensure your Spring Boot server is live and reachable.`
     );
   }
 
-  // Handle 502/503/504 Bad Gateway from Vite proxy when port 8081 is offline
+  // Handle 502/503/504 Bad Gateway from proxy/host when backend is offline
   if (res.status === 502 || res.status === 503 || res.status === 504) {
     throw new Error(
-      'JobShield backend is not reachable at http://localhost:8081. Please start the Spring Boot application.'
+      `JobShield backend is not reachable at ${API_BASE_URL || 'configured API URL'}. Please ensure the Spring Boot server is running.`
     );
   }
 
