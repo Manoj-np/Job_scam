@@ -16,6 +16,40 @@ export default function LandingPage() {
     <div>
       <Navbar />
 
+      {/* Recruiter & Interviewer Quick Banner */}
+      <div style={{
+        backgroundColor: '#1e3a8a',
+        color: '#ffffff',
+        padding: '0.65rem 1rem',
+        fontSize: '0.875rem',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '0.75rem',
+        flexWrap: 'wrap'
+      }}>
+        <span>👔 <strong>Reviewing this project for a job interview?</strong></span>
+        <Link
+          to="/login"
+          style={{
+            backgroundColor: '#3b82f6',
+            color: '#ffffff',
+            padding: '0.25rem 0.75rem',
+            borderRadius: '6px',
+            fontWeight: 700,
+            textDecoration: 'none',
+            fontSize: '0.8rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.3rem'
+          }}
+        >
+          ⚡ Click Here for 1-Click Demo Login
+        </Link>
+        <span style={{ opacity: 0.85, fontSize: '0.8rem' }}>(Pre-seeded with real scam & legitimate job data)</span>
+      </div>
+
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-badge">
@@ -33,12 +67,29 @@ export default function LandingPage() {
         </p>
 
         <div className="hero-actions">
-          <Link to={ctaLink} className="btn btn-primary btn-lg">
-            <span>🛡️ Get Started Free</span>
+          <Link to="/login" className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #2563eb, #4f46e5)', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }}>
+            <span>⚡ 1-Click Interviewer Demo</span>
           </Link>
-          <Link to={analyzeLink} className="btn btn-secondary btn-lg" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.2)' }}>
-            <span>🔍 Analyze a Job</span>
+          <Link to={ctaLink} className="btn btn-secondary btn-lg" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.2)' }}>
+            <span>🛡️ Create Free Account</span>
           </Link>
+        </div>
+
+        {/* Tech Stack Pills for Interviewers */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '2rem' }}>
+          {['Java 17', 'Spring Boot 4', 'React 19', 'Google Gemini AI', 'MySQL 8 (Aiven)', 'Spring Security JWT', 'Apache PDFBox'].map((tech) => (
+            <span key={tech} style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              color: '#e2e8f0',
+              padding: '0.3rem 0.75rem',
+              borderRadius: '20px',
+              fontSize: '0.78rem',
+              fontWeight: 600
+            }}>
+              {tech}
+            </span>
+          ))}
         </div>
       </section>
 

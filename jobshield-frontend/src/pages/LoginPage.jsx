@@ -28,6 +28,34 @@ export default function LoginPage() {
     }));
   };
 
+  const handleDemoLogin = async () => {
+    setError(null);
+    setLoading(true);
+
+    const demoCreds = {
+      email: 'demo@jobshield.com',
+      password: 'Password@123',
+    };
+    setCredentials(demoCreds);
+
+    try {
+      const loginRes = await authApi.login(demoCreds);
+      if (!loginRes || !loginRes.token) {
+        throw new Error('Authentication succeeded but no token received.');
+      }
+      try {
+        await authApi.getProfile();
+      } catch (profileErr) {
+        console.warn('Profile prefetch error:', profileErr);
+      }
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message || 'Demo login failed. Please ensure the backend is running.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -78,6 +106,56 @@ export default function LoginPage() {
           </div>
 
           {error && <div className="alert alert-error">⚠️ {error}</div>}
+
+          {/* Quick Demo Access Card for Interviewers / HR */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(99, 102, 241, 0.12))',
+            border: '1.5px solid #93c5fd',
+            borderRadius: '12px',
+            padding: '1.1rem',
+            marginBottom: '1.25rem',
+            boxShadow: '0 2px 8px rgba(37, 99, 235, 0.08)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+              <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#1e3a8a', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                👔 Interviewer & HR Demo Access
+              </span>
+              <span style={{ fontSize: '0.75rem', background: '#dbeafe', color: '#1e40af', padding: '0.2rem 0.55rem', borderRadius: '12px', fontWeight: 700 }}>
+                Instant Access
+              </span>
+            </div>
+            <p style={{ fontSize: '0.825rem', color: '#334155', margin: '0 0 0.75rem 0', lineHeight: 1.45 }}>
+              Reviewing this project? Click below to immediately sign in with pre-loaded scan records, AI assessments, and live metrics.
+            </p>
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              disabled={loading}
+              className="btn"
+              style={{
+                width: '100%',
+                backgroundColor: '#2563eb',
+                color: '#ffffff',
+                fontWeight: 700,
+                padding: '0.65rem',
+                fontSize: '0.9rem',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 2px 4px rgba(37, 99, 235, 0.3)'
+              }}
+            >
+              <span>⚡ 1-Click Interviewer Demo Login</span>
+            </button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b', marginTop: '0.6rem' }}>
+              <span>Email: <code>demo@jobshield.com</code></span>
+              <span>Password: <code>Password@123</code></span>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
