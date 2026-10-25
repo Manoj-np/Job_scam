@@ -22,7 +22,16 @@ export default function Navbar() {
       </Link>
 
       <nav className="nav-links">
-        <Link to="/demo" className="btn btn-secondary btn-sm" style={{ border: '1px solid #cbd5e1', color: '#334155', fontWeight: 600 }}>
+        <Link
+          to="/demo"
+          className="btn btn-sm"
+          style={{
+            background: 'var(--color-lavender-ghost)',
+            border: '1px solid var(--color-lavender-border)',
+            color: 'var(--color-lavender-light)',
+            fontWeight: 700,
+          }}
+        >
           👔 Recruiter Hub
         </Link>
         {loggedIn ? (

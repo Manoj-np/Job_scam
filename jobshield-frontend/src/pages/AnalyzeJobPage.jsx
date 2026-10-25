@@ -202,20 +202,20 @@ export default function AnalyzeJobPage() {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '0.5rem',
-            padding: '0.65rem 1rem',
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
+            padding: '0.75rem 1rem',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
-            marginBottom: '1.25rem',
+            marginBottom: '1.5rem',
             fontSize: '0.85rem'
           }}>
-            <span style={{ color: '#64748b' }}>💡 Want to test with sample job text?</span>
+            <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>💡 Want to test with sample job text?</span>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => handleLoadSampleOnly('scam')}
                 className="btn btn-sm btn-secondary"
-                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
+                style={{ fontSize: '0.8rem', padding: '0.3rem 0.75rem', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#fca5a5' }}
               >
                 🚨 Load Scam Sample
               </button>
@@ -223,7 +223,7 @@ export default function AnalyzeJobPage() {
                 type="button"
                 onClick={() => handleLoadSampleOnly('legit')}
                 className="btn btn-sm btn-secondary"
-                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
+                style={{ fontSize: '0.8rem', padding: '0.3rem 0.75rem', borderColor: 'rgba(16, 185, 129, 0.4)', color: '#86efac' }}
               >
                 ✅ Load Legit Sample
               </button>

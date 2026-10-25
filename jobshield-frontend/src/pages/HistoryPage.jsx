@@ -92,19 +92,19 @@ export default function HistoryPage() {
                 {history.map((item) => (
                   <tr key={item.analysisId}>
                     <td>
-                      <div style={{ fontWeight: 700, color: '#0f172a' }}>{item.jobTitle}</div>
-                      <div style={{ fontSize: '0.825rem', color: '#64748b' }}>🏢 {item.companyName}</div>
+                      <div style={{ fontWeight: 700, color: '#ffffff' }}>{item.jobTitle}</div>
+                      <div style={{ fontSize: '0.825rem', color: 'var(--text-muted)' }}>🏢 {item.companyName}</div>
                     </td>
                     <td>
                       <RiskBadge level={item.riskLevel} />
                     </td>
                     <td>
-                      <span style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>
+                      <span style={{ fontWeight: 800, fontSize: '1rem', color: '#ffffff' }}>
                         {item.riskScore}
                       </span>
-                      <span style={{ fontSize: '0.8rem', color: '#64748b' }}>/100</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>/100</span>
                     </td>
-                    <td style={{ fontSize: '0.85rem', color: '#64748b' }}>
+                    <td style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                       {item.createdAt ? new Date(item.createdAt).toLocaleDateString(undefined, {
                         year: 'numeric',
                         month: 'short',
@@ -133,19 +133,19 @@ export default function HistoryPage() {
               <div key={item.analysisId} className="history-card-item">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0f172a' }}>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff' }}>
                       {item.jobTitle}
                     </h3>
-                    <div style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.15rem' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
                       🏢 {item.companyName}
                     </div>
                   </div>
                   <RiskBadge level={item.riskLevel} />
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '0.75rem', fontSize: '0.85rem' }}>
-                  <span style={{ color: '#64748b' }}>
-                    Score: <strong>{item.riskScore}/100</strong>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-border)', paddingTop: '0.75rem', fontSize: '0.85rem' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>
+                    Score: <strong style={{ color: '#ffffff' }}>{item.riskScore}/100</strong>
                   </span>
                   <button
                     className="btn btn-secondary btn-sm"

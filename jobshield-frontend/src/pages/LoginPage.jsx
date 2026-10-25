@@ -131,29 +131,25 @@ export default function LoginPage() {
               type="button"
               onClick={handleDemoLogin}
               disabled={loading}
-              className="btn"
+              className="btn btn-primary"
               style={{
                 width: '100%',
-                backgroundColor: '#2563eb',
-                color: '#ffffff',
                 fontWeight: 700,
                 padding: '0.65rem',
                 fontSize: '0.9rem',
                 borderRadius: '8px',
-                border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '0.5rem',
-                boxShadow: '0 2px 4px rgba(37, 99, 235, 0.3)'
               }}
             >
               <span>⚡ 1-Click Interviewer Demo Login</span>
             </button>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b', marginTop: '0.6rem' }}>
-              <span>Email: <code>demo@jobshield.com</code></span>
-              <span>Password: <code>Password@123</code></span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.6rem' }}>
+              <span>Email: <code style={{ color: 'var(--color-lavender)' }}>demo@jobshield.com</code></span>
+              <span>Password: <code style={{ color: 'var(--color-lavender)' }}>Password@123</code></span>
             </div>
           </div>
 

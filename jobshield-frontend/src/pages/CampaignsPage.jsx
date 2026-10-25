@@ -101,7 +101,7 @@ export default function CampaignsPage() {
                   </div>
 
                   <div>
-                    <h4 style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                    <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                       Associated Company Aliases ({camp.companies?.length || 0}):
                     </h4>
                     {camp.companies && camp.companies.length > 0 ? (
@@ -113,12 +113,12 @@ export default function CampaignsPage() {
                         ))}
                       </div>
                     ) : (
-                      <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>No aliases recorded</span>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>No aliases recorded</span>
                     )}
                   </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '1rem', fontSize: '0.8rem', color: '#64748b' }}>
+                <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '1rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   ⚠️ Postings sharing this campaign code likely originate from the same fraud ring.
                 </div>
               </div>

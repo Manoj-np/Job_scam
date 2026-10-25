@@ -56,7 +56,16 @@ export default function DashboardPage() {
         </div>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <Link to="/demo" className="btn btn-secondary" style={{ border: '1px solid #cbd5e1', fontWeight: 600 }}>
+          <Link
+            to="/demo"
+            className="btn btn-sm"
+            style={{
+              background: 'var(--color-lavender-ghost)',
+              border: '1px solid var(--color-lavender-border)',
+              color: 'var(--color-lavender-light)',
+              fontWeight: 700,
+            }}
+          >
             👔 Recruiter Hub
           </Link>
           <Link to="/analyze" className="btn btn-primary">
@@ -120,10 +129,10 @@ export default function DashboardPage() {
 
           {/* Risk Breakdown Progress Visualization */}
           <div className="risk-breakdown-card">
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff' }}>
               Risk Distribution Breakdown
             </h3>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.2rem' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.2rem' }}>
               Ratio of scam likelihood detected across all evaluated job postings.
             </p>
 
@@ -154,15 +163,15 @@ export default function DashboardPage() {
                 <div className="breakdown-legend">
                   <div className="legend-item">
                     <span className="legend-dot" style={{ backgroundColor: 'var(--risk-high)' }} />
-                    <span>High Risk: <strong>{high}</strong> ({highPct}%)</span>
+                    <span>High Risk: <strong style={{ color: 'var(--risk-high-text)' }}>{high}</strong> ({highPct}%)</span>
                   </div>
                   <div className="legend-item">
                     <span className="legend-dot" style={{ backgroundColor: 'var(--risk-medium)' }} />
-                    <span>Medium Risk: <strong>{medium}</strong> ({mediumPct}%)</span>
+                    <span>Medium Risk: <strong style={{ color: 'var(--risk-medium-text)' }}>{medium}</strong> ({mediumPct}%)</span>
                   </div>
                   <div className="legend-item">
                     <span className="legend-dot" style={{ backgroundColor: 'var(--risk-low)' }} />
-                    <span>Low Risk: <strong>{low}</strong> ({lowPct}%)</span>
+                    <span>Low Risk: <strong style={{ color: 'var(--risk-low-text)' }}>{low}</strong> ({lowPct}%)</span>
                   </div>
                 </div>
               </>
@@ -172,10 +181,10 @@ export default function DashboardPage() {
           {/* Quick Actions & Education */}
           <div className="card" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.5rem' }}>
                 🚀 Quick Analysis Actions
               </h3>
-              <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
                 Quickly inspect a suspicious opportunity before submitting personal information or money.
               </p>
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -191,14 +200,14 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid #e2e8f0', paddingLeft: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-                💡 Scam Prevention Advice
+            <div style={{ borderLeft: '1px solid var(--color-border)', paddingLeft: '1.5rem' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.5rem' }}>
+                🛡️ Scam Prevention Intelligence
               </h3>
-              <ul style={{ paddingLeft: '1.25rem', fontSize: '0.875rem', color: '#475569', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                <li>Legitimate employers never ask for "security deposits" or "training fees".</li>
-                <li>Be cautious if interviews occur solely via Telegram or WhatsApp chats.</li>
-                <li>Offers made without an interview or technical evaluation are high risk.</li>
+              <ul style={{ paddingLeft: '1.25rem', fontSize: '0.9rem', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                <li>Legitimate employers never ask for "security deposits", equipment purchases, or "training fees".</li>
+                <li>Be cautious if interviews occur solely via Telegram or WhatsApp chats without verified corporate domains.</li>
+                <li>High salaries offered for basic entry-level roles without technical evaluation are high scam indicators.</li>
               </ul>
             </div>
           </div>

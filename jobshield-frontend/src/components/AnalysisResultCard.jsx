@@ -23,6 +23,14 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
 
   const safeLevel = (riskLevel || 'LOW').toUpperCase();
 
+  const evidenceHeaders = {
+    HIGH: { icon: '🚨', label: 'Critical Fraud Signals & AI Evidence', badge: 'High Danger' },
+    MEDIUM: { icon: '⚠️', label: 'Suspicious Red Flags & Warning Indicators', badge: 'Caution Advised' },
+    LOW: { icon: '✅', label: 'Verification & Authenticity Evidence', badge: 'Legitimate Signals' }
+  };
+
+  const currentEvidence = evidenceHeaders[safeLevel] || evidenceHeaders.LOW;
+
   return (
     <div className="analysis-result-card">
       <div className={`result-header risk-${safeLevel}`}>
@@ -32,8 +40,11 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
           </div>
           <div>
             <div className="score-title">Scam Risk Assessment</div>
-            <div style={{ marginTop: '0.25rem' }}>
+            <div style={{ marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <RiskBadge level={safeLevel} />
+              <span style={{ fontSize: '0.78rem', color: safeLevel === 'HIGH' ? '#fca5a5' : safeLevel === 'MEDIUM' ? '#fde68a' : '#86efac', fontWeight: 700 }}>
+                {currentEvidence.badge}
+              </span>
             </div>
           </div>
         </div>
@@ -49,20 +60,20 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
       <div className="result-body">
         {jobTitle && (
           <div>
-            <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>TARGET POSTING:</span>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a' }}>
+            <span style={{ fontSize: '0.825rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.04em' }}>TARGET POSTING:</span>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff', marginTop: '0.2rem' }}>
               {jobTitle} {companyName ? `at ${companyName}` : ''}
             </h3>
           </div>
         )}
 
-        {/* AI Explanation */}
+        {/* AI Explanation & Evidence-Backed Reasoning */}
         <div className="result-section">
           <h4>
-            <span>🤖</span>
-            <span>Gemini AI Scam Analysis</span>
+            <span>{currentEvidence.icon}</span>
+            <span>{currentEvidence.label}</span>
           </h4>
-          <div className="reason-box">
+          <div className={`reason-box risk-${safeLevel}`}>
             {reason || 'No detailed explanation provided.'}
           </div>
         </div>
@@ -86,7 +97,7 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
 
             <div className="mini-metric-card">
               <div className="label">Syndicate Risk Status</div>
-              <div className="val" style={{ fontSize: '1rem', color: safeLevel === 'HIGH' ? '#ef4444' : '#10b981' }}>
+              <div className="val" style={{ fontSize: '1rem', color: safeLevel === 'HIGH' ? 'var(--risk-high-text)' : safeLevel === 'MEDIUM' ? 'var(--risk-medium-text)' : 'var(--risk-low-text)' }}>
                 {highestSimilarity >= 80 ? '⚠️ High Coordinated Match' : (highestSimilarity >= 60 ? '⚡ Partial Match' : '✓ Low Cluster Risk')}
               </div>
             </div>

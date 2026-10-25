@@ -159,7 +159,7 @@ export default function InterviewerDemoPage() {
         borderBottom: '1px solid #2e3c54'
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd', border: '1px solid rgba(59, 130, 246, 0.4)', padding: '0.3rem 0.8rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, marginBottom: '1rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'var(--color-lavender-ghost)', color: 'var(--color-lavender-light)', border: '1px solid var(--color-lavender-border)', padding: '0.35rem 0.9rem', borderRadius: '20px', fontSize: '0.825rem', fontWeight: 700, marginBottom: '1rem' }}>
             <span>👔</span>
             <span>Recruiter & Technical Interviewer Evaluation Center</span>
           </div>
@@ -169,7 +169,7 @@ export default function InterviewerDemoPage() {
               <h1 style={{ fontSize: '2.4rem', fontWeight: 900, letterSpacing: '-0.02em', margin: '0 0 0.75rem', color: '#f8fafc' }}>
                 JobShield Architecture & Live Demo Hub
               </h1>
-              <p style={{ color: '#94a3b8', fontSize: '1.05rem', lineHeight: '1.6', margin: 0 }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.6', margin: 0 }}>
                 This dedicated portal allows hiring managers and interviewers to evaluate all platform capabilities in 1 click without manual typing or registering test accounts.
               </p>
             </div>
@@ -180,15 +180,13 @@ export default function InterviewerDemoPage() {
                 disabled={loggingIn}
                 className="btn btn-primary btn-lg"
                 style={{
-                  background: 'linear-gradient(135deg, #10b981, #059669)',
-                  boxShadow: '0 4px 14px rgba(16,185,129,0.4)',
                   fontWeight: 800,
                   cursor: 'pointer'
                 }}
               >
                 <span>⚡ {loggingIn ? 'Logging In...' : '1-Click Login to Recruiter Portal'}</span>
               </button>
-              <div style={{ textAlign: 'center', fontSize: '0.8rem', color: '#64748b' }}>
+              <div style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                 Pre-seeded with real scam scans & campaigns
               </div>
             </div>
@@ -233,7 +231,7 @@ export default function InterviewerDemoPage() {
       {/* Main Tabbed Interactive Center */}
       <div style={{ maxWidth: '1100px', margin: '2rem auto 4rem', padding: '0 1rem' }}>
         {/* Navigation Tabs */}
-        <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '2px solid #2e3c54', paddingBottom: '0.5rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.65rem', borderBottom: '2px solid var(--color-border)', paddingBottom: '0.65rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
           {[
             { id: 'textScan', label: '⚡ 1-Click AI Job Scanner' },
             { id: 'pdfScan', label: '📄 PDF Offer Letter Extraction' },
@@ -244,10 +242,11 @@ export default function InterviewerDemoPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: activeTab === tab.id ? '#2563eb' : '#1e293b',
-                color: activeTab === tab.id ? '#ffffff' : '#94a3b8',
+                background: activeTab === tab.id ? 'var(--gradient-brand-btn)' : '#1a2438',
+                color: activeTab === tab.id ? '#ffffff' : 'var(--text-muted)',
                 border: '1px solid',
-                borderColor: activeTab === tab.id ? '#2563eb' : '#2e3c54',
+                borderColor: activeTab === tab.id ? 'var(--color-lavender-border)' : 'var(--color-border)',
+                boxShadow: activeTab === tab.id ? 'var(--shadow-brand)' : 'none',
                 padding: '0.65rem 1.25rem',
                 borderRadius: '8px',
                 fontWeight: 700,
@@ -360,18 +359,18 @@ export default function InterviewerDemoPage() {
         {/* TAB 2: PDF Scanner */}
         {activeTab === 'pdfScan' && (
           <div className="card">
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 0.5rem' }}>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#ffffff' }}>
               Apache PDFBox Document Extraction & Evaluation
             </h2>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.25rem' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: '0 0 1.25rem' }}>
               Test real PDF appointment letters. The backend extracts the raw text stream via Apache PDFBox and scans for fraudulent stipulations:
             </p>
 
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
               <button
                 type="button"
-                className="btn btn-primary"
-                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 700 }}
+                className="btn"
+                style={{ background: 'var(--risk-high-bg)', color: 'var(--risk-high-text)', border: '1px solid var(--risk-high-border)', fontWeight: 700 }}
                 onClick={() => handleRunPdfAnalysis('Sample_Scam_Job_Offer_Letter.pdf')}
               >
                 🚨 1-Click Scan: Fake Scam Offer Letter PDF
@@ -379,8 +378,8 @@ export default function InterviewerDemoPage() {
 
               <button
                 type="button"
-                className="btn btn-secondary"
-                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700 }}
+                className="btn"
+                style={{ background: 'var(--risk-low-bg)', color: 'var(--risk-low-text)', border: '1px solid var(--risk-low-border)', fontWeight: 700 }}
                 onClick={() => handleRunPdfAnalysis('Sample_Legitimate_Job_Offer_Letter.pdf')}
               >
                 ✅ 1-Click Scan: Legitimate Offer Letter PDF

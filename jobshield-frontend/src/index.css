@@ -4,54 +4,83 @@
    ========================================================= */
 
 :root {
-  /* Brand Palettes — Modern Charcoal Slate (#121826 / #1e293b) */
-  --bg-primary: #121826;
-  --bg-surface: #172033;
-  --bg-card: #1e293b;
-  --bg-card-hover: #26354d;
+  /* =========================================================
+     1. BRAND LAYER: Electric Purple, Lavender, AI Gradients
+     ========================================================= */
+  --color-brand: #8b5cf6;               /* Electric Purple */
+  --color-brand-dark: #7c3aed;          /* Deep Electric Purple */
+  --color-brand-deep: #6d28d9;          /* Hover/Active Deep Purple */
+  --color-brand-light: #a78bfa;         /* Soft Violet */
+  --color-lavender: #c4b5fd;            /* Crisp Lavender */
+  --color-lavender-light: #ddd6fe;      /* Bright Lavender Accent */
+  --color-lavender-ghost: rgba(196, 181, 253, 0.12);
+  --color-lavender-border: rgba(196, 181, 253, 0.32);
+
+  /* AI Gradients */
+  --gradient-brand: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #c4b5fd 100%);
+  --gradient-brand-btn: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  --gradient-ai-hero: radial-gradient(ellipse at 50% -10%, rgba(139, 92, 246, 0.22) 0%, rgba(124, 58, 237, 0.05) 50%, transparent 80%),
+                      radial-gradient(circle at 85% 15%, rgba(196, 181, 253, 0.08) 0%, transparent 40%),
+                      linear-gradient(180deg, #121826 0%, #0d121d 100%);
+
+  /* Primary Interactive Color Mapping */
+  --color-primary: #7c3aed;
+  --color-primary-hover: #8b5cf6;
+  --color-accent: #c4b5fd;
+  --color-cyan: #38bdf8;
+
+  /* =========================================================
+     2. PRODUCT LAYER: Clean Cards, Consistent Spacing, Readability
+     ========================================================= */
+  --bg-primary: #121826;               /* Charcoal Canvas */
+  --bg-surface: #172033;               /* Muted Surface / Dropzones */
+  --bg-card: #1e293b;                  /* Clean Elevated Card */
+  --bg-card-hover: #26354d;            /* Card Hover Elevation */
   --bg-light: #121826;
   --bg-white: #1e293b;
-  
-  /* Accent Colors */
-  --color-primary: #2563eb;
-  --color-primary-hover: #3b82f6;
-  --color-accent: #0ea5e9;
-  --color-cyan: #06b6d4;
-  --color-border: #2e3c54;
-  --color-border-light: #334155;
 
-  /* Text Colors */
-  --text-main: #f1f5f9;
-  --text-muted: #94a3b8;
+  --color-border: #2e3c54;             /* Consistent Divider / Card Border */
+  --color-border-light: #3b4d6b;
+  --color-border-hover: #4d648d;
+
+  /* Text Colors & Contrast */
+  --text-main: #f8fafc;                /* Crisp Off-White */
+  --text-muted: #94a3b8;               /* Neutral Slate Gray */
   --text-light: #ffffff;
   --text-light-muted: #cbd5e1;
-  
-  /* Risk Levels */
-  --risk-high: #ef4444;
-  --risk-high-bg: rgba(239, 68, 68, 0.15);
+
+  /* =========================================================
+     3. SAFETY LAYER: Green, Amber, Red Risk Indicators
+     ========================================================= */
+  --risk-high: #ef4444;                /* Red (High Scam Risk) */
+  --risk-high-bg: rgba(239, 68, 68, 0.14);
   --risk-high-border: #ef4444;
   --risk-high-text: #fca5a5;
-  
-  --risk-medium: #f59e0b;
-  --risk-medium-bg: rgba(245, 158, 11, 0.15);
+  --risk-high-glow: 0 0 16px rgba(239, 68, 68, 0.35);
+
+  --risk-medium: #f59e0b;              /* Amber (Medium Risk / Caution) */
+  --risk-medium-bg: rgba(245, 158, 11, 0.14);
   --risk-medium-border: #f59e0b;
-  --risk-medium-text: #fcd34d;
-  
-  --risk-low: #10b981;
-  --risk-low-bg: rgba(16, 185, 129, 0.15);
+  --risk-medium-text: #fde68a;
+  --risk-medium-glow: 0 0 16px rgba(245, 158, 11, 0.35);
+
+  --risk-low: #10b981;                 /* Green (Verified / Safe) */
+  --risk-low-bg: rgba(16, 185, 129, 0.14);
   --risk-low-border: #10b981;
   --risk-low-text: #86efac;
+  --risk-low-glow: 0 0 16px rgba(16, 185, 129, 0.35);
 
   /* Typography & Layout — Bitcount Prop Single */
   --font-family: 'Bitcount Prop Single', system-ui, -apple-system, BlinkMacSystemFont, monospace, sans-serif;
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-lg: 14px;
   --radius-full: 9999px;
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.35);
+  --shadow-brand: 0 4px 14px rgba(124, 58, 237, 0.35);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.4);
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
 }
@@ -129,37 +158,40 @@ input, textarea, select {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
+  background: var(--gradient-brand-btn);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  box-shadow: var(--shadow-brand);
+  border: 1px solid var(--color-lavender-border);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  background: linear-gradient(135deg, var(--color-brand-deep) 0%, var(--color-brand-dark) 100%);
   color: #ffffff;
   box-shadow: var(--shadow-glow);
 }
 
 .btn-secondary {
-  background-color: #27354f;
+  background-color: #1a2438;
   color: #f1f5f9;
-  border: 1px solid #3b4d6b;
+  border: 1px solid var(--color-border);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #334466;
-  border-color: #4b6288;
+  background-color: var(--bg-card-hover);
+  border-color: var(--color-border-hover);
   color: #ffffff;
 }
 
 .btn-outline {
   background-color: transparent;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
+  color: var(--color-lavender);
+  border: 1px solid var(--color-lavender-border);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background-color: rgba(37, 99, 235, 0.15);
+  background-color: var(--color-lavender-ghost);
+  border-color: var(--color-lavender);
+  color: #ffffff;
 }
 
 .btn-dark {
@@ -190,12 +222,12 @@ input, textarea, select {
   padding: 1.6rem;
   box-shadow: var(--shadow-sm);
   color: var(--text-main);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
-  border-color: #3b4d6b;
+  border-color: var(--color-border-hover);
 }
 
 /* Badge Utilities */
@@ -216,21 +248,24 @@ input, textarea, select {
   background-color: var(--risk-high-bg);
   color: var(--risk-high-text);
   border-color: var(--risk-high-border);
+  box-shadow: var(--risk-high-glow);
 }
 
 .badge-medium {
   background-color: var(--risk-medium-bg);
   color: var(--risk-medium-text);
   border-color: var(--risk-medium-border);
+  box-shadow: var(--risk-medium-glow);
 }
 
 .badge-low {
   background-color: var(--risk-low-bg);
   color: var(--risk-low-text);
   border-color: var(--risk-low-border);
+  box-shadow: var(--risk-low-glow);
 }
 
-/* Alert Boxes */
+/* Alert Boxes — Dark Product Layer */
 .alert {
   padding: 0.85rem 1.15rem;
   border-radius: var(--radius-md);
@@ -242,27 +277,27 @@ input, textarea, select {
 }
 
 .alert-error {
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #991b1b;
+  background-color: var(--risk-high-bg);
+  border: 1px solid var(--risk-high-border);
+  color: var(--risk-high-text);
 }
 
 .alert-success {
-  background-color: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #166534;
+  background-color: var(--risk-low-bg);
+  border: 1px solid var(--risk-low-border);
+  color: var(--risk-low-text);
 }
 
 .alert-warning {
-  background-color: #fffbeb;
-  border: 1px solid #fde68a;
-  color: #92400e;
+  background-color: var(--risk-medium-bg);
+  border: 1px solid var(--risk-medium-border);
+  color: var(--risk-medium-text);
 }
 
 .alert-info {
-  background-color: #eff6ff;
-  border: 1px solid #bfdbfe;
-  color: #1e40af;
+  background-color: var(--color-lavender-ghost);
+  border: 1px solid var(--color-lavender-border);
+  color: var(--color-lavender-light);
 }
 
 /* Form Styles */
@@ -292,9 +327,9 @@ input, textarea, select {
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
-  background-color: #1b263b;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+  background-color: #1a2436;
 }
 
 .form-hint {
@@ -314,8 +349,8 @@ input, textarea, select {
 }
 
 .spinner-dark {
-  border-color: rgba(37, 99, 235, 0.2);
-  border-top-color: var(--color-primary);
+  border-color: rgba(139, 92, 246, 0.2);
+  border-top-color: var(--color-brand);
 }
 
 @keyframes spin {

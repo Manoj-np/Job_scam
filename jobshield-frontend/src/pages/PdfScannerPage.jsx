@@ -157,20 +157,20 @@ export default function PdfScannerPage() {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '0.5rem',
-            padding: '0.65rem 1rem',
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
+            padding: '0.75rem 1rem',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
-            marginBottom: '1.25rem',
+            marginBottom: '1.5rem',
             fontSize: '0.85rem'
           }}>
-            <span style={{ color: '#64748b' }}>💡 Want to test with sample offer letters?</span>
+            <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>💡 Want to test with sample offer letters?</span>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => handleLoadSamplePdfOnly('Sample_Scam_Job_Offer_Letter.pdf')}
                 className="btn btn-sm btn-secondary"
-                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
+                style={{ fontSize: '0.8rem', padding: '0.3rem 0.75rem', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#fca5a5' }}
               >
                 📄 Attach Scam PDF
               </button>
@@ -178,7 +178,7 @@ export default function PdfScannerPage() {
                 type="button"
                 onClick={() => handleLoadSamplePdfOnly('Sample_Legitimate_Job_Offer_Letter.pdf')}
                 className="btn btn-sm btn-secondary"
-                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
+                style={{ fontSize: '0.8rem', padding: '0.3rem 0.75rem', borderColor: 'rgba(16, 185, 129, 0.4)', color: '#86efac' }}
               >
                 📄 Attach Legit PDF
               </button>
@@ -205,11 +205,11 @@ export default function PdfScannerPage() {
             />
 
             <div className="dropzone-icon">📄</div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: '#0f172a' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.4rem', color: '#ffffff' }}>
               Drag & Drop your PDF Offer Letter here
             </h3>
-            <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
-              or <span style={{ color: 'var(--color-primary)', fontWeight: 600 }}>browse files</span> from your computer
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+              or <span style={{ color: 'var(--color-lavender)', fontWeight: 700 }}>browse files</span> from your computer
             </p>
             <span className="form-hint" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
               Supports .pdf documents up to 10MB
@@ -222,8 +222,8 @@ export default function PdfScannerPage() {
               <div className="file-info">
                 <span className="file-icon">📄</span>
                 <div>
-                  <div style={{ fontWeight: 700, color: '#0f172a' }}>{selectedFile.name}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                  <div style={{ fontWeight: 700, color: '#ffffff' }}>{selectedFile.name}</div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                     {(selectedFile.size / 1024).toFixed(1)} KB • PDF Document
                   </div>
                 </div>

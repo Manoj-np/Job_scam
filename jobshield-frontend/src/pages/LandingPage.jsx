@@ -32,36 +32,36 @@ export default function LandingPage() {
 
         {/* Three Steps Grid */}
         <div className="steps-grid" style={{ maxWidth: '1050px', margin: '2.5rem auto 2rem', textAlign: 'left' }}>
-          <div className="step-card" style={{ color: '#0f172a' }}>
+          <div className="step-card">
             <div className="step-num">1</div>
-            <h3 style={{ color: '#0f172a' }}>Submit Job Details or PDF</h3>
-            <p style={{ color: '#475569' }}>
+            <h3>Submit Job Details or PDF</h3>
+            <p>
               Paste the job posting description, company name, and salary, or directly upload an offer letter PDF.
             </p>
           </div>
 
-          <div className="step-card" style={{ color: '#0f172a' }}>
+          <div className="step-card">
             <div className="step-num">2</div>
-            <h3 style={{ color: '#0f172a' }}>AI & Pattern Analysis</h3>
-            <p style={{ color: '#475569' }}>
+            <h3>AI & Pattern Analysis</h3>
+            <p>
               The Spring Boot backend runs Gemini AI analysis and checks scam similarity against known fraud databases.
             </p>
           </div>
 
-          <div className="step-card" style={{ color: '#0f172a' }}>
+          <div className="step-card">
             <div className="step-num">3</div>
-            <h3 style={{ color: '#0f172a' }}>View Risk Score & Signals</h3>
-            <p style={{ color: '#475569' }}>
+            <h3>View Risk Score & Signals</h3>
+            <p>
               Get an instant Risk Score (0–100), risk tier (LOW/MEDIUM/HIGH), detailed reason, and syndicate alert.
             </p>
           </div>
         </div>
 
         <div className="hero-actions" style={{ marginTop: '1.5rem' }}>
-          <Link to={ctaLink} className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #2563eb, #4f46e5)', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }}>
+          <Link to={ctaLink} className="btn btn-primary btn-lg">
             <span>🛡️ Start Free Scam Check</span>
           </Link>
-          <Link to="/analyze" className="btn btn-secondary btn-lg" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.2)' }}>
+          <Link to="/analyze" className="btn btn-secondary btn-lg">
             <span>🔍 Analyze a Posting</span>
           </Link>
         </div>
@@ -143,7 +143,7 @@ export default function LandingPage() {
           </div>
           <p>© {new Date().getFullYear()} JobShield — AI-Powered Job Scam Detection & Threat Intelligence.</p>
           <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.5rem' }}>
-            Evaluating JobShield for an engineering interview? Explore the <Link to="/demo" style={{ color: '#3b82f6', fontWeight: 600 }}>Recruiter & Architecture Hub →</Link>
+            Evaluating JobShield for an engineering interview? Explore the <Link to="/demo" style={{ color: 'var(--color-lavender)', fontWeight: 700 }}>Recruiter & Architecture Hub →</Link>
           </p>
         </div>
       </footer>

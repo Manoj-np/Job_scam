@@ -49,8 +49,8 @@ export default function JobDetailModal({ analysisId, onClose }) {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <h3>Analysis Details</h3>
-            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
+            <h3 style={{ color: '#ffffff', fontWeight: 800 }}>Analysis Details</h3>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Report ID #{analysisId}
             </span>
           </div>
@@ -68,52 +68,52 @@ export default function JobDetailModal({ analysisId, onClose }) {
             <>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>
+                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff' }}>
                     {data.jobTitle}
                   </h2>
-                  <div style={{ color: '#475569', fontWeight: 600, marginTop: '0.15rem' }}>
+                  <div style={{ color: 'var(--text-muted)', fontWeight: 600, marginTop: '0.15rem' }}>
                     🏢 {data.companyName} {data.salary ? `• 💰 ${data.salary}` : ''}
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <RiskBadge level={data.riskLevel} />
-                  <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a' }}>
+                  <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#ffffff' }}>
                     {data.riskScore}/100
                   </span>
                 </div>
               </div>
 
               <div>
-                <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
-                  AI Scam Assessment & Explanation
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.35rem' }}>
+                  AI Scam Assessment & Evidence
                 </h4>
-                <div className="reason-box">
+                <div className={`reason-box risk-${data.riskLevel || 'LOW'}`}>
                   {data.reason || 'No specific explanation recorded.'}
                 </div>
               </div>
 
               {data.createdAt && (
-                <div style={{ fontSize: '0.85rem', color: '#64748b' }}>
+                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   <strong>Scanned At:</strong> {new Date(data.createdAt).toLocaleString()}
                 </div>
               )}
 
               <div>
-                <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.35rem' }}>
                   Analyzed Job Description
                 </h4>
                 <div
                   style={{
-                    backgroundColor: '#f8fafc',
-                    border: '1px solid #e2e8f0',
+                    backgroundColor: 'var(--bg-surface)',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '8px',
                     padding: '1rem',
                     maxHeight: '220px',
                     overflowY: 'auto',
                     whiteSpace: 'pre-wrap',
-                    fontSize: '0.875rem',
-                    color: '#334155',
-                    lineHeight: 1.5,
+                    fontSize: '0.9rem',
+                    color: 'var(--text-light-muted)',
+                    lineHeight: 1.6,
                   }}
                 >
                   {data.jobDescription}
