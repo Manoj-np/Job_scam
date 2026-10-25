@@ -5,47 +5,47 @@
 
 :root {
   /* =========================================================
-     1. BRAND LAYER: Electric Purple, Lavender, AI Gradients
+     1. BRAND LAYER: Soft Blue & Lavender — Friendly & Accessible
      ========================================================= */
-  --color-brand: #8b5cf6;               /* Electric Purple */
-  --color-brand-dark: #7c3aed;          /* Deep Electric Purple */
-  --color-brand-deep: #6d28d9;          /* Hover/Active Deep Purple */
-  --color-brand-light: #a78bfa;         /* Soft Violet */
-  --color-lavender: #c4b5fd;            /* Crisp Lavender */
+  --color-brand: #3b82f6;               /* Soft Blue */
+  --color-brand-light: #60a5fa;         /* Light Soft Blue */
+  --color-brand-dark: #2563eb;          /* Deep Soft Blue */
+  --color-brand-deep: #1d4ed8;          /* Active Deep Blue */
+  --color-lavender: #c4b5fd;            /* Warm Lavender */
   --color-lavender-light: #ddd6fe;      /* Bright Lavender Accent */
   --color-lavender-ghost: rgba(196, 181, 253, 0.12);
   --color-lavender-border: rgba(196, 181, 253, 0.32);
 
-  /* AI Gradients */
-  --gradient-brand: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #c4b5fd 100%);
-  --gradient-brand-btn: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
-  --gradient-ai-hero: radial-gradient(ellipse at 50% -10%, rgba(139, 92, 246, 0.22) 0%, rgba(124, 58, 237, 0.05) 50%, transparent 80%),
-                      radial-gradient(circle at 85% 15%, rgba(196, 181, 253, 0.08) 0%, transparent 40%),
-                      linear-gradient(180deg, #121826 0%, #0d121d 100%);
+  /* Friendly AI Gradients — Soft Blue into Lavender */
+  --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #c4b5fd 100%);
+  --gradient-brand-btn: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #7c3aed 100%);
+  --gradient-ai-hero: radial-gradient(ellipse at 50% -10%, rgba(96, 165, 250, 0.20) 0%, rgba(196, 181, 253, 0.08) 50%, transparent 80%),
+                      radial-gradient(circle at 85% 15%, rgba(167, 139, 250, 0.12) 0%, transparent 40%),
+                      linear-gradient(180deg, #101626 0%, #0c101d 100%);
 
   /* Primary Interactive Color Mapping */
-  --color-primary: #7c3aed;
-  --color-primary-hover: #8b5cf6;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
   --color-accent: #c4b5fd;
   --color-cyan: #38bdf8;
 
   /* =========================================================
      2. PRODUCT LAYER: Clean Cards, Consistent Spacing, Readability
      ========================================================= */
-  --bg-primary: #121826;               /* Charcoal Canvas */
-  --bg-surface: #172033;               /* Muted Surface / Dropzones */
-  --bg-card: #1e293b;                  /* Clean Elevated Card */
-  --bg-card-hover: #26354d;            /* Card Hover Elevation */
-  --bg-light: #121826;
-  --bg-white: #1e293b;
+  --bg-primary: #101626;               /* Accessible Charcoal-Navy Canvas */
+  --bg-surface: #162033;               /* Muted Surface / Dropzones */
+  --bg-card: #1c263b;                  /* Clean Elevated Card */
+  --bg-card-hover: #25334e;            /* Card Hover Elevation */
+  --bg-light: #101626;
+  --bg-white: #1c263b;
 
-  --color-border: #2e3c54;             /* Consistent Divider / Card Border */
+  --color-border: #2c3a52;             /* Friendly Divider / Card Border */
   --color-border-light: #3b4d6b;
-  --color-border-hover: #4d648d;
+  --color-border-hover: #4e658c;
 
-  /* Text Colors & Contrast */
+  /* Text Colors & Accessible High Contrast */
   --text-main: #f8fafc;                /* Crisp Off-White */
-  --text-muted: #94a3b8;               /* Neutral Slate Gray */
+  --text-muted: #94a3b8;               /* Clean Slate Neutral */
   --text-light: #ffffff;
   --text-light-muted: #cbd5e1;
 
@@ -70,8 +70,8 @@
   --risk-low-text: #86efac;
   --risk-low-glow: 0 0 16px rgba(16, 185, 129, 0.35);
 
-  /* Typography & Layout — Bitcount Prop Single */
-  --font-family: 'Bitcount Prop Single', system-ui, -apple-system, BlinkMacSystemFont, monospace, sans-serif;
+  /* Typography — Plus Jakarta Sans & Nunito (Friendly & Accessible) */
+  --font-family: 'Plus Jakarta Sans', 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
@@ -79,8 +79,8 @@
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-  --shadow-brand: 0 4px 14px rgba(124, 58, 237, 0.35);
-  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.4);
+  --shadow-brand: 0 4px 14px rgba(59, 130, 246, 0.35);
+  --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.4);
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
 }
@@ -93,7 +93,7 @@
 }
 
 html {
-  font-size: 17px;
+  font-size: 16px;
 }
 
 html, body {
@@ -102,13 +102,14 @@ html, body {
   background-color: var(--bg-light);
   color: var(--text-main);
   line-height: 1.6;
-  letter-spacing: 0.025em;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family);
-  letter-spacing: 0.03em;
+  letter-spacing: -0.02em;
+  font-weight: 700;
   color: #ffffff;
 }
 

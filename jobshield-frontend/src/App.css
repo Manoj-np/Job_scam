@@ -35,7 +35,7 @@
   justify-content: center;
   border-radius: 9px;
   font-size: 1.15rem;
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.45);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
   border: 1px solid var(--color-lavender-border);
 }
 
@@ -76,7 +76,7 @@
   color: var(--color-lavender-light);
   margin-bottom: 1.5rem;
   font-weight: 600;
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
 }
 
 .hero-title {
@@ -153,8 +153,8 @@
 
 .feature-card:hover {
   transform: translateY(-4px);
-  border-color: var(--color-brand);
-  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.5), 0 0 16px rgba(139, 92, 246, 0.2);
+  border-color: var(--color-brand-light);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.5), 0 0 16px rgba(96, 165, 250, 0.25);
 }
 
 .feature-icon-wrapper {
@@ -184,7 +184,7 @@
 
 /* --- How It Works --- */
 .how-it-works-section {
-  background-color: #121826;
+  background-color: var(--bg-primary);
   padding: 5rem 1.5rem;
 }
 
@@ -207,8 +207,8 @@
 }
 
 .step-card:hover {
-  border-color: var(--color-brand);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 14px rgba(139, 92, 246, 0.2);
+  border-color: var(--color-brand-light);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 14px rgba(96, 165, 250, 0.25);
 }
 
 .step-num {
@@ -225,7 +225,7 @@
   justify-content: center;
   font-weight: 800;
   font-size: 1.05rem;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.45);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   border: 1px solid var(--color-lavender-border);
 }
 
@@ -405,7 +405,7 @@
   justify-content: center;
   font-weight: 700;
   font-size: 0.95rem;
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
   border: 1px solid var(--color-lavender-border);
 }
 
