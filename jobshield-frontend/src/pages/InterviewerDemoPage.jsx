@@ -148,26 +148,26 @@ export default function InterviewerDemoPage() {
   };
 
   return (
-    <div style={{ background: '#121826', minHeight: '100vh', color: '#f1f5f9' }}>
+    <div style={{ background: 'var(--bg-primary)', minHeight: '100vh', color: 'var(--text-main)' }}>
       <Navbar />
 
       {/* Recruiter Evaluation Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, #0d121d 0%, #1e293b 100%)',
-        color: '#ffffff',
+        background: 'linear-gradient(180deg, #edf2fe 0%, #e8edff 45%, #f4f7fd 100%)',
+        color: '#0f172a',
         padding: '3rem 1.5rem',
-        borderBottom: '1px solid #2e3c54'
+        borderBottom: '1px solid #e8ecf4'
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'var(--color-lavender-ghost)', color: 'var(--color-lavender-light)', border: '1px solid var(--color-lavender-border)', padding: '0.35rem 0.9rem', borderRadius: '20px', fontSize: '0.825rem', fontWeight: 700, marginBottom: '1rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#ffffff', color: '#4361ee', border: '1px solid #c7d2fe', padding: '0.35rem 0.9rem', borderRadius: '20px', fontSize: '0.825rem', fontWeight: 700, marginBottom: '1rem', boxShadow: '0 2px 6px rgba(67, 97, 238, 0.1)' }}>
             <span>👔</span>
             <span>Recruiter & Technical Interviewer Evaluation Center</span>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
             <div style={{ maxWidth: '700px' }}>
-              <h1 style={{ fontSize: '2.4rem', fontWeight: 900, letterSpacing: '-0.02em', margin: '0 0 0.75rem', color: '#f8fafc' }}>
-                JobShield Architecture & Live Demo Hub
+              <h1 style={{ fontSize: '2.4rem', fontWeight: 800, letterSpacing: '-0.02em', margin: '0 0 0.75rem', color: '#0f172a' }}>
+                JobShield Architecture & <span style={{ color: 'var(--color-brand)' }}>Live Demo</span> Hub
               </h1>
               <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.6', margin: 0 }}>
                 This dedicated portal allows hiring managers and interviewers to evaluate all platform capabilities in 1 click without manual typing or registering test accounts.
@@ -196,13 +196,14 @@ export default function InterviewerDemoPage() {
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1.75rem' }}>
             {['Java 17', 'Spring Boot 4', 'React 19', 'Google Gemini AI', 'MySQL 8 (Aiven)', 'Spring Security JWT', 'Apache PDFBox'].map((tech) => (
               <span key={tech} style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: '#cbd5e1',
-                padding: '0.25rem 0.65rem',
+                background: '#ffffff',
+                border: '1px solid #e2e8f0',
+                color: '#475569',
+                padding: '0.3rem 0.75rem',
                 borderRadius: '16px',
-                fontSize: '0.75rem',
-                fontWeight: 600
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.03)'
               }}>
                 {tech}
               </span>
@@ -212,12 +213,12 @@ export default function InterviewerDemoPage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background: 'rgba(59, 130, 246, 0.25)',
-                border: '1px solid rgba(59, 130, 246, 0.6)',
-                color: '#93c5fd',
-                padding: '0.25rem 0.65rem',
+                background: '#eef2ff',
+                border: '1px solid #c7d2fe',
+                color: '#4361ee',
+                padding: '0.3rem 0.85rem',
                 borderRadius: '16px',
-                fontSize: '0.75rem',
+                fontSize: '0.8rem',
                 fontWeight: 700,
                 textDecoration: 'none'
               }}
@@ -231,7 +232,7 @@ export default function InterviewerDemoPage() {
       {/* Main Tabbed Interactive Center */}
       <div style={{ maxWidth: '1100px', margin: '2rem auto 4rem', padding: '0 1rem' }}>
         {/* Navigation Tabs */}
-        <div style={{ display: 'flex', gap: '0.65rem', borderBottom: '2px solid var(--color-border)', paddingBottom: '0.65rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.65rem', borderBottom: '2px solid #e2e8f0', paddingBottom: '0.65rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
           {[
             { id: 'textScan', label: '⚡ 1-Click AI Job Scanner' },
             { id: 'pdfScan', label: '📄 PDF Offer Letter Extraction' },
@@ -242,15 +243,15 @@ export default function InterviewerDemoPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: activeTab === tab.id ? 'var(--gradient-brand-btn)' : '#1a2438',
+                background: activeTab === tab.id ? 'var(--color-brand)' : '#ffffff',
                 color: activeTab === tab.id ? '#ffffff' : 'var(--text-muted)',
                 border: '1px solid',
-                borderColor: activeTab === tab.id ? 'var(--color-lavender-border)' : 'var(--color-border)',
-                boxShadow: activeTab === tab.id ? 'var(--shadow-brand)' : 'none',
-                padding: '0.65rem 1.25rem',
-                borderRadius: '8px',
+                borderColor: activeTab === tab.id ? 'var(--color-brand)' : '#e2e8f0',
+                boxShadow: activeTab === tab.id ? '0 4px 12px rgba(67, 97, 238, 0.25)' : 'none',
+                padding: '0.65rem 1.4rem',
+                borderRadius: '9999px',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '0.925rem',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease'
               }}
@@ -264,10 +265,10 @@ export default function InterviewerDemoPage() {
         {activeTab === 'textScan' && (
           <div>
             <div className="card" style={{ marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#ffffff' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#0f172a' }}>
                 Test Live AI Evaluation on Realistic Scenarios
               </h2>
-              <p style={{ color: '#94a3b8', fontSize: '0.95rem', margin: '0 0 1.25rem' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: '0 0 1.25rem' }}>
                 Click any scenario below to immediately trigger the live backend Gemini AI evaluation and pattern similarity check:
               </p>
 
@@ -276,9 +277,9 @@ export default function InterviewerDemoPage() {
                   type="button"
                   className="btn"
                   style={{
-                    background: selectedSampleKey === 'checkScam' ? '#ef4444' : 'rgba(239, 68, 68, 0.2)',
-                    color: selectedSampleKey === 'checkScam' ? '#ffffff' : '#fca5a5',
-                    border: '1px solid #ef4444',
+                    background: selectedSampleKey === 'checkScam' ? '#ef4444' : '#fef2f2',
+                    color: selectedSampleKey === 'checkScam' ? '#ffffff' : '#b91c1c',
+                    border: '1px solid #fecaca',
                     fontWeight: 700
                   }}
                   onClick={() => handleRunLiveAnalysis('checkScam')}
@@ -290,9 +291,9 @@ export default function InterviewerDemoPage() {
                   type="button"
                   className="btn"
                   style={{
-                    background: selectedSampleKey === 'taskScam' ? '#f59e0b' : 'rgba(245, 158, 11, 0.2)',
-                    color: selectedSampleKey === 'taskScam' ? '#ffffff' : '#fcd34d',
-                    border: '1px solid #f59e0b',
+                    background: selectedSampleKey === 'taskScam' ? '#f59e0b' : '#fffbeb',
+                    color: selectedSampleKey === 'taskScam' ? '#ffffff' : '#b45309',
+                    border: '1px solid #fde68a',
                     fontWeight: 700
                   }}
                   onClick={() => handleRunLiveAnalysis('taskScam')}
@@ -304,9 +305,9 @@ export default function InterviewerDemoPage() {
                   type="button"
                   className="btn"
                   style={{
-                    background: selectedSampleKey === 'legit' ? '#10b981' : 'rgba(16, 185, 129, 0.2)',
-                    color: selectedSampleKey === 'legit' ? '#ffffff' : '#86efac',
-                    border: '1px solid #10b981',
+                    background: selectedSampleKey === 'legit' ? '#10b981' : '#ecfdf5',
+                    color: selectedSampleKey === 'legit' ? '#ffffff' : '#047857',
+                    border: '1px solid #a7f3d0',
                     fontWeight: 700
                   }}
                   onClick={() => handleRunLiveAnalysis('legit')}
@@ -316,15 +317,15 @@ export default function InterviewerDemoPage() {
               </div>
 
               {/* Sample Details Preview */}
-              <div style={{ background: '#172033', padding: '1rem', borderRadius: '8px', border: '1px solid #2e3c54', marginBottom: '1.5rem' }}>
+              <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <strong style={{ color: '#ffffff' }}>Selected Scenario: {currentSample.name}</strong>
-                  <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Expected Risk: {currentSample.riskLevel} (~{currentSample.expectedScore}/100)</span>
+                  <strong style={{ color: '#0f172a' }}>Selected Scenario: {currentSample.name}</strong>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Expected Risk: {currentSample.riskLevel} (~{currentSample.expectedScore}/100)</span>
                 </div>
-                <div style={{ fontSize: '0.9rem', color: '#cbd5e1', marginBottom: '0.4rem' }}>
+                <div style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '0.5rem' }}>
                   🏢 <strong>Company:</strong> {currentSample.companyName} • 💰 <strong>Salary:</strong> {currentSample.salary}
                 </div>
-                <div style={{ fontSize: '0.85rem', color: '#94a3b8', maxHeight: '120px', overflowY: 'auto', background: '#121826', padding: '0.75rem', borderRadius: '4px', border: '1px solid #2e3c54', whiteSpace: 'pre-line' }}>
+                <div style={{ fontSize: '0.85rem', color: '#334155', maxHeight: '130px', overflowY: 'auto', background: '#ffffff', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', whiteSpace: 'pre-line' }}>
                   {currentSample.jobDescription}
                 </div>
               </div>
@@ -487,10 +488,10 @@ export default function InterviewerDemoPage() {
                   </a>
                 </div>
 
-                <div style={{ background: '#172033', padding: '1.25rem', borderRadius: '10px', border: '1px solid #2e3c54' }}>
+                <div style={{ background: '#ffffff', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
                   <div style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>📥</div>
-                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800, color: '#ffffff' }}>Dynamic PDF Audit Report</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: '0 0 1rem', lineHeight: '1.5' }}>
+                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800, color: '#0f172a' }}>Dynamic PDF Audit Report</h4>
+                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1rem', lineHeight: '1.5' }}>
                     Generated on-the-fly via Apache PDFBox with security verification stamps.
                   </p>
                   <button onClick={handle1ClickLogin} className="btn btn-sm btn-secondary">
@@ -502,34 +503,34 @@ export default function InterviewerDemoPage() {
 
             {/* Top Interview Questions & Winning Answers */}
             <div className="card">
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 1rem', color: '#ffffff' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 1rem', color: '#0f172a' }}>
                 Key Technical Questions You Can Defend in Interviews
               </h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem', background: '#172033', padding: '1rem', borderRadius: '0 8px 8px 0', border: '1px solid #2e3c54', borderLeftWidth: '4px', borderLeftColor: '#2563eb' }}>
-                  <h4 style={{ fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
+                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: '#4361ee' }}>
+                  <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: What happens if Google Gemini is down or rate-limited?
                   </h4>
-                  <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: '1.6', margin: 0 }}>
                     <strong>Answer:</strong> The backend implements a <em>resilient fallback architecture</em>. In <code>GeminiServiceImpl</code>, if the external HTTP request throws an exception, it seamlessly delegates to a deterministic heuristic keyword regex engine so the user still gets a risk assessment and the system never crashes.
                   </p>
                 </div>
 
-                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem', background: '#172033', padding: '1rem', borderRadius: '0 8px 8px 0', border: '1px solid #2e3c54', borderLeftWidth: '4px', borderLeftColor: '#2563eb' }}>
-                  <h4 style={{ fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
+                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: '#4361ee' }}>
+                  <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: Why use stateless JWT instead of HTTP Sessions?
                   </h4>
-                  <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: '1.6', margin: 0 }}>
                     <strong>Answer:</strong> Stateless JWT eliminates session storage on JVM heap memory, allowing horizontal scaling across multiple container instances on cloud infrastructure (Render/Kubernetes) without sticky sessions.
                   </p>
                 </div>
 
-                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem', background: '#172033', padding: '1rem', borderRadius: '0 8px 8px 0', border: '1px solid #2e3c54', borderLeftWidth: '4px', borderLeftColor: '#2563eb' }}>
-                  <h4 style={{ fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
+                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: '#4361ee' }}>
+                  <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: How do you prevent Out-Of-Memory (OOM) errors during PDF generation?
                   </h4>
-                  <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: '1.6', margin: 0 }}>
                     <strong>Answer:</strong> In <code>PdfServiceImpl</code>, the <code>PDDocument</code> is allocated inside a <code>try-with-resources</code> block, ensuring all native buffers and file descriptors are reclaimed immediately upon completion. The PDF bytes are streamed through a <code>ByteArrayOutputStream</code> rather than written to disk.
                   </p>
                 </div>

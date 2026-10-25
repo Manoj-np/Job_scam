@@ -26,9 +26,9 @@ export default function Navbar() {
           to="/demo"
           className="btn btn-sm"
           style={{
-            background: 'var(--color-lavender-ghost)',
-            border: '1px solid var(--color-lavender-border)',
-            color: 'var(--color-lavender-light)',
+            background: '#eef2ff',
+            border: '1px solid #c7d2fe',
+            color: '#4361ee',
             fontWeight: 700,
           }}
         >

@@ -23,7 +23,7 @@ export default function LandingPage() {
         </div>
 
         <h1 className="hero-title">
-          How It Works
+          How It <span style={{ color: 'var(--color-brand)' }}>Works</span>
         </h1>
 
         <p className="hero-subtitle">
@@ -70,13 +70,14 @@ export default function LandingPage() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
           {['Java 17', 'Spring Boot 4', 'React 19', 'Google Gemini AI', 'MySQL 8 (Aiven)', 'Spring Security JWT', 'Apache PDFBox'].map((tech) => (
             <span key={tech} style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              color: '#e2e8f0',
-              padding: '0.3rem 0.75rem',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              color: '#475569',
+              padding: '0.35rem 0.85rem',
               borderRadius: '20px',
-              fontSize: '0.78rem',
-              fontWeight: 600
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)'
             }}>
               {tech}
             </span>
@@ -143,7 +144,7 @@ export default function LandingPage() {
           </div>
           <p>© {new Date().getFullYear()} JobShield — AI-Powered Job Scam Detection & Threat Intelligence.</p>
           <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.5rem' }}>
-            Evaluating JobShield for an engineering interview? Explore the <Link to="/demo" style={{ color: 'var(--color-lavender)', fontWeight: 700 }}>Recruiter & Architecture Hub →</Link>
+            Evaluating JobShield for an engineering interview? Explore the <Link to="/demo" style={{ color: 'var(--color-brand)', fontWeight: 700 }}>Recruiter & Architecture Hub →</Link>
           </p>
         </div>
       </footer>
