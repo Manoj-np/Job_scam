@@ -15,22 +15,49 @@ export default function LandingPage() {
     <div>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="hero-section">
+      {/* Hero Section: How It Works */}
+      <section className="hero-section" style={{ paddingBottom: '3.5rem' }}>
         <div className="hero-badge">
-          <span>🛡️</span>
-          <span>Next-Gen Cybersecurity for Job Seekers</span>
+          <span>⚡</span>
+          <span>Verification Pipeline</span>
         </div>
 
         <h1 className="hero-title">
-          Protect Yourself From Job Scams
+          How It Works
         </h1>
 
         <p className="hero-subtitle">
-          Verify suspicious job postings, fake recruiter checks, and fraudulent offer letter PDFs before you apply or wire money. Powered by Google Gemini AI and pattern matching intelligence.
+          Three simple steps to verify any job posting or offer letter before taking action.
         </p>
 
-        <div className="hero-actions">
+        {/* Three Steps Grid */}
+        <div className="steps-grid" style={{ maxWidth: '1050px', margin: '2.5rem auto 2rem', textAlign: 'left' }}>
+          <div className="step-card" style={{ color: '#0f172a' }}>
+            <div className="step-num">1</div>
+            <h3 style={{ color: '#0f172a' }}>Submit Job Details or PDF</h3>
+            <p style={{ color: '#475569' }}>
+              Paste the job posting description, company name, and salary, or directly upload an offer letter PDF.
+            </p>
+          </div>
+
+          <div className="step-card" style={{ color: '#0f172a' }}>
+            <div className="step-num">2</div>
+            <h3 style={{ color: '#0f172a' }}>AI & Pattern Analysis</h3>
+            <p style={{ color: '#475569' }}>
+              The Spring Boot backend runs Gemini AI analysis and checks scam similarity against known fraud databases.
+            </p>
+          </div>
+
+          <div className="step-card" style={{ color: '#0f172a' }}>
+            <div className="step-num">3</div>
+            <h3 style={{ color: '#0f172a' }}>View Risk Score & Signals</h3>
+            <p style={{ color: '#475569' }}>
+              Get an instant Risk Score (0–100), risk tier (LOW/MEDIUM/HIGH), detailed reason, and syndicate alert.
+            </p>
+          </div>
+        </div>
+
+        <div className="hero-actions" style={{ marginTop: '1.5rem' }}>
           <Link to={ctaLink} className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #2563eb, #4f46e5)', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }}>
             <span>🛡️ Start Free Scam Check</span>
           </Link>
@@ -40,7 +67,7 @@ export default function LandingPage() {
         </div>
 
         {/* Tech Stack Pills */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
           {['Java 17', 'Spring Boot 4', 'React 19', 'Google Gemini AI', 'MySQL 8 (Aiven)', 'Spring Security JWT', 'Apache PDFBox'].map((tech) => (
             <span key={tech} style={{
               background: 'rgba(255, 255, 255, 0.08)',
@@ -96,42 +123,6 @@ export default function LandingPage() {
             <h3>Scam Campaign Tracking</h3>
             <p>
               Clusters related fraudulent postings using similarity algorithms to reveal coordinated scam rings operating under multiple alias company names.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="how-it-works-section">
-        <div className="section-header">
-          <h2 className="section-title">How It Works</h2>
-          <p className="section-desc">
-            Three simple steps to verify any job posting or offer letter before taking action.
-          </p>
-        </div>
-
-        <div className="steps-grid">
-          <div className="step-card">
-            <div className="step-num">1</div>
-            <h3>Submit Job Details or PDF</h3>
-            <p>
-              Paste the job posting description, company name, and salary, or directly upload an offer letter PDF.
-            </p>
-          </div>
-
-          <div className="step-card">
-            <div className="step-num">2</div>
-            <h3>AI & Pattern Analysis</h3>
-            <p>
-              The Spring Boot backend runs Gemini AI analysis and checks scam similarity against known fraud databases.
-            </p>
-          </div>
-
-          <div className="step-card">
-            <div className="step-num">3</div>
-            <h3>View Risk Score & Signals</h3>
-            <p>
-              Get an instant Risk Score (0–100), risk tier (LOW/MEDIUM/HIGH), detailed reason, and syndicate alert.
             </p>
           </div>
         </div>
