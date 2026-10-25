@@ -148,15 +148,15 @@ export default function InterviewerDemoPage() {
   };
 
   return (
-    <div style={{ background: '#f8fafc', minHeight: '100vh' }}>
+    <div style={{ background: '#121826', minHeight: '100vh', color: '#f1f5f9' }}>
       <Navbar />
 
       {/* Recruiter Evaluation Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        background: 'linear-gradient(135deg, #0d121d 0%, #1e293b 100%)',
         color: '#ffffff',
         padding: '3rem 1.5rem',
-        borderBottom: '1px solid #334155'
+        borderBottom: '1px solid #2e3c54'
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd', border: '1px solid rgba(59, 130, 246, 0.4)', padding: '0.3rem 0.8rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, marginBottom: '1rem' }}>
@@ -166,7 +166,7 @@ export default function InterviewerDemoPage() {
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
             <div style={{ maxWidth: '700px' }}>
-              <h1 style={{ fontSize: '2.2rem', fontWeight: 900, letterSpacing: '-0.02em', margin: '0 0 0.75rem', color: '#f8fafc' }}>
+              <h1 style={{ fontSize: '2.4rem', fontWeight: 900, letterSpacing: '-0.02em', margin: '0 0 0.75rem', color: '#f8fafc' }}>
                 JobShield Architecture & Live Demo Hub
               </h1>
               <p style={{ color: '#94a3b8', fontSize: '1.05rem', lineHeight: '1.6', margin: 0 }}>
@@ -233,7 +233,7 @@ export default function InterviewerDemoPage() {
       {/* Main Tabbed Interactive Center */}
       <div style={{ maxWidth: '1100px', margin: '2rem auto 4rem', padding: '0 1rem' }}>
         {/* Navigation Tabs */}
-        <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '2px solid #e2e8f0', paddingBottom: '0.5rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '2px solid #2e3c54', paddingBottom: '0.5rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
           {[
             { id: 'textScan', label: '⚡ 1-Click AI Job Scanner' },
             { id: 'pdfScan', label: '📄 PDF Offer Letter Extraction' },
@@ -244,14 +244,14 @@ export default function InterviewerDemoPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: activeTab === tab.id ? '#2563eb' : '#ffffff',
-                color: activeTab === tab.id ? '#ffffff' : '#475569',
+                background: activeTab === tab.id ? '#2563eb' : '#1e293b',
+                color: activeTab === tab.id ? '#ffffff' : '#94a3b8',
                 border: '1px solid',
-                borderColor: activeTab === tab.id ? '#2563eb' : '#cbd5e1',
+                borderColor: activeTab === tab.id ? '#2563eb' : '#2e3c54',
                 padding: '0.65rem 1.25rem',
                 borderRadius: '8px',
                 fontWeight: 700,
-                fontSize: '0.9rem',
+                fontSize: '0.95rem',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease'
               }}
@@ -265,10 +265,10 @@ export default function InterviewerDemoPage() {
         {activeTab === 'textScan' && (
           <div>
             <div className="card" style={{ marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 0.5rem' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#ffffff' }}>
                 Test Live AI Evaluation on Realistic Scenarios
               </h2>
-              <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.25rem' }}>
+              <p style={{ color: '#94a3b8', fontSize: '0.95rem', margin: '0 0 1.25rem' }}>
                 Click any scenario below to immediately trigger the live backend Gemini AI evaluation and pattern similarity check:
               </p>
 
@@ -277,9 +277,9 @@ export default function InterviewerDemoPage() {
                   type="button"
                   className="btn"
                   style={{
-                    background: selectedSampleKey === 'checkScam' ? '#ef4444' : '#fee2e2',
-                    color: selectedSampleKey === 'checkScam' ? '#ffffff' : '#b91c1c',
-                    border: '1px solid #fca5a5',
+                    background: selectedSampleKey === 'checkScam' ? '#ef4444' : 'rgba(239, 68, 68, 0.2)',
+                    color: selectedSampleKey === 'checkScam' ? '#ffffff' : '#fca5a5',
+                    border: '1px solid #ef4444',
                     fontWeight: 700
                   }}
                   onClick={() => handleRunLiveAnalysis('checkScam')}
@@ -291,9 +291,9 @@ export default function InterviewerDemoPage() {
                   type="button"
                   className="btn"
                   style={{
-                    background: selectedSampleKey === 'taskScam' ? '#f59e0b' : '#fef3c7',
-                    color: selectedSampleKey === 'taskScam' ? '#ffffff' : '#b45309',
-                    border: '1px solid #fcd34d',
+                    background: selectedSampleKey === 'taskScam' ? '#f59e0b' : 'rgba(245, 158, 11, 0.2)',
+                    color: selectedSampleKey === 'taskScam' ? '#ffffff' : '#fcd34d',
+                    border: '1px solid #f59e0b',
                     fontWeight: 700
                   }}
                   onClick={() => handleRunLiveAnalysis('taskScam')}
@@ -305,9 +305,9 @@ export default function InterviewerDemoPage() {
                   type="button"
                   className="btn"
                   style={{
-                    background: selectedSampleKey === 'legit' ? '#10b981' : '#dcfce7',
-                    color: selectedSampleKey === 'legit' ? '#ffffff' : '#15803d',
-                    border: '1px solid #86efac',
+                    background: selectedSampleKey === 'legit' ? '#10b981' : 'rgba(16, 185, 129, 0.2)',
+                    color: selectedSampleKey === 'legit' ? '#ffffff' : '#86efac',
+                    border: '1px solid #10b981',
                     fontWeight: 700
                   }}
                   onClick={() => handleRunLiveAnalysis('legit')}
@@ -317,15 +317,15 @@ export default function InterviewerDemoPage() {
               </div>
 
               {/* Sample Details Preview */}
-              <div style={{ background: '#f8fafc', padding: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0', marginBottom: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                  <strong>Selected Scenario: {currentSample.name}</strong>
-                  <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Expected Risk: {currentSample.riskLevel} (~{currentSample.expectedScore}/100)</span>
+              <div style={{ background: '#172033', padding: '1rem', borderRadius: '8px', border: '1px solid #2e3c54', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <strong style={{ color: '#ffffff' }}>Selected Scenario: {currentSample.name}</strong>
+                  <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Expected Risk: {currentSample.riskLevel} (~{currentSample.expectedScore}/100)</span>
                 </div>
-                <div style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.9rem', color: '#cbd5e1', marginBottom: '0.4rem' }}>
                   🏢 <strong>Company:</strong> {currentSample.companyName} • 💰 <strong>Salary:</strong> {currentSample.salary}
                 </div>
-                <div style={{ fontSize: '0.8rem', color: '#64748b', maxHeight: '100px', overflowY: 'auto', background: '#ffffff', padding: '0.5rem', borderRadius: '4px', border: '1px solid #e2e8f0', whiteSpace: 'pre-line' }}>
+                <div style={{ fontSize: '0.85rem', color: '#94a3b8', maxHeight: '120px', overflowY: 'auto', background: '#121826', padding: '0.75rem', borderRadius: '4px', border: '1px solid #2e3c54', whiteSpace: 'pre-line' }}>
                   {currentSample.jobDescription}
                 </div>
               </div>
@@ -407,7 +407,7 @@ export default function InterviewerDemoPage() {
 
             {pdfResult && !pdfScanning && (
               <div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e293b', marginBottom: '0.75rem' }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.75rem' }}>
                   📄 Live PDF Scan Result ({currentPdfName}):
                 </h3>
                 <AnalysisResultCard
@@ -424,25 +424,25 @@ export default function InterviewerDemoPage() {
         {/* TAB 3: Campaigns */}
         {activeTab === 'campaigns' && (
           <div className="card">
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 0.5rem' }}>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#ffffff' }}>
               Syndicate Threat Detection & Similarity Clustering
             </h2>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: '1.6', margin: '0 0 1.25rem' }}>
+            <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.6', margin: '0 0 1.25rem' }}>
               Fraudulent recruitment rings frequently create multiple shell company names while recycling identical interview templates, Telegram handles, and bank wire instructions. JobShield uses an in-memory Jaccard token similarity engine to automatically group these into threat campaigns:
             </p>
 
-            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', marginBottom: '1.5rem' }}>
+            <div style={{ background: '#172033', padding: '1.25rem', borderRadius: '10px', border: '1px solid #2e3c54', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                 <span className="campaign-badge">🏷️ CAMP-2026-ADVANCE-FEE</span>
                 <RiskBadge level="HIGH" />
               </div>
-              <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: '0.4rem' }}>
+              <div style={{ fontWeight: 700, color: '#ffffff', marginBottom: '0.4rem', fontSize: '1.1rem' }}>
                 Coordinated Cashier Check & Equipment Deposit Ring
               </div>
-              <p style={{ fontSize: '0.85rem', color: '#475569', margin: '0 0 0.75rem' }}>
+              <p style={{ fontSize: '0.9rem', color: '#cbd5e1', margin: '0 0 0.75rem', lineHeight: '1.5' }}>
                 Linked Postings: <strong>2 shell companies identified</strong> (<em>Apex Global Staffing</em> and <em>Apex Talent Partners</em>) sharing the Telegram recruiter handle <code>@apex_recruiter</code> and fake equipment check instructions.
               </p>
-              <div style={{ fontSize: '0.85rem', color: '#2563eb', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.9rem', color: '#60a5fa', fontWeight: 700 }}>
                 Average Threat Score: 90/100
               </div>
             </div>
@@ -461,15 +461,15 @@ export default function InterviewerDemoPage() {
         {activeTab === 'faq' && (
           <div>
             <div className="card" style={{ marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 0.75rem' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 0.75rem', color: '#ffffff' }}>
                 Technical Architecture & Endpoints
               </h2>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
-                <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>📚</div>
-                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800 }}>OpenAPI / Swagger UI</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1rem' }}>
+                <div style={{ background: '#172033', padding: '1.25rem', borderRadius: '10px', border: '1px solid #2e3c54' }}>
+                  <div style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>📚</div>
+                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800, color: '#ffffff' }}>OpenAPI / Swagger UI</h4>
+                  <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: '0 0 1rem', lineHeight: '1.5' }}>
                     Interactive Swagger 3 UI with JWT Bearer authentication scheme.
                   </p>
                   <a href={getSwaggerUrl()} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary">
@@ -477,10 +477,10 @@ export default function InterviewerDemoPage() {
                   </a>
                 </div>
 
-                <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>📊</div>
-                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800 }}>JVM System Telemetry</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1rem' }}>
+                <div style={{ background: '#172033', padding: '1.25rem', borderRadius: '10px', border: '1px solid #2e3c54' }}>
+                  <div style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>📊</div>
+                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800, color: '#ffffff' }}>JVM System Telemetry</h4>
+                  <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: '0 0 1rem', lineHeight: '1.5' }}>
                     Real-time backend heap memory, active threads, and uptime metrics.
                   </p>
                   <a href="https://jobshield-backend.onrender.com/api/system/metrics" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-secondary">
@@ -488,10 +488,10 @@ export default function InterviewerDemoPage() {
                   </a>
                 </div>
 
-                <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>📥</div>
-                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800 }}>Dynamic PDF Audit Report</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1rem' }}>
+                <div style={{ background: '#172033', padding: '1.25rem', borderRadius: '10px', border: '1px solid #2e3c54' }}>
+                  <div style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>📥</div>
+                  <h4 style={{ margin: '0 0 0.35rem', fontWeight: 800, color: '#ffffff' }}>Dynamic PDF Audit Report</h4>
+                  <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: '0 0 1rem', lineHeight: '1.5' }}>
                     Generated on-the-fly via Apache PDFBox with security verification stamps.
                   </p>
                   <button onClick={handle1ClickLogin} className="btn btn-sm btn-secondary">
@@ -503,34 +503,34 @@ export default function InterviewerDemoPage() {
 
             {/* Top Interview Questions & Winning Answers */}
             <div className="card">
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 1rem' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 1rem', color: '#ffffff' }}>
                 Key Technical Questions You Can Defend in Interviews
               </h2>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem' }}>
-                  <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.25rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem', background: '#172033', padding: '1rem', borderRadius: '0 8px 8px 0', border: '1px solid #2e3c54', borderLeftWidth: '4px', borderLeftColor: '#2563eb' }}>
+                  <h4 style={{ fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: What happens if Google Gemini is down or rate-limited?
                   </h4>
-                  <p style={{ color: '#475569', fontSize: '0.875rem', lineHeight: '1.5', margin: 0 }}>
+                  <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
                     <strong>Answer:</strong> The backend implements a <em>resilient fallback architecture</em>. In <code>GeminiServiceImpl</code>, if the external HTTP request throws an exception, it seamlessly delegates to a deterministic heuristic keyword regex engine so the user still gets a risk assessment and the system never crashes.
                   </p>
                 </div>
 
-                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem' }}>
-                  <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.25rem' }}>
+                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem', background: '#172033', padding: '1rem', borderRadius: '0 8px 8px 0', border: '1px solid #2e3c54', borderLeftWidth: '4px', borderLeftColor: '#2563eb' }}>
+                  <h4 style={{ fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: Why use stateless JWT instead of HTTP Sessions?
                   </h4>
-                  <p style={{ color: '#475569', fontSize: '0.875rem', lineHeight: '1.5', margin: 0 }}>
+                  <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
                     <strong>Answer:</strong> Stateless JWT eliminates session storage on JVM heap memory, allowing horizontal scaling across multiple container instances on cloud infrastructure (Render/Kubernetes) without sticky sessions.
                   </p>
                 </div>
 
-                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem' }}>
-                  <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.25rem' }}>
+                <div style={{ borderLeft: '4px solid #2563eb', paddingLeft: '1rem', background: '#172033', padding: '1rem', borderRadius: '0 8px 8px 0', border: '1px solid #2e3c54', borderLeftWidth: '4px', borderLeftColor: '#2563eb' }}>
+                  <h4 style={{ fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: How do you prevent Out-Of-Memory (OOM) errors during PDF generation?
                   </h4>
-                  <p style={{ color: '#475569', fontSize: '0.875rem', lineHeight: '1.5', margin: 0 }}>
+                  <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
                     <strong>Answer:</strong> In <code>PdfServiceImpl</code>, the <code>PDDocument</code> is allocated inside a <code>try-with-resources</code> block, ensuring all native buffers and file descriptors are reclaimed immediately upon completion. The PDF bytes are streamed through a <code>ByteArrayOutputStream</code> rather than written to disk.
                   </p>
                 </div>
