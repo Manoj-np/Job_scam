@@ -55,7 +55,10 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <Link to="/demo" className="btn btn-secondary" style={{ border: '1px solid #cbd5e1', fontWeight: 600 }}>
+            👔 Recruiter Hub
+          </Link>
           <Link to="/analyze" className="btn btn-primary">
             <span>+</span>
             <span>Analyze New Job</span>
@@ -64,59 +67,6 @@ export default function DashboardPage() {
             <span>📄</span>
             <span>Scan PDF Offer</span>
           </Link>
-        </div>
-      </div>
-
-      {/* Recruiter / Interviewer Feature Tour Box */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(37,99,235,0.06), rgba(99,102,241,0.08))',
-        border: '1px solid rgba(99,102,241,0.25)',
-        borderRadius: '12px',
-        padding: '1.1rem 1.4rem',
-        marginBottom: '1.75rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '1rem'
-      }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <span style={{ fontSize: '1.25rem' }}>🎓</span>
-            <span style={{ fontWeight: 800, color: '#1e293b', fontSize: '1rem' }}>
-              Interviewer 1-Click Feature Tour
-            </span>
-            <span style={{ background: '#dbeafe', color: '#1e40af', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
-              Interactive Demos Ready
-            </span>
-          </div>
-          <p style={{ margin: 0, fontSize: '0.875rem', color: '#475569' }}>
-            Test every capability with zero manual typing using pre-loaded real scenarios:
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <Link to="/analyze?demo=scam" className="btn btn-sm btn-primary" style={{ fontSize: '0.825rem', fontWeight: 700 }}>
-            🚨 Auto-Run Scam AI Check
-          </Link>
-          <Link to="/scan-pdf?demo=scam" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem', fontWeight: 700 }}>
-            📄 Auto-Scan Sample PDF
-          </Link>
-          <Link to="/campaigns" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem' }}>
-            🕸️ Threat Syndicates
-          </Link>
-          <Link to="/history" className="btn btn-sm btn-secondary" style={{ fontSize: '0.825rem' }}>
-            📥 Audit PDF Reports
-          </Link>
-          <a
-            href={getSwaggerUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-sm btn-secondary"
-            style={{ fontSize: '0.825rem', textDecoration: 'none' }}
-          >
-            📚 Swagger API Docs ↗
-          </a>
         </div>
       </div>
 

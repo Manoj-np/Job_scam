@@ -195,61 +195,37 @@ export default function AnalyzeJobPage() {
       {/* Job Entry Form */}
       {!result && !loading && (
         <div className="card">
-          {/* Quick Demo Presets for Interviewer */}
+          {/* Subtle Sample Helper */}
           <div style={{
-            background: 'linear-gradient(135deg, rgba(37,99,235,0.06), rgba(99,102,241,0.08))',
-            border: '1px solid rgba(99,102,241,0.25)',
-            borderRadius: '10px',
-            padding: '1rem 1.25rem',
-            marginBottom: '1.5rem'
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            padding: '0.65rem 1rem',
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: '8px',
+            marginBottom: '1.25rem',
+            fontSize: '0.85rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.2rem' }}>⚡</span>
-                <span style={{ fontWeight: 700, color: '#1e293b', fontSize: '0.95rem' }}>
-                  Recruiter 1-Click Instant AI Evaluation:
-                </span>
-              </div>
-              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                Single click fills form and executes live Gemini AI analysis immediately
-              </span>
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                className="btn btn-sm"
-                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 700, cursor: 'pointer' }}
-                onClick={() => handleLoadAndAnalyze('scam')}
-              >
-                🚨 1-Click Run: Fake Check Scam
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm"
-                style={{ background: '#fef3c7', color: '#b45309', border: '1px solid #fcd34d', fontWeight: 700, cursor: 'pointer' }}
-                onClick={() => handleLoadAndAnalyze('suspicious')}
-              >
-                ⚠️ 1-Click Run: Task Deposit Scheme
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm"
-                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700, cursor: 'pointer' }}
-                onClick={() => handleLoadAndAnalyze('legit')}
-              >
-                ✅ 1-Click Run: Legitimate Tech Role
-              </button>
-            </div>
-            
-            <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#64748b' }}>
-              <span>Want to edit manually first? </span>
+            <span style={{ color: '#64748b' }}>💡 Want to test with sample job text?</span>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => handleLoadSampleOnly('scam')}
-                style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+                className="btn btn-sm btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
               >
-                Fill scam text without running
+                🚨 Load Scam Sample
+              </button>
+              <button
+                type="button"
+                onClick={() => handleLoadSampleOnly('legit')}
+                className="btn btn-sm btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
+              >
+                ✅ Load Legit Sample
               </button>
             </div>
           </div>

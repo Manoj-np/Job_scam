@@ -150,62 +150,37 @@ export default function PdfScannerPage() {
       {/* Upload Zone */}
       {!result && !loading && (
         <div className="card">
-          {/* Interviewer 1-Click Demo PDFs */}
+          {/* Subtle Sample Helper */}
           <div style={{
-            background: 'linear-gradient(135deg, rgba(37,99,235,0.06), rgba(99,102,241,0.08))',
-            border: '1px solid rgba(99,102,241,0.25)',
-            borderRadius: '10px',
-            padding: '1rem 1.25rem',
-            marginBottom: '1.5rem'
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            padding: '0.65rem 1rem',
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: '8px',
+            marginBottom: '1.25rem',
+            fontSize: '0.85rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.2rem' }}>⚡</span>
-                <span style={{ fontWeight: 700, color: '#1e293b', fontSize: '0.95rem' }}>
-                  Recruiter 1-Click Instant PDF Scanner:
-                </span>
-              </div>
-              <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                Single click loads sample PDF and triggers Apache PDFBox & Gemini AI extraction immediately
-              </span>
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                className="btn btn-sm"
-                style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontWeight: 700, cursor: 'pointer' }}
-                onClick={() => handleLoadAndScanPdf('Sample_Scam_Job_Offer_Letter.pdf')}
-              >
-                🚨 1-Click Scan: Scam Offer Letter PDF
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm"
-                style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700, cursor: 'pointer' }}
-                onClick={() => handleLoadAndScanPdf('Sample_Legitimate_Job_Offer_Letter.pdf')}
-              >
-                ✅ 1-Click Scan: Legitimate Offer Letter PDF
-              </button>
-              <a
-                href="/sample_pdfs/Sample_Scam_Job_Offer_Letter.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-sm btn-secondary"
-                style={{ fontSize: '0.8rem', textDecoration: 'none' }}
-              >
-                👁️ Preview Raw Scam PDF
-              </a>
-            </div>
-
-            <div style={{ marginTop: '0.5rem', fontSize: '0.78rem', color: '#64748b' }}>
-              <span>Want to inspect the file without scanning? </span>
+            <span style={{ color: '#64748b' }}>💡 Want to test with sample offer letters?</span>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => handleLoadSamplePdfOnly('Sample_Scam_Job_Offer_Letter.pdf')}
-                style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+                className="btn btn-sm btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
               >
-                Attach scam PDF without running
+                📄 Attach Scam PDF
+              </button>
+              <button
+                type="button"
+                onClick={() => handleLoadSamplePdfOnly('Sample_Legitimate_Job_Offer_Letter.pdf')}
+                className="btn btn-sm btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}
+              >
+                📄 Attach Legit PDF
               </button>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import InterviewerDemoPage from './pages/InterviewerDemoPage';
 import DashboardPage from './pages/DashboardPage';
 import AnalyzeJobPage from './pages/AnalyzeJobPage';
 import PdfScannerPage from './pages/PdfScannerPage';
@@ -21,6 +22,7 @@ export default function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
+        <Route path="/demo" element={<InterviewerDemoPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
