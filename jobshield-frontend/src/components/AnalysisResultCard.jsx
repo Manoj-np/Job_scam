@@ -35,14 +35,15 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
     <div className="analysis-result-card">
       <div className={`result-header risk-${safeLevel}`}>
         <div className="score-badge">
-          <div className="score-circle">
-            <span>{riskScore}</span>
+          <div className="seon-score-box">
+            <span className={`seon-score-num text-risk-${safeLevel}`}>{riskScore}</span>
+            <span className="seon-score-denom">/100</span>
           </div>
           <div>
-            <div className="score-title">Scam Risk Assessment</div>
+            <div className="score-title">Fraud Risk Score</div>
             <div style={{ marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <RiskBadge level={safeLevel} />
-              <span style={{ fontSize: '0.78rem', color: safeLevel === 'HIGH' ? '#fca5a5' : safeLevel === 'MEDIUM' ? '#fde68a' : '#86efac', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.8rem', color: safeLevel === 'HIGH' ? 'var(--risk-high-text)' : safeLevel === 'MEDIUM' ? 'var(--risk-medium-text)' : 'var(--risk-low-text)', fontWeight: 700 }}>
                 {currentEvidence.badge}
               </span>
             </div>
@@ -61,7 +62,7 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
         {jobTitle && (
           <div>
             <span style={{ fontSize: '0.825rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.04em' }}>TARGET POSTING:</span>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff', marginTop: '0.2rem' }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
               {jobTitle} {companyName ? `at ${companyName}` : ''}
             </h3>
           </div>

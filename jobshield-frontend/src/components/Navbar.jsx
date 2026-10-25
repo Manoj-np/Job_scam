@@ -1,13 +1,19 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAuthenticated, authApi } from '../services/api';
 
 /**
  * Public Navbar Component
+ * SEON-style Cyber Fraud Prevention Navigation
  */
-export default function Navbar() {
+export default function Navbar({ theme }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const loggedIn = isAuthenticated();
+
+  // If theme is not explicitly passed, use 'teal' for landing page ('/') and 'light' elsewhere
+  const currentTheme = theme || (location.pathname === '/' ? 'teal' : 'light');
+  const isTeal = currentTheme === 'teal';
 
   const handleLogout = () => {
     authApi.logout();
@@ -15,46 +21,55 @@ export default function Navbar() {
   };
 
   return (
-    <header className="public-navbar">
-      <Link to="/" className="brand-logo">
-        <div className="brand-icon">🛡️</div>
-        <div className="brand-text">Job<span>Shield</span></div>
-      </Link>
-
-      <nav className="nav-links">
-        <Link
-          to="/demo"
-          className="btn btn-sm"
-          style={{
-            background: '#eef2ff',
-            border: '1px solid #c7d2fe',
-            color: '#4361ee',
-            fontWeight: 700,
-          }}
-        >
-          👔 Recruiter Hub
+    <header className={`public-navbar ${isTeal ? 'navbar-teal' : 'navbar-light'}`}>
+      <div className="navbar-container">
+        <Link to="/" className="brand-logo">
+          <div className={`brand-icon ${isTeal ? 'brand-icon-white' : ''}`}>🛡️</div>
+          <div className={`brand-text ${isTeal ? 'text-white' : ''}`}>
+            Job<span>Shield</span>
+          </div>
         </Link>
-        {loggedIn ? (
-          <>
-            <Link to="/dashboard" className="btn btn-primary btn-sm">
-              <span>Dashboard</span>
-              <span>→</span>
-            </Link>
-            <button onClick={handleLogout} className="btn btn-secondary btn-sm">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="btn btn-secondary btn-sm">
-              Login
-            </Link>
-            <Link to="/register" className="btn btn-primary btn-sm">
-              Get Started
-            </Link>
-          </>
-        )}
-      </nav>
+
+        <div className="nav-center-links">
+          <Link to="/analyze" className={isTeal ? 'nav-link-teal' : 'nav-link-light'}>
+            Verify Job
+          </Link>
+          <Link to="/scan-pdf" className={isTeal ? 'nav-link-teal' : 'nav-link-light'}>
+            PDF Forensics
+          </Link>
+          <Link to="/campaigns" className={isTeal ? 'nav-link-teal' : 'nav-link-light'}>
+            Scam Syndicates
+          </Link>
+          <Link
+            to="/demo"
+            className={`nav-recruiter-pill ${isTeal ? 'pill-teal' : 'pill-light'}`}
+          >
+            👔 Recruiter Hub
+          </Link>
+        </div>
+
+        <nav className="nav-links">
+          {loggedIn ? (
+            <>
+              <Link to="/dashboard" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
+                <span>Dashboard →</span>
+              </Link>
+              <button onClick={handleLogout} className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className={`nav-login-link ${isTeal ? 'text-white' : ''}`}>
+                Login
+              </Link>
+              <Link to="/register" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
+                Speak with an expert
+              </Link>
+            </>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }

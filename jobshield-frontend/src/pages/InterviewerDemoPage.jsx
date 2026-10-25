@@ -153,13 +153,13 @@ export default function InterviewerDemoPage() {
 
       {/* Recruiter Evaluation Banner */}
       <div style={{
-        background: 'linear-gradient(180deg, #edf2fe 0%, #e8edff 45%, #f4f7fd 100%)',
+        background: 'var(--gradient-ai-hero)',
         color: '#0f172a',
         padding: '3rem 1.5rem',
         borderBottom: '1px solid #e8ecf4'
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#ffffff', color: '#4361ee', border: '1px solid #c7d2fe', padding: '0.35rem 0.9rem', borderRadius: '20px', fontSize: '0.825rem', fontWeight: 700, marginBottom: '1rem', boxShadow: '0 2px 6px rgba(67, 97, 238, 0.1)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'var(--color-teal-tint)', color: 'var(--color-brand-dark)', border: '1px solid var(--color-teal-border)', padding: '0.35rem 0.9rem', borderRadius: '20px', fontSize: '0.825rem', fontWeight: 700, marginBottom: '1rem', boxShadow: '0 2px 6px rgba(31, 166, 128, 0.1)' }}>
             <span>👔</span>
             <span>Recruiter & Technical Interviewer Evaluation Center</span>
           </div>
@@ -178,7 +178,7 @@ export default function InterviewerDemoPage() {
               <button
                 onClick={handle1ClickLogin}
                 disabled={loggingIn}
-                className="btn btn-primary btn-lg"
+                className="btn btn-navy btn-lg"
                 style={{
                   fontWeight: 800,
                   cursor: 'pointer'
@@ -213,9 +213,9 @@ export default function InterviewerDemoPage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background: '#eef2ff',
-                border: '1px solid #c7d2fe',
-                color: '#4361ee',
+                background: 'var(--color-teal-tint)',
+                border: '1px solid var(--color-teal-border)',
+                color: 'var(--color-brand-dark)',
                 padding: '0.3rem 0.85rem',
                 borderRadius: '16px',
                 fontSize: '0.8rem',
@@ -508,7 +508,7 @@ export default function InterviewerDemoPage() {
               </h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: '#4361ee' }}>
+                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: 'var(--color-brand)' }}>
                   <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: What happens if Google Gemini is down or rate-limited?
                   </h4>
@@ -517,7 +517,7 @@ export default function InterviewerDemoPage() {
                   </p>
                 </div>
 
-                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: '#4361ee' }}>
+                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: 'var(--color-brand)' }}>
                   <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: Why use stateless JWT instead of HTTP Sessions?
                   </h4>
@@ -526,7 +526,7 @@ export default function InterviewerDemoPage() {
                   </p>
                 </div>
 
-                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: '#4361ee' }}>
+                <div style={{ paddingLeft: '1rem', background: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: 'var(--color-brand)' }}>
                   <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1.05rem' }}>
                     Q: How do you prevent Out-Of-Memory (OOM) errors during PDF generation?
                   </h4>

@@ -117,10 +117,10 @@ export default function LoginPage() {
             boxShadow: '0 2px 8px rgba(37, 99, 235, 0.08)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
-              <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#1e3a8a', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 👔 Interviewer & HR Demo Access
               </span>
-              <span style={{ fontSize: '0.75rem', background: '#dbeafe', color: '#1e40af', padding: '0.2rem 0.55rem', borderRadius: '12px', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.75rem', background: 'var(--color-teal-tint)', color: 'var(--color-brand-dark)', padding: '0.2rem 0.55rem', borderRadius: '12px', fontWeight: 700 }}>
                 Instant Access
               </span>
             </div>
@@ -131,7 +131,7 @@ export default function LoginPage() {
               type="button"
               onClick={handleDemoLogin}
               disabled={loading}
-              className="btn btn-primary"
+              className="btn btn-navy"
               style={{
                 width: '100%',
                 fontWeight: 700,
@@ -148,8 +148,8 @@ export default function LoginPage() {
               <span>⚡ 1-Click Interviewer Demo Login</span>
             </button>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.6rem' }}>
-              <span>Email: <code style={{ color: 'var(--color-lavender)' }}>demo@jobshield.com</code></span>
-              <span>Password: <code style={{ color: 'var(--color-lavender)' }}>Password@123</code></span>
+              <span>Email: <code style={{ color: 'var(--color-brand-dark)' }}>demo@jobshield.com</code></span>
+              <span>Password: <code style={{ color: 'var(--color-brand-dark)' }}>Password@123</code></span>
             </div>
           </div>
 

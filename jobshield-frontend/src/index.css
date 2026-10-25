@@ -5,41 +5,43 @@
 
 :root {
   /* =========================================================
-     1. BRAND LAYER: Vibrant Cobalt Blue & Lavender SaaS Theme
+     1. BRAND LAYER: SEON-Inspired Cyber Teal & Midnight Navy
      ========================================================= */
-  --color-brand: #4361ee;               /* Vibrant Cobalt Blue (Workhub style) */
-  --color-brand-light: #5e7bf9;         /* Light Blue Accent */
-  --color-brand-dark: #3751d9;          /* Deep Cobalt Blue */
-  --color-brand-deep: #2f45bd;          /* Active Deep Blue */
-  --color-lavender: #818cf8;            /* Soft Indigo/Lavender */
-  --color-lavender-light: #e0e7ff;      /* Pastel Lavender Tint */
-  --color-lavender-ghost: #eef2ff;      /* Subtle Pill/Badge Background */
-  --color-lavender-border: #c7d2fe;     /* Gentle Lavender Border */
+  --color-brand: #1fa680;               /* Signature Vibrant Mint Teal */
+  --color-brand-light: #2dd4bf;         /* Bright Seafoam Accent */
+  --color-brand-dark: #0f766e;          /* Deep Forest Teal */
+  --color-brand-deep: #115e59;          /* Active Deep Teal */
+  --color-brand-contrast: #0c1427;      /* SEON Deep Midnight Navy */
+  --color-brand-contrast-hover: #172342;
+  --color-teal-canvas: #20b286;         /* SEON Hero Teal Canvas */
+  --color-teal-tint: #e6f7f2;           /* Soft Mint Tint for Badges */
+  --color-teal-border: #99f0d6;         /* Soft Mint Border */
 
-  /* Workhub Gradients: Soft Blue Waves & Royal Buttons */
-  --gradient-brand: linear-gradient(135deg, #4361ee 0%, #3b82f6 50%, #818cf8 100%);
-  --gradient-brand-btn: linear-gradient(135deg, #4361ee 0%, #3b82f6 100%);
-  --gradient-ai-hero: linear-gradient(180deg, #edf2fe 0%, #e8edff 45%, #f4f7fd 100%);
+  /* Gradients: Seafoam Hero & Teal Interactive Elements */
+  --gradient-brand: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #0d9488 100%);
+  --gradient-brand-btn: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+  --gradient-hero-teal: linear-gradient(135deg, #24ba8d 0%, #1ea680 50%, #16936f 100%);
+  --gradient-ai-hero: linear-gradient(180deg, #f0fdf9 0%, #e6f7f2 45%, #f8fafc 100%);
 
   /* Primary Interactive Color Mapping */
-  --color-primary: #4361ee;
-  --color-primary-hover: #3751d9;
-  --color-accent: #4361ee;
-  --color-cyan: #0ea5e9;
+  --color-primary: #1fa680;
+  --color-primary-hover: #0f766e;
+  --color-accent: #1fa680;
+  --color-cyan: #0d9488;
 
   /* =========================================================
-     2. PRODUCT LAYER: Clean White Cards, Soft Canvas, Readability
+     2. PRODUCT LAYER: Clean White Floating Cards, Readability
      ========================================================= */
-  --bg-primary: #f3f6fd;               /* Soft Periwinkle-Tinted Canvas */
-  --bg-surface: #ffffff;               /* Crisp White Surface */
+  --bg-primary: #f8fafc;               /* Crisp Clean Slate Background */
+  --bg-surface: #ffffff;               /* Crisp Pure White Surface */
   --bg-card: #ffffff;                  /* Elevated Pure White Card */
   --bg-card-hover: #ffffff;            /* Card Hover Elevation */
-  --bg-light: #f3f6fd;
+  --bg-light: #f8fafc;
   --bg-white: #ffffff;
 
   --color-border: #e2e8f0;             /* Clean Border */
-  --color-border-light: #eef2f6;       /* Soft Divider */
-  --color-border-hover: #c7d2fe;       /* Lavender Hover Border */
+  --color-border-light: #f1f5f9;       /* Soft Divider */
+  --color-border-hover: #99f0d6;       /* Mint Hover Border */
 
   /* Typography & High Contrast Text */
   --text-main: #0f172a;                /* Crisp Dark Navy Slate */
@@ -68,17 +70,17 @@
   --risk-low-text: #047857;
   --risk-low-glow: 0 2px 8px rgba(16, 185, 129, 0.2);
 
-  /* Typography — Plus Jakarta Sans & Nunito (Friendly & Accessible) */
+  /* Typography — Plus Jakarta Sans & Nunito (Modern Geometric Sans) */
   --font-family: 'Plus Jakarta Sans', 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 18px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 16px rgba(100, 116, 139, 0.08);
-  --shadow-lg: 0 10px 25px -5px rgba(100, 116, 139, 0.12);
-  --shadow-brand: 0 4px 14px rgba(67, 97, 238, 0.35);
-  --shadow-glow: 0 0 20px rgba(67, 97, 238, 0.25);
+  --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 30px -5px rgba(15, 23, 42, 0.1);
+  --shadow-brand: 0 4px 14px rgba(31, 166, 128, 0.35);
+  --shadow-glow: 0 0 20px rgba(31, 166, 128, 0.25);
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
 }
@@ -164,9 +166,40 @@ input, textarea, select {
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #3751d9 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
   color: #ffffff;
-  box-shadow: 0 6px 18px rgba(67, 97, 238, 0.45);
+  box-shadow: 0 6px 18px rgba(31, 166, 128, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-navy {
+  background-color: var(--color-brand-contrast);
+  color: #ffffff;
+  border: 1px solid var(--color-brand-contrast);
+  box-shadow: 0 4px 14px rgba(12, 20, 39, 0.25);
+  font-weight: 700;
+}
+
+.btn-navy:hover:not(:disabled) {
+  background-color: var(--color-brand-contrast-hover);
+  border-color: var(--color-brand-contrast-hover);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(12, 20, 39, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-white-hero {
+  background-color: #ffffff;
+  color: var(--color-brand-contrast);
+  border: 1px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  font-weight: 700;
+}
+
+.btn-white-hero:hover:not(:disabled) {
+  background-color: #f8fafc;
+  color: var(--color-brand-dark);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   transform: translateY(-1px);
 }
 
@@ -190,18 +223,18 @@ input, textarea, select {
 }
 
 .btn-outline:hover:not(:disabled) {
-  background-color: var(--color-lavender-ghost);
+  background-color: var(--color-teal-tint);
   color: var(--color-brand-dark);
 }
 
 .btn-dark {
-  background-color: #0f172a;
+  background-color: var(--color-brand-contrast);
   color: #ffffff;
-  border: 1px solid #0f172a;
+  border: 1px solid var(--color-brand-contrast);
 }
 
 .btn-dark:hover:not(:disabled) {
-  background-color: #1e293b;
+  background-color: #172342;
 }
 
 .btn-sm {
@@ -295,9 +328,9 @@ input, textarea, select {
 }
 
 .alert-info {
-  background-color: var(--color-lavender-ghost);
-  border: 1px solid var(--color-lavender-border);
-  color: var(--color-brand);
+  background-color: var(--color-teal-tint);
+  border: 1px solid var(--color-teal-border);
+  color: var(--color-brand-dark);
 }
 
 /* Form Styles */
@@ -328,7 +361,7 @@ input, textarea, select {
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
   border-color: var(--color-brand);
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+  box-shadow: 0 0 0 3px rgba(31, 166, 128, 0.18);
   background-color: #ffffff;
 }
 
@@ -341,7 +374,7 @@ input, textarea, select {
 .spinner {
   width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid rgba(67, 97, 238, 0.2);
+  border: 2px solid rgba(31, 166, 128, 0.2);
   border-radius: 50%;
   border-top-color: var(--color-brand);
   animation: spin 0.8s linear infinite;
@@ -349,7 +382,7 @@ input, textarea, select {
 }
 
 .spinner-dark {
-  border-color: rgba(67, 97, 238, 0.2);
+  border-color: rgba(31, 166, 128, 0.2);
   border-top-color: var(--color-brand);
 }
 

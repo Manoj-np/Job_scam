@@ -49,7 +49,7 @@ export default function JobDetailModal({ analysisId, onClose }) {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <h3 style={{ color: '#ffffff', fontWeight: 800 }}>Analysis Details</h3>
+            <h3 style={{ color: '#0f172a', fontWeight: 800 }}>Analysis Details</h3>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Report ID #{analysisId}
             </span>
@@ -68,7 +68,7 @@ export default function JobDetailModal({ analysisId, onClose }) {
             <>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff' }}>
+                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>
                     {data.jobTitle}
                   </h2>
                   <div style={{ color: 'var(--text-muted)', fontWeight: 600, marginTop: '0.15rem' }}>
@@ -77,7 +77,7 @@ export default function JobDetailModal({ analysisId, onClose }) {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <RiskBadge level={data.riskLevel} />
-                  <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#ffffff' }}>
+                  <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a' }}>
                     {data.riskScore}/100
                   </span>
                 </div>
