@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import RiskBadge from '../components/RiskBadge';
 import LoadingSpinner from '../components/LoadingSpinner';
 import AnalysisResultCard from '../components/AnalysisResultCard';
+import StudentSafetyModal from '../components/StudentSafetyModal';
 import { authApi, jobApi, getSwaggerUrl, isAuthenticated } from '../services/api';
 
 const SAMPLES = {
@@ -76,6 +77,7 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const loggedIn = isAuthenticated();
   const [activeTab, setActiveTab] = useState('user'); // 'user' | 'interviewer'
+  const [safetyModalOpen, setSafetyModalOpen] = useState(false);
 
   // Interviewer demo state
   const [selectedSampleKey, setSelectedSampleKey] = useState('checkScam');
@@ -222,6 +224,14 @@ export default function LandingPage() {
               <Link to="/scan-pdf" className="btn btn-secondary btn-lg">
                 <span>📄 Scan Offer Letter PDF</span>
               </Link>
+              <button
+                type="button"
+                onClick={() => setSafetyModalOpen(true)}
+                className="btn btn-secondary btn-lg"
+                style={{ fontWeight: 700 }}
+              >
+                <span>📍 Student Walk-In Checklist</span>
+              </button>
             </div>
 
             {/* Tech Stack Badges */}
@@ -516,6 +526,13 @@ export default function LandingPage() {
           <p>© {new Date().getFullYear()} JobShield — AI-Powered Job Scam Detection & Threat Intelligence.</p>
         </div>
       </footer>
+
+      {/* Student Safety Checklist Modal */}
+      <StudentSafetyModal
+        isOpen={safetyModalOpen}
+        onClose={() => setSafetyModalOpen(false)}
+        targetLocation="Bengaluru Tech Corridor"
+      />
     </div>
   );
 }

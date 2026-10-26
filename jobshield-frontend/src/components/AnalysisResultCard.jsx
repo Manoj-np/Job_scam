@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RiskBadge from './RiskBadge';
+import StudentSafetyModal from './StudentSafetyModal';
 
 /**
  * AnalysisResultCard Component
@@ -8,8 +9,11 @@ import RiskBadge from './RiskBadge';
  * - Risk Level (LOW, MEDIUM, HIGH)
  * - AI Reason & Explanation
  * - Pattern Matching Metrics (matched scams, similarity %, similar companies)
+ * - Student Pre-Walk-In Safety Checklist (Bengaluru/India Hotspot Defense)
  */
 export default function AnalysisResultCard({ result, onReset, jobTitle, companyName }) {
+  const [safetyModalOpen, setSafetyModalOpen] = useState(false);
+
   if (!result) return null;
 
   const {
@@ -50,12 +54,24 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
           </div>
         </div>
 
-        {onReset && (
-          <button className="btn btn-secondary" onClick={onReset}>
-            <span>↻</span>
-            <span>Analyze Another Job</span>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => setSafetyModalOpen(true)}
+            style={{ fontWeight: 700 }}
+          >
+            <span>🛡️</span>
+            <span>Pre-Walk-In Checklist</span>
           </button>
-        )}
+
+          {onReset && (
+            <button className="btn btn-secondary btn-sm" onClick={onReset}>
+              <span>↻</span>
+              <span>Analyze Another Job</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="result-body">
@@ -122,6 +138,13 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
           </div>
         )}
       </div>
+
+      {/* Student Safety Checklist Modal */}
+      <StudentSafetyModal
+        isOpen={safetyModalOpen}
+        onClose={() => setSafetyModalOpen(false)}
+        targetLocation={companyName || jobTitle}
+      />
     </div>
   );
 }
