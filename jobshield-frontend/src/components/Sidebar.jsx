@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { authApi, getSavedUser } from '../services/api';
 
 /**
  * Sidebar Component for Protected App Layout
+ * Shows user profile badge and quick access to [Login] and [Register].
+ * Per user instruction: replaced logout with Login and Register, removed logout.
  */
 export default function Sidebar({ isOpen, onClose }) {
-  const navigate = useNavigate();
   const [profile, setProfile] = useState(getSavedUser());
 
   useEffect(() => {
@@ -20,11 +21,6 @@ export default function Sidebar({ isOpen, onClose }) {
       });
     return () => { isMounted = false; };
   }, []);
-
-  const handleLogout = () => {
-    authApi.logout();
-    navigate('/login');
-  };
 
   const navItems = [
     { to: '/analyze', label: 'Analyze Job', icon: '🔍' },
@@ -82,10 +78,23 @@ export default function Sidebar({ isOpen, onClose }) {
           </div>
         </div>
 
-        <button onClick={handleLogout} className="btn btn-logout btn-sm">
-          <span>⎋</span>
-          <span>Log Out</span>
-        </button>
+        {/* In place of logout: Login and Register */}
+        <div style={{ display: 'flex', gap: '0.5rem', width: '100%', marginTop: '0.75rem' }}>
+          <NavLink
+            to="/login"
+            className="btn btn-sm btn-secondary"
+            style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem', padding: '0.45rem 0.5rem' }}
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className="btn btn-sm btn-primary"
+            style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem', padding: '0.45rem 0.5rem' }}
+          >
+            Register
+          </NavLink>
+        </div>
       </div>
     </aside>
   );

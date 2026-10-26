@@ -5,7 +5,7 @@ import { authApi } from '../services/api';
 
 /**
  * RegisterPage Component
- * Collects required user information matching RegisterRequest DTO.
+ * Collects required user information, creates account, and automatically signs in.
  */
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -19,6 +19,8 @@ export default function RegisterPage() {
     phoneNumber: '',
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -37,7 +39,7 @@ export default function RegisterPage() {
 
     // Frontend validations
     if (!formData.firstName.trim() || !formData.lastName.trim()) {
-      setError('First and last names are required.');
+      setError('Please provide both your first and last name.');
       return;
     }
 
@@ -46,13 +48,13 @@ export default function RegisterPage() {
       return;
     }
 
-    if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long.');
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long.');
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match.');
+      setError('Passwords do not match. Please re-enter.');
       return;
     }
 
@@ -62,16 +64,41 @@ export default function RegisterPage() {
       const payload = {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
-        email: formData.email.trim(),
+        email: formData.email.trim().toLowerCase(),
         password: formData.password,
         phoneNumber: formData.phoneNumber.trim() || null,
       };
 
-      const res = await authApi.register(payload);
-      setSuccess(typeof res === 'string' ? res : 'Account registered successfully! Redirecting to login...');
+      // 1. Register with backend / local persistence
+      await authApi.register(payload);
+      setSuccess('✓ Account created successfully! Logging you in...');
+
+      // 2. Seamless instant auto-login
+      try {
+        const loginRes = await authApi.login({
+          email: payload.email,
+          password: payload.password,
+        });
+
+        if (loginRes && loginRes.token) {
+          try {
+            await authApi.getProfile();
+          } catch (profileErr) {
+            console.warn('Profile sync:', profileErr);
+          }
+          setTimeout(() => {
+            navigate('/analyze');
+          }, 600);
+          return;
+        }
+      } catch (loginErr) {
+        console.warn('Auto-login fallback:', loginErr);
+      }
+
+      // If auto-login did not redirect, send to login with prefill hint
       setTimeout(() => {
-        navigate('/login');
-      }, 1500);
+        navigate(`/login?registered=true&email=${encodeURIComponent(payload.email)}`);
+      }, 1000);
     } catch (err) {
       setError(err.message || 'Registration failed. Please check your information.');
     } finally {
@@ -91,7 +118,7 @@ export default function RegisterPage() {
           </div>
 
           {error && <div className="alert alert-error">⚠️ {error}</div>}
-          {success && <div className="alert alert-success">✓ {success}</div>}
+          {success && <div className="alert alert-success">{success}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="auth-row">
@@ -148,7 +175,7 @@ export default function RegisterPage() {
                 type="tel"
                 name="phoneNumber"
                 className="form-input"
-                placeholder="+1 555-0199"
+                placeholder="+91 98765 43210"
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 disabled={loading}
@@ -156,26 +183,60 @@ export default function RegisterPage() {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="password">Password *</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label className="form-label" htmlFor="password">Password *</label>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748b',
+                    cursor: 'pointer',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    padding: 0
+                  }}
+                >
+                  {showPassword ? '🙈 Hide' : '👁️ Show'}
+                </button>
+              </div>
               <input
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 className="form-input"
-                placeholder="At least 8 characters"
+                placeholder="At least 6 characters"
                 value={formData.password}
                 onChange={handleChange}
                 required
                 disabled={loading}
               />
-              <span className="form-hint">Minimum 8 characters</span>
+              <span className="form-hint">Minimum 6 characters</span>
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="confirmPassword">Confirm Password *</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label className="form-label" htmlFor="confirmPassword">Confirm Password *</label>
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748b',
+                    cursor: 'pointer',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    padding: 0
+                  }}
+                >
+                  {showConfirmPassword ? '🙈 Hide' : '👁️ Show'}
+                </button>
+              </div>
               <input
                 id="confirmPassword"
-                type="password"
+                type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
                 className="form-input"
                 placeholder="Re-enter password"
@@ -189,16 +250,16 @@ export default function RegisterPage() {
             <button
               type="submit"
               className="btn btn-primary"
-              style={{ width: '100%', marginTop: '0.75rem', padding: '0.8rem' }}
+              style={{ width: '100%', marginTop: '0.75rem', padding: '0.8rem', fontWeight: 700 }}
               disabled={loading}
             >
-              {loading ? <span className="spinner" /> : 'Register Account'}
+              {loading ? <span className="spinner" /> : 'Register & Enter Portal →'}
             </button>
           </form>
 
           <p className="auth-footer-text">
             Already have an account?{' '}
-            <Link to="/login" style={{ fontWeight: 600 }}>
+            <Link to="/login" style={{ fontWeight: 700 }}>
               Sign in here
             </Link>
           </p>

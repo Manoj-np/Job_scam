@@ -1,24 +1,17 @@
 import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { isAuthenticated, authApi } from '../services/api';
+import { Link, useLocation } from 'react-router-dom';
 
 /**
  * Public Navbar Component
  * Minimal header with Brand Logo on left and [Login] [Register] at the end.
+ * Per user requirement: ONLY Login and Register in place of Logout, and remove Logout.
  */
 export default function Navbar({ theme }) {
-  const navigate = useNavigate();
   const location = useLocation();
-  const loggedIn = isAuthenticated();
 
   // If theme is not explicitly passed, use 'teal' for landing page ('/') and 'light' elsewhere
   const currentTheme = theme || (location.pathname === '/' ? 'teal' : 'light');
   const isTeal = currentTheme === 'teal';
-
-  const handleLogout = () => {
-    authApi.logout();
-    navigate('/login');
-  };
 
   return (
     <header className={`public-navbar ${isTeal ? 'navbar-teal' : 'navbar-light'}`}>
@@ -31,25 +24,12 @@ export default function Navbar({ theme }) {
         </Link>
 
         <nav className="nav-links">
-          {loggedIn ? (
-            <>
-              <Link to="/analyze" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
-                <span>Verify Job →</span>
-              </Link>
-              <button onClick={handleLogout} className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
-                Login
-              </Link>
-              <Link to="/register" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
-                Register
-              </Link>
-            </>
-          )}
+          <Link to="/login" className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
+            Login
+          </Link>
+          <Link to="/register" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
+            Register
+          </Link>
         </nav>
       </div>
     </header>

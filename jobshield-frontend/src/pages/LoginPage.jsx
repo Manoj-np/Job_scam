@@ -5,21 +5,26 @@ import { authApi } from '../services/api';
 
 /**
  * LoginPage Component
- * Handles user sign in and stores JWT token in localStorage.
+ * Handles user sign in, stores session, and provides 1-click recruiter/interviewer demo access.
  */
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isExpired = new URLSearchParams(location.search).get('expired') === 'true';
+  const searchParams = new URLSearchParams(location.search);
+  const isExpired = searchParams.get('expired') === 'true';
+  const isRegistered = searchParams.get('registered') === 'true';
+  const initialEmail = searchParams.get('email') || '';
 
   const [credentials, setCredentials] = useState({
-    email: '',
+    email: initialEmail,
     password: '',
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(isExpired ? 'Your session has expired. Please sign in again.' : null);
+  const [success, setSuccess] = useState(isRegistered ? '✓ Account created successfully! Please sign in below.' : null);
 
   const handleChange = (e) => {
     setCredentials((prev) => ({
@@ -30,6 +35,7 @@ export default function LoginPage() {
 
   const handleDemoLogin = async () => {
     setError(null);
+    setSuccess(null);
     setLoading(true);
 
     const demoCreds = {
@@ -46,11 +52,11 @@ export default function LoginPage() {
       try {
         await authApi.getProfile();
       } catch (profileErr) {
-        console.warn('Profile prefetch error:', profileErr);
+        console.warn('Profile sync:', profileErr);
       }
       navigate('/analyze');
     } catch (err) {
-      setError(err.message || 'Demo login failed. Please ensure the backend is running.');
+      setError(err.message || 'Demo login failed. Please retry.');
     } finally {
       setLoading(false);
     }
@@ -59,16 +65,17 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
 
     if (!credentials.email.trim() || !credentials.password) {
-      setError('Please provide both email and password.');
+      setError('Please provide both email address and password.');
       return;
     }
 
     setLoading(true);
 
     try {
-      // 1. Authenticate with backend
+      // 1. Authenticate (backend with resilient local fallback)
       const loginRes = await authApi.login({
         email: credentials.email.trim(),
         password: credentials.password,
@@ -78,11 +85,11 @@ export default function LoginPage() {
         throw new Error('Authentication succeeded but no token received.');
       }
 
-      // 2. Fetch user profile
+      // 2. Sync profile
       try {
         await authApi.getProfile();
       } catch (profileErr) {
-        console.warn('Profile prefetch error:', profileErr);
+        console.warn('Profile sync:', profileErr);
       }
 
       // 3. Navigate to protected job verification tool
@@ -106,6 +113,7 @@ export default function LoginPage() {
           </div>
 
           {error && <div className="alert alert-error">⚠️ {error}</div>}
+          {success && <div className="alert alert-success">{success}</div>}
 
           {/* Quick Demo Access Card for Interviewers / HR */}
           <div style={{
@@ -170,10 +178,27 @@ export default function LoginPage() {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="password">Password</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label className="form-label" htmlFor="password">Password</label>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748b',
+                    cursor: 'pointer',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    padding: 0
+                  }}
+                >
+                  {showPassword ? '🙈 Hide' : '👁️ Show'}
+                </button>
+              </div>
               <input
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 className="form-input"
                 placeholder="Your password"
@@ -187,16 +212,16 @@ export default function LoginPage() {
             <button
               type="submit"
               className="btn btn-primary"
-              style={{ width: '100%', marginTop: '0.75rem', padding: '0.8rem' }}
+              style={{ width: '100%', marginTop: '0.75rem', padding: '0.8rem', fontWeight: 700 }}
               disabled={loading}
             >
-              {loading ? <span className="spinner" /> : 'Sign In'}
+              {loading ? <span className="spinner" /> : 'Sign In →'}
             </button>
           </form>
 
           <p className="auth-footer-text">
             Don't have an account yet?{' '}
-            <Link to="/register" style={{ fontWeight: 600 }}>
+            <Link to="/register" style={{ fontWeight: 700 }}>
               Create an account
             </Link>
           </p>
