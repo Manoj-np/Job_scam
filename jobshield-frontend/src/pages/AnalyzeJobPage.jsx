@@ -8,6 +8,7 @@ const SAMPLES = {
   scam: {
     companyName: 'Apex Global Staffing Corp',
     jobTitle: 'Remote Data Entry Specialist / Virtual Assistant',
+    location: 'BTM Layout 2nd Stage, Bengaluru',
     salary: '$55/hour ($4,400/week) + Sign-on Bonus',
     jobDescription: `Urgently hiring Remote Data Entry Operators and Virtual Assistants! No previous experience or resume required. Work from home 2-3 hours daily. Earn $55/hr paid daily via Zelle or Crypto.
 
@@ -20,6 +21,7 @@ Send your full name, SSN, copy of driver's license, and bank routing details to 
   suspicious: {
     companyName: 'FastTrack Global Media Ltd',
     jobTitle: 'Social Media Rating Agent & Video Optimizer',
+    location: 'Marathahalli Bridge, Bengaluru',
     salary: '$250 - $600 daily (Commission-based)',
     jobDescription: `Earn daily income simply by liking videos, boosting seller product ratings, and rating mobile apps! Flexible part-time job from home, 1-2 hours a day.
 
@@ -30,6 +32,7 @@ Requirement: To unlock task set #1 and register on our platform portal, all appl
   legit: {
     companyName: 'Google LLC',
     jobTitle: 'Senior Java Backend Engineer (Cloud Services)',
+    location: 'Electronic City Phase 1, Bengaluru',
     salary: '$165,000 - $190,000 / year + Equity + Full Benefits',
     jobDescription: `About the Role:
 Google Cloud is seeking an experienced Senior Software Engineer to design, implement, and operate highly available microservices in Java 17 and Spring Boot.
@@ -58,6 +61,7 @@ export default function AnalyzeJobPage() {
   const [formData, setFormData] = useState({
     companyName: '',
     jobTitle: '',
+    location: '',
     salary: '',
     jobDescription: '',
   });
@@ -75,11 +79,15 @@ export default function AnalyzeJobPage() {
     setLoading(true);
 
     try {
+      const fullDescription = sample.location && sample.location.trim()
+        ? `[Interview / Office Location: ${sample.location.trim()}]\n\n${sample.jobDescription.trim()}`
+        : sample.jobDescription.trim();
+
       const payload = {
         companyName: sample.companyName.trim(),
         jobTitle: sample.jobTitle.trim(),
         salary: sample.salary.trim() || null,
-        jobDescription: sample.jobDescription.trim(),
+        jobDescription: fullDescription,
       };
 
       const response = await jobApi.analyzeJob(payload);
@@ -135,11 +143,15 @@ export default function AnalyzeJobPage() {
     setLoading(true);
 
     try {
+      const fullDescription = formData.location && formData.location.trim()
+        ? `[Interview / Walk-In Location: ${formData.location.trim()}]\n\n${formData.jobDescription.trim()}`
+        : formData.jobDescription.trim();
+
       const payload = {
         companyName: formData.companyName.trim(),
         jobTitle: formData.jobTitle.trim(),
         salary: formData.salary.trim() || null,
-        jobDescription: formData.jobDescription.trim(),
+        jobDescription: fullDescription,
       };
 
       const response = await jobApi.analyzeJob(payload);
@@ -157,6 +169,7 @@ export default function AnalyzeJobPage() {
     setFormData({
       companyName: '',
       jobTitle: '',
+      location: '',
       salary: '',
       jobDescription: '',
     });
@@ -182,6 +195,7 @@ export default function AnalyzeJobPage() {
           onReset={handleReset}
           jobTitle={formData.jobTitle}
           companyName={formData.companyName}
+          location={formData.location}
         />
       )}
 
@@ -265,20 +279,66 @@ export default function AnalyzeJobPage() {
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label" htmlFor="salary">
-                Offered Salary / Compensation (Optional)
-              </label>
-              <input
-                id="salary"
-                type="text"
-                name="salary"
-                className="form-input"
-                placeholder="e.g. $45/hr or ₹50,000/month"
-                value={formData.salary}
-                onChange={handleChange}
-              />
-              <span className="form-hint">Unusually high salaries for entry-level work are a strong scam indicator.</span>
+            <div className="auth-row">
+              <div className="form-group">
+                <label className="form-label" htmlFor="location">
+                  📍 Interview / Office Location (Optional)
+                </label>
+                <input
+                  id="location"
+                  type="text"
+                  name="location"
+                  className="form-input"
+                  placeholder="e.g. BTM Layout 2nd Stage, Marathahalli, Bengaluru"
+                  value={formData.location}
+                  onChange={handleChange}
+                />
+                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
+                  <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)', fontWeight: 600 }}>Quick Select:</span>
+                  {[
+                    'BTM Layout 2nd Stage',
+                    'Marathahalli Bridge',
+                    'HSR Layout Sector 7',
+                    'Hebbal Outer Ring',
+                    'Electronic City Phase 1',
+                    'Remote / Work from Home'
+                  ].map((loc) => (
+                    <button
+                      key={loc}
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, location: loc }))}
+                      style={{
+                        fontSize: '0.725rem',
+                        padding: '0.15rem 0.5rem',
+                        borderRadius: '12px',
+                        background: formData.location === loc ? 'var(--color-brand-contrast)' : '#f1f5f9',
+                        color: formData.location === loc ? '#ffffff' : '#334155',
+                        border: '1px solid ' + (formData.location === loc ? 'var(--color-brand-contrast)' : '#cbd5e1'),
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      {loc}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="salary">
+                  Offered Salary / Compensation (Optional)
+                </label>
+                <input
+                  id="salary"
+                  type="text"
+                  name="salary"
+                  className="form-input"
+                  placeholder="e.g. $45/hr or ₹50,000/month"
+                  value={formData.salary}
+                  onChange={handleChange}
+                />
+                <span className="form-hint">Unusually high salaries for entry-level work are a strong scam indicator.</span>
+              </div>
             </div>
 
             <div className="form-group">

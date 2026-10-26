@@ -9,7 +9,7 @@ import RiskBadge from './RiskBadge';
  * - AI Reason & Explanation
  * - Pattern Matching Metrics (matched scams, similarity %, similar companies)
  */
-export default function AnalysisResultCard({ result, onReset, jobTitle, companyName }) {
+export default function AnalysisResultCard({ result, onReset, jobTitle, companyName, location }) {
   if (!result) return null;
 
   const {
@@ -65,6 +65,53 @@ export default function AnalysisResultCard({ result, onReset, jobTitle, companyN
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
               {jobTitle} {companyName ? `at ${companyName}` : ''}
             </h3>
+            {location && (
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                flexWrap: 'wrap',
+                marginTop: '0.4rem',
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                padding: '0.3rem 0.75rem',
+                borderRadius: '8px',
+                fontSize: '0.825rem',
+                fontWeight: 600,
+                color: '#334155'
+              }}>
+                <span>📍 Interview Location:</span>
+                <span style={{ color: '#0f172a', fontWeight: 700 }}>{location}</span>
+                {['btm', 'marathahalli', 'hsr', 'hebbal'].some(h => location.toLowerCase().includes(h)) && (
+                  <span style={{
+                    fontSize: '0.725rem',
+                    fontWeight: 700,
+                    background: '#fef2f2',
+                    color: '#b91c1c',
+                    border: '1px solid #fecaca',
+                    padding: '0.1rem 0.45rem',
+                    borderRadius: '12px',
+                    marginLeft: '0.25rem'
+                  }}>
+                    🚨 Flagged Bengaluru Hotspot
+                  </span>
+                )}
+                {['electronic city', 'whitefield', 'ecity', 'itpl'].some(h => location.toLowerCase().includes(h)) && (
+                  <span style={{
+                    fontSize: '0.725rem',
+                    fontWeight: 700,
+                    background: '#ecfdf5',
+                    color: '#047857',
+                    border: '1px solid #a7f3d0',
+                    padding: '0.1rem 0.45rem',
+                    borderRadius: '12px',
+                    marginLeft: '0.25rem'
+                  }}>
+                    ✅ Verified Tech SEZ
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         )}
 

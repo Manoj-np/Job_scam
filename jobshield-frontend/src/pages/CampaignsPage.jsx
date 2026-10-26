@@ -3,6 +3,8 @@ import { jobApi } from '../services/api';
 import RiskBadge from '../components/RiskBadge';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+const STORAGE_KEY = 'jobshield_user_reported_scams';
+
 const BENGALURU_HOTSPOTS = [
   {
     id: 'btm',
@@ -78,13 +80,107 @@ const BENGALURU_HOTSPOTS = [
   },
 ];
 
+const STANDARD_AREAS = [
+  'BTM Layout 2nd Stage',
+  'Marathahalli Bridge',
+  'HSR Layout Sector 7',
+  'Hebbal / Manyata Outer Ring',
+  'Indiranagar 100ft Road',
+  'Koramangala 5th Block',
+  'Rajajinagar Industrial Area',
+  'OTHER'
+];
+
+/**
+ * Merge base hotspots with locally stored user reports
+ */
+function mergeHotspots(baseList, userReports) {
+  if (!userReports || userReports.length === 0) {
+    return baseList.map(item => ({ ...item, companies: [...item.companies] }));
+  }
+
+  // Deep clone base list
+  const list = baseList.map(item => ({
+    ...item,
+    companies: [...item.companies],
+    userReportCount: 0,
+  }));
+
+  const customAreas = [];
+
+  userReports.forEach((rep) => {
+    const targetArea = (rep.area === 'OTHER' ? rep.customArea : rep.area) || 'Bengaluru';
+    const existing = list.find(h => h.area.toLowerCase() === targetArea.toLowerCase());
+
+    if (existing) {
+      existing.fakeOfficesCount = (existing.fakeOfficesCount || 0) + 1;
+      existing.userReportCount = (existing.userReportCount || 0) + 1;
+      if (rep.company && !existing.companies.includes(rep.company)) {
+        existing.companies.push(`${rep.company} (Reported)`);
+      }
+      if (rep.notes) {
+        existing.safetyTip = `Latest Community Report: ${rep.notes}`;
+      }
+    } else {
+      // Check if already in customAreas
+      const existingCustom = customAreas.find(c => c.area.toLowerCase() === targetArea.toLowerCase());
+      if (existingCustom) {
+        existingCustom.fakeOfficesCount += 1;
+        existingCustom.userReportCount += 1;
+        if (rep.company && !existingCustom.companies.includes(rep.company)) {
+          existingCustom.companies.push(rep.company);
+        }
+      } else {
+        customAreas.push({
+          id: `custom_${rep.id || Date.now()}`,
+          area: targetArea,
+          riskLevel: 'HIGH',
+          riskScore: 89,
+          badgeText: 'COMMUNITY REPORTED',
+          fakeOfficesCount: 1,
+          userReportCount: 1,
+          avgExtortion: rep.fee || '₹3,000 – ₹7,000',
+          primaryTactic: rep.tactic || 'Walk-In Registration Fee Demand',
+          safetyTip: rep.notes || 'Student beware: Verify office registration before paying cash.',
+          companies: rep.company ? [rep.company] : ['Suspect Consultancy'],
+          isUserCreated: true,
+          reportId: rep.id,
+        });
+      }
+    }
+  });
+
+  return [...customAreas, ...list];
+}
+
 /**
  * CampaignsPage Component
- * Clean, visual area-wise scam hotspot intelligence for Bengaluru.
+ * Bengaluru Scam Hotspots & Community Reporting Feature
  */
 export default function CampaignsPage() {
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('ALL'); // 'ALL' | 'RISK' | 'SAFE'
+  const [filter, setFilter] = useState('ALL'); // 'ALL' | 'RISK' | 'SAFE' | 'COMMUNITY'
+  const [showReportForm, setShowReportForm] = useState(false);
+  const [userReports, setUserReports] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  const [formState, setFormState] = useState({
+    area: 'BTM Layout 2nd Stage',
+    customArea: '',
+    company: '',
+    fee: '',
+    tactic: 'Fake Walk-In / Registration Fee Demanded',
+    notes: '',
+  });
+
+  const [formSuccess, setFormSuccess] = useState('');
+  const [formError, setFormError] = useState('');
 
   useEffect(() => {
     // Attempt backend sync, fallback gracefully
@@ -93,16 +189,86 @@ export default function CampaignsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const displayedHotspots = BENGALURU_HOTSPOTS.filter((item) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormState(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setFormError('');
+    setFormSuccess('');
+
+    if (formState.area === 'OTHER' && !formState.customArea.trim()) {
+      setFormError('Please specify the custom locality or street name.');
+      return;
+    }
+
+    if (!formState.company.trim()) {
+      setFormError('Please provide the company or consultancy name.');
+      return;
+    }
+
+    if (!formState.notes.trim()) {
+      setFormError('Please add a short note or warning about what happened during the walk-in.');
+      return;
+    }
+
+    const newReport = {
+      id: Date.now().toString(),
+      area: formState.area,
+      customArea: formState.customArea.trim(),
+      company: formState.company.trim(),
+      fee: formState.fee.trim() || '₹2,500 – ₹5,000 (Approx)',
+      tactic: formState.tactic,
+      notes: formState.notes.trim(),
+      createdAt: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
+    };
+
+    const updated = [newReport, ...userReports];
+    setUserReports(updated);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    } catch (err) {
+      console.error('Failed to save report to localStorage', err);
+    }
+
+    setFormSuccess('Scam report published! It has been added to the Bengaluru hotspot intelligence board.');
+    setFormState({
+      area: 'BTM Layout 2nd Stage',
+      customArea: '',
+      company: '',
+      fee: '',
+      tactic: 'Fake Walk-In / Registration Fee Demanded',
+      notes: '',
+    });
+
+    setTimeout(() => {
+      setShowReportForm(false);
+      setFormSuccess('');
+    }, 2500);
+  };
+
+  const handleClearUserReports = () => {
+    if (window.confirm('Are you sure you want to clear your reported scam hotspots?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      setUserReports([]);
+    }
+  };
+
+  const combinedHotspots = mergeHotspots(BENGALURU_HOTSPOTS, userReports);
+
+  const displayedHotspots = combinedHotspots.filter((item) => {
     if (filter === 'RISK') return item.riskLevel === 'HIGH' || item.riskLevel === 'MEDIUM';
     if (filter === 'SAFE') return item.riskLevel === 'LOW';
+    if (filter === 'COMMUNITY') return item.isUserCreated || (item.userReportCount && item.userReportCount > 0);
     return true;
   });
 
   return (
     <div className="page-container" style={{ maxWidth: '1150px' }}>
       {/* Page Header */}
-      <div className="page-header" style={{ marginBottom: '1.5rem' }}>
+      <div className="page-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{
             display: 'inline-flex',
@@ -125,14 +291,197 @@ export default function CampaignsPage() {
             Area-wise recruitment fraud ratings to protect students and freshers before attending walk-in interviews.
           </p>
         </div>
+
+        {/* Action Button: Report a Scam */}
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          {userReports.length > 0 && (
+            <button
+              type="button"
+              onClick={handleClearUserReports}
+              className="btn btn-secondary btn-sm"
+              title="Clear locally added reports"
+              style={{ fontSize: '0.8rem' }}
+            >
+              Reset Reports
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => setShowReportForm(!showReportForm)}
+            className="btn btn-primary"
+            style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+          >
+            <span>{showReportForm ? '✕ Close Form' : '🚨 Report a Scam / Add Hotspot'}</span>
+          </button>
+        </div>
       </div>
+
+      {/* Community Report Form Drawer / Card */}
+      {showReportForm && (
+        <div className="card" style={{
+          marginBottom: '2rem',
+          border: '2px solid #ef4444',
+          background: '#fffbfb',
+          borderRadius: '12px',
+          padding: '1.5rem'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <div>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#991b1b', margin: 0 }}>
+                🚨 Report a Fake Consultancy or Scam Hotspot
+              </h2>
+              <p style={{ fontSize: '0.875rem', color: '#64748b', margin: '0.2rem 0 0' }}>
+                Help fellow students avoid fake walk-in interviews, registration fee traps, and original document withholding.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowReportForm(false)}
+              className="btn btn-secondary btn-sm"
+            >
+              ✕ Close
+            </button>
+          </div>
+
+          {formError && <div className="alert alert-error" style={{ marginBottom: '1rem' }}>❌ {formError}</div>}
+          {formSuccess && <div className="alert alert-success" style={{ marginBottom: '1rem' }}>✅ {formSuccess}</div>}
+
+          <form onSubmit={handleFormSubmit}>
+            <div className="auth-row">
+              <div className="form-group">
+                <label className="form-label" htmlFor="area">
+                  Bengaluru Locality / Area *
+                </label>
+                <select
+                  id="area"
+                  name="area"
+                  className="form-input"
+                  value={formState.area}
+                  onChange={handleInputChange}
+                >
+                  {STANDARD_AREAS.map((a) => (
+                    <option key={a} value={a}>
+                      {a === 'OTHER' ? '+ Other Bengaluru Locality (Type below)' : a}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {formState.area === 'OTHER' && (
+                <div className="form-group">
+                  <label className="form-label" htmlFor="customArea">
+                    Specific Area / Metro Landmark *
+                  </label>
+                  <input
+                    id="customArea"
+                    type="text"
+                    name="customArea"
+                    className="form-input"
+                    placeholder="e.g. Indiranagar CMH Road or Jayanagar 4th Block"
+                    value={formState.customArea}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              )}
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="company">
+                  Suspect Company / Consultancy Name *
+                </label>
+                <input
+                  id="company"
+                  type="text"
+                  name="company"
+                  className="form-input"
+                  placeholder="e.g. Apex Global HR / Vertex Technologies"
+                  value={formState.company}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="auth-row">
+              <div className="form-group">
+                <label className="form-label" htmlFor="tactic">
+                  Primary Scam Tactic Observed *
+                </label>
+                <select
+                  id="tactic"
+                  name="tactic"
+                  className="form-input"
+                  value={formState.tactic}
+                  onChange={handleInputChange}
+                >
+                  <option value="Fake Walk-In / Registration Fee Demanded">Fake Walk-In / Registration Fee Demanded</option>
+                  <option value="Withholding Original Marksheets / Degree Certificates">Withholding Original Marksheets / Degree</option>
+                  <option value="Cash Security Deposit for Laptop / Uniform">Cash Deposit for Laptop / Training Uniform</option>
+                  <option value="Impersonating Tier-1 MNC (TCS/Infosys) Walk-In">Impersonating Tier-1 MNC (TCS / Infosys)</option>
+                  <option value="Telegram / WhatsApp Rating Task Trap">Telegram / WhatsApp Task Trap</option>
+                  <option value="Fake Call Letter with Slot Booking Charge">Fake Call Letter with Slot Booking Fee</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="fee">
+                  Fee Demanded (e.g. ₹3,500)
+                </label>
+                <input
+                  id="fee"
+                  type="text"
+                  name="fee"
+                  className="form-input"
+                  placeholder="e.g. ₹3,500 registration or ₹10,000 deposit"
+                  value={formState.fee}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label" htmlFor="notes">
+                Incident Summary & Warning for Students *
+              </label>
+              <textarea
+                id="notes"
+                name="notes"
+                className="form-textarea"
+                rows={3}
+                placeholder="Describe what occurred (e.g. They conducted a 2-minute mock interview in a small room and demanded ₹3,000 cash before handing over the appointment letter)..."
+                value={formState.notes}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
+              <button
+                type="button"
+                onClick={() => setShowReportForm(false)}
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ backgroundColor: '#dc2626', borderColor: '#b91c1c' }}
+              >
+                🛡️ Publish Hotspot Report
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Filter Tabs */}
       <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
         {[
-          { key: 'ALL', label: 'All Areas (6)' },
-          { key: 'RISK', label: '🚨 High-Risk Hotspots (4)' },
-          { key: 'SAFE', label: '✅ Verified Safe Tech Zones (2)' },
+          { key: 'ALL', label: `All Areas (${combinedHotspots.length})` },
+          { key: 'RISK', label: '🚨 High-Risk Hotspots' },
+          { key: 'SAFE', label: '✅ Verified Tech SEZ' },
+          ...(userReports.length > 0 ? [{ key: 'COMMUNITY', label: `👥 Community Reports (${userReports.length})` }] : []),
         ].map((tab) => (
           <button
             key={tab.key}
@@ -191,19 +540,35 @@ export default function CampaignsPage() {
                       <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', margin: '0 0 0.25rem' }}>
                         📍 {spot.area}
                       </h3>
-                      <span style={{
-                        display: 'inline-block',
-                        fontSize: '0.75rem',
-                        fontWeight: 800,
-                        background: badgeBg,
-                        color: badgeColor,
-                        border: `1px solid ${badgeBorder}`,
-                        padding: '0.15rem 0.55rem',
-                        borderRadius: '12px',
-                        letterSpacing: '0.03em',
-                      }}>
-                        {spot.badgeText}
-                      </span>
+                      <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                        <span style={{
+                          display: 'inline-block',
+                          fontSize: '0.75rem',
+                          fontWeight: 800,
+                          background: badgeBg,
+                          color: badgeColor,
+                          border: `1px solid ${badgeBorder}`,
+                          padding: '0.15rem 0.55rem',
+                          borderRadius: '12px',
+                          letterSpacing: '0.03em',
+                        }}>
+                          {spot.badgeText}
+                        </span>
+                        {spot.userReportCount > 0 && (
+                          <span style={{
+                            display: 'inline-block',
+                            fontSize: '0.7rem',
+                            fontWeight: 700,
+                            background: '#eff6ff',
+                            color: '#1d4ed8',
+                            border: '1px solid #bfdbfe',
+                            padding: '0.15rem 0.5rem',
+                            borderRadius: '12px',
+                          }}>
+                            👥 {spot.userReportCount} Community {spot.userReportCount === 1 ? 'Report' : 'Reports'}
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* SEON-Style Score Pill */}
