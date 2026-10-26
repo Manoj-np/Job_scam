@@ -33,8 +33,8 @@ export default function Navbar({ theme }) {
         <nav className="nav-links">
           {loggedIn ? (
             <>
-              <Link to="/dashboard" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
-                <span>Dashboard →</span>
+              <Link to="/analyze" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
+                <span>Verify Job →</span>
               </Link>
               <button onClick={handleLogout} className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
                 Logout

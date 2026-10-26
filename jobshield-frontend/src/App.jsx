@@ -4,7 +4,6 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import InterviewerDemoPage from './pages/InterviewerDemoPage';
-import DashboardPage from './pages/DashboardPage';
 import AnalyzeJobPage from './pages/AnalyzeJobPage';
 import PdfScannerPage from './pages/PdfScannerPage';
 import HistoryPage from './pages/HistoryPage';
@@ -28,7 +27,7 @@ export default function App() {
 
         {/* Protected Authenticated Routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<Navigate to="/analyze" replace />} />
           <Route path="/analyze" element={<AnalyzeJobPage />} />
           <Route path="/scan-pdf" element={<PdfScannerPage />} />
           <Route path="/history" element={<HistoryPage />} />

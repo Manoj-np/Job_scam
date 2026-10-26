@@ -48,7 +48,7 @@ export default function LoginPage() {
       } catch (profileErr) {
         console.warn('Profile prefetch error:', profileErr);
       }
-      navigate('/dashboard');
+      navigate('/analyze');
     } catch (err) {
       setError(err.message || 'Demo login failed. Please ensure the backend is running.');
     } finally {
@@ -85,8 +85,8 @@ export default function LoginPage() {
         console.warn('Profile prefetch error:', profileErr);
       }
 
-      // 3. Navigate to protected dashboard
-      navigate('/dashboard');
+      // 3. Navigate to protected job verification tool
+      navigate('/analyze');
     } catch (err) {
       setError(err.message || 'Invalid email or password.');
     } finally {

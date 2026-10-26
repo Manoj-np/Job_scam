@@ -93,7 +93,7 @@ export default function LandingPage() {
         email: 'demo@jobshield.com',
         password: 'Password@123',
       });
-      navigate('/dashboard');
+      navigate('/analyze');
     } catch (err) {
       navigate('/login');
     } finally {

@@ -94,7 +94,7 @@ export default function InterviewerDemoPage() {
         email: 'demo@jobshield.com',
         password: 'Password@123',
       });
-      navigate('/dashboard');
+      navigate('/analyze');
     } catch (err) {
       navigate('/login');
     } finally {
@@ -495,7 +495,7 @@ export default function InterviewerDemoPage() {
                     Generated on-the-fly via Apache PDFBox with security verification stamps.
                   </p>
                   <button onClick={handle1ClickLogin} className="btn btn-sm btn-secondary">
-                    Download in Dashboard ↗
+                    View in Scan History ↗
                   </button>
                 </div>
               </div>

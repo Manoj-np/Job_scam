@@ -27,7 +27,6 @@ export default function Sidebar({ isOpen, onClose }) {
   };
 
   const navItems = [
-    { to: '/dashboard', label: 'Dashboard', icon: '📊' },
     { to: '/analyze', label: 'Analyze Job', icon: '🔍' },
     { to: '/scan-pdf', label: 'Scan PDF Offer', icon: '📄' },
     { to: '/history', label: 'Scan History', icon: '⏱️' },
@@ -41,7 +40,7 @@ export default function Sidebar({ isOpen, onClose }) {
   return (
     <aside className={`app-sidebar ${isOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-header">
-        <NavLink to="/dashboard" className="brand-logo" onClick={onClose}>
+        <NavLink to="/analyze" className="brand-logo" onClick={onClose}>
           <div className="brand-icon">🛡️</div>
           <div className="brand-text">Job<span>Shield</span></div>
         </NavLink>
