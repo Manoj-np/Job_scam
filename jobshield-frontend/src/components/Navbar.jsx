@@ -4,7 +4,7 @@ import { isAuthenticated, authApi } from '../services/api';
 
 /**
  * Public Navbar Component
- * SEON-style Cyber Fraud Prevention Navigation
+ * Minimal header with Brand Logo on left and [Login] [Register] at the end.
  */
 export default function Navbar({ theme }) {
   const navigate = useNavigate();
@@ -30,24 +30,6 @@ export default function Navbar({ theme }) {
           </div>
         </Link>
 
-        <div className="nav-center-links">
-          <Link to="/analyze" className={isTeal ? 'nav-link-teal' : 'nav-link-light'}>
-            Verify Job
-          </Link>
-          <Link to="/scan-pdf" className={isTeal ? 'nav-link-teal' : 'nav-link-light'}>
-            PDF Forensics
-          </Link>
-          <Link to="/campaigns" className={isTeal ? 'nav-link-teal' : 'nav-link-light'}>
-            Scam Syndicates
-          </Link>
-          <Link
-            to="/demo"
-            className={`nav-recruiter-pill ${isTeal ? 'pill-teal' : 'pill-light'}`}
-          >
-            👔 Recruiter Hub
-          </Link>
-        </div>
-
         <nav className="nav-links">
           {loggedIn ? (
             <>
@@ -60,11 +42,11 @@ export default function Navbar({ theme }) {
             </>
           ) : (
             <>
-              <Link to="/login" className={`nav-login-link ${isTeal ? 'text-white' : ''}`}>
+              <Link to="/login" className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
                 Login
               </Link>
               <Link to="/register" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
-                Speak with an expert
+                Register
               </Link>
             </>
           )}

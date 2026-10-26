@@ -184,6 +184,71 @@
   overflow: hidden;
 }
 
+.hero-teal-container.hero-compact {
+  padding: 3.5rem 1.5rem 0;
+  text-align: center;
+}
+
+.hero-compact-content {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-headline-compact {
+  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0 0 2rem;
+  max-width: 800px;
+}
+
+/* Two-Tab Switcher in Hero */
+.tab-pill-container {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(12, 20, 39, 0.45);
+  backdrop-filter: blur(10px);
+  padding: 0.4rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  gap: 0.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.tab-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.85rem;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.tab-pill-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.tab-pill-btn.active {
+  background: #ffffff;
+  color: var(--color-brand-contrast);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
 .hero-content-wrapper {
   max-width: 1240px;
   margin: 0 auto;
