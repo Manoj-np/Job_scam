@@ -22,15 +22,6 @@ export default function Navbar({ theme }) {
             Job<span>Shield</span>
           </div>
         </Link>
-
-        <nav className="nav-links">
-          <Link to="/login" className={`btn btn-sm ${isTeal ? 'btn-outline-white' : 'btn-secondary'}`}>
-            Login
-          </Link>
-          <Link to="/register" className={`btn btn-sm ${isTeal ? 'btn-white-hero' : 'btn-navy'}`}>
-            Register
-          </Link>
-        </nav>
       </div>
     </header>
   );
