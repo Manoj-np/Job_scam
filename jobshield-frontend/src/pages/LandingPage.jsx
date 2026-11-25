@@ -398,6 +398,9 @@ export default function LandingPage() {
               <Link to="/analyze" className="btn btn-navy btn-lg">
                 <span>🛡️ Analyze a Job Posting</span>
               </Link>
+              <Link to="/demo" className="btn btn-primary btn-lg" style={{ fontWeight: 700 }}>
+                <span>⚡ Interactive Recruiter Demo</span>
+              </Link>
               <Link to="/campaigns" className="btn btn-secondary btn-lg">
                 <span>📍 View Bengaluru Scam Hotspots</span>
               </Link>
@@ -476,6 +479,13 @@ export default function LandingPage() {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                <Link
+                  to="/demo"
+                  className="btn btn-primary"
+                  style={{ padding: '0.75rem 1.4rem', fontSize: '0.95rem', fontWeight: 800, textAlign: 'center' }}
+                >
+                  🚀 Launch Full Demo Center (/demo) →
+                </Link>
                 <button
                   type="button"
                   onClick={handle1ClickLogin}
