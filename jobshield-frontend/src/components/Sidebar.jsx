@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { authApi, getSavedUser } from '../services/api';
 
 /**
  * Sidebar Component for Protected App Layout
- * Shows user profile badge and quick access to [Login] and [Register].
- * Per user instruction: replaced logout with Login and Register, removed logout.
+ * Provides clear 1-click navigation across all demo features.
  */
 export default function Sidebar({ isOpen, onClose }) {
   const [profile, setProfile] = useState(getSavedUser());
@@ -25,18 +24,15 @@ export default function Sidebar({ isOpen, onClose }) {
   const navItems = [
     { to: '/analyze', label: 'Analyze Job', icon: '🔍' },
     { to: '/scan-pdf', label: 'Scan PDF Offer', icon: '📄' },
+    { to: '/campaigns', label: 'Scam Hotspots', icon: '📍' },
     { to: '/history', label: 'Scan History', icon: '⏱️' },
-    { to: '/campaigns', label: 'Scam Campaigns', icon: '🕸️' },
+    { to: '/demo', label: 'Interviewer Hub', icon: '🚀' },
   ];
-
-  const userInitials = profile
-    ? `${(profile.firstName || 'U')[0]}${(profile.lastName || '')[0] || ''}`.toUpperCase()
-    : 'JS';
 
   return (
     <aside className={`app-sidebar ${isOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-header">
-        <NavLink to="/analyze" className="brand-logo" onClick={onClose}>
+        <NavLink to="/" className="brand-logo" onClick={onClose} style={{ textDecoration: 'none' }}>
           <div className="brand-icon">🛡️</div>
           <div className="brand-text">Job<span>Shield</span></div>
         </NavLink>
@@ -67,33 +63,25 @@ export default function Sidebar({ isOpen, onClose }) {
 
       <div className="sidebar-footer">
         <div className="user-profile-badge">
-          <div className="user-avatar">{userInitials}</div>
+          <div className="user-avatar" style={{ background: '#3b82f6', color: '#fff' }}>👔</div>
           <div className="user-info-text">
             <div className="user-name">
-              {profile ? `${profile.firstName} ${profile.lastName}` : 'Shield Member'}
+              {profile ? `${profile.firstName} ${profile.lastName}` : 'Technical Interviewer'}
             </div>
-            <div className="user-role">
-              {profile?.role ? `ROLE: ${profile.role}` : profile?.email || 'Authenticated'}
+            <div className="user-role" style={{ color: '#10b981', fontWeight: 700 }}>
+              🟢 DEMO REVIEWER
             </div>
           </div>
         </div>
 
-        {/* In place of logout: Login and Register */}
-        <div style={{ display: 'flex', gap: '0.5rem', width: '100%', marginTop: '0.75rem' }}>
-          <NavLink
-            to="/login"
-            className="btn btn-sm btn-secondary"
-            style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem', padding: '0.45rem 0.5rem' }}
-          >
-            Login
-          </NavLink>
-          <NavLink
-            to="/register"
+        <div style={{ marginTop: '0.85rem' }}>
+          <Link
+            to="/demo"
             className="btn btn-sm btn-primary"
-            style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem', padding: '0.45rem 0.5rem' }}
+            style={{ width: '100%', textAlign: 'center', fontSize: '0.8rem', padding: '0.5rem', fontWeight: 700, display: 'block' }}
           >
-            Register
-          </NavLink>
+            🚀 Open Interviewer Hub
+          </Link>
         </div>
       </div>
     </aside>

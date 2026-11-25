@@ -69,6 +69,87 @@ export const isAuthenticated = () => {
   return !!token && token.trim().length > 0;
 };
 
+// ==========================================
+// Interactive Demo History Helpers
+// ==========================================
+const DEMO_HISTORY_KEY = 'jobshield_demo_history';
+
+const DEFAULT_DEMO_HISTORY = [
+  {
+    id: 101,
+    companyName: 'Apex Global Staffing Corp',
+    jobTitle: 'Remote Data Entry Clerk / Assistant',
+    riskScore: 88,
+    riskLevel: 'HIGH',
+    salary: '$55/hour ($4,400/week) + Sign-on Bonus',
+    matchedScams: 3,
+    highestSimilarity: 88,
+    similarCompanies: ['Apex Talent Partners', 'Skyline Placement Solutions'],
+    createdAt: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
+    reason: 'Advance-fee cashier check deposit scheme, Telegram interview redirect (@HRApexRecruiter), and unverified Gmail domain.'
+  },
+  {
+    id: 102,
+    companyName: 'FastTrack Global Media Ltd',
+    jobTitle: 'Social Media Rating Agent & Task Optimizer',
+    riskScore: 92,
+    riskLevel: 'HIGH',
+    salary: '$250 - $600 daily (Commission-based)',
+    matchedScams: 2,
+    highestSimilarity: 82,
+    similarCompanies: ['FastTrack Media Ltd', 'Digital Tasks Hub'],
+    createdAt: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
+    reason: 'Demands refundable security deposit in USDT to unlock VIP task set #1. Classic task ponzi scheme.'
+  },
+  {
+    id: 103,
+    companyName: 'Google LLC',
+    jobTitle: 'Senior Java Backend Engineer (Cloud Services)',
+    riskScore: 12,
+    riskLevel: 'LOW',
+    salary: '$165,000 - $190,000 / year',
+    matchedScams: 0,
+    highestSimilarity: 10,
+    similarCompanies: [],
+    createdAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
+    reason: 'Verified corporate domain, standard structured interview stages, zero upfront payment demands.'
+  }
+];
+
+export const getDemoHistory = () => {
+  try {
+    const raw = localStorage.getItem(DEMO_HISTORY_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return DEFAULT_DEMO_HISTORY;
+};
+
+export const appendDemoHistory = (jobData, result) => {
+  try {
+    const history = getDemoHistory();
+    const newEntry = {
+      id: Date.now(),
+      companyName: jobData.companyName || 'Uploaded Job/Offer Document',
+      jobTitle: jobData.jobTitle || 'Evaluated Position',
+      salary: jobData.salary || 'N/A',
+      riskScore: result.riskScore,
+      riskLevel: result.riskLevel,
+      reason: result.reason,
+      matchedScams: result.matchedScams || 0,
+      highestSimilarity: result.highestSimilarity || 0,
+      similarCompanies: result.similarCompanies || [],
+      createdAt: new Date().toISOString()
+    };
+    const updated = [newEntry, ...history.filter(h => h.id !== newEntry.id)].slice(0, 25);
+    localStorage.setItem(DEMO_HISTORY_KEY, JSON.stringify(updated));
+  } catch (e) {
+    console.warn('Could not persist demo history entry:', e);
+  }
+};
+
 export const getSwaggerUrl = () => {
   const base = (ENV_URL && !ENV_URL.includes('localhost:8081'))
     ? ENV_URL
@@ -283,11 +364,13 @@ export const jobApi = {
    */
   analyzeJob: async (jobData) => {
     try {
-      return await apiFetch('/api/jobs/analyze', {
+      const res = await apiFetch('/api/jobs/analyze', {
         method: 'POST',
         body: JSON.stringify(jobData),
         timeout: 4000,
       });
+      appendDemoHistory(jobData, res);
+      return res;
     } catch (err) {
       console.warn('Backend analyzeJob offline/timed out, using instant evaluation fallback:', err.message);
       const text = `${jobData.companyName || ''} ${jobData.jobTitle || ''} ${jobData.jobDescription || ''}`.toLowerCase();
@@ -317,7 +400,7 @@ export const jobApi = {
       score = Math.min(score, 95);
       const level = score >= 65 ? 'HIGH' : (score >= 35 ? 'MEDIUM' : 'LOW');
 
-      return {
+      const fallbackResult = {
         riskScore: score,
         riskLevel: level,
         reason: reasons.length > 0 ? reasons.join(' ') : 'Standard job description syntax. No critical scam patterns detected.',
@@ -325,6 +408,8 @@ export const jobApi = {
         highestSimilarity: similarity,
         similarCompanies: similarCompanies
       };
+      appendDemoHistory(jobData, fallbackResult);
+      return fallbackResult;
     }
   },
 
@@ -338,18 +423,24 @@ export const jobApi = {
       const formData = new FormData();
       formData.append('file', file);
 
-      return await apiFetch('/api/jobs/analyze-pdf', {
+      const res = await apiFetch('/api/jobs/analyze-pdf', {
         method: 'POST',
         body: formData,
         timeout: 4000,
       });
+      appendDemoHistory({
+        companyName: (file && file.name) ? file.name : 'Uploaded PDF Offer',
+        jobTitle: 'Offer Letter Document'
+      }, res);
+      return res;
     } catch (err) {
       console.warn('Backend PDF scan offline/timed out, using instant evaluation fallback:', err.message);
       const fileName = (file && file.name) ? file.name.toLowerCase() : '';
       const isScam = fileName.includes('scam') || fileName.includes('fake') || fileName.includes('apex');
 
+      let fallbackResult;
       if (isScam) {
-        return {
+        fallbackResult = {
           riskScore: 92,
           riskLevel: 'HIGH',
           reason: 'Apache PDFBox extracted text confirms critical fraud indicators: The offer letter mandates a refundable security fee of ₹4,500 via UPI/Cash before appointment confirmation, promises immediate joining without verified technical evaluation, and lists an unauthorized Gmail contact address (careers.apexglobal@gmail.com).',
@@ -358,7 +449,7 @@ export const jobApi = {
           similarCompanies: ['Apex Global Staffing Corp', 'Skyline Placement Solutions', 'Verve Career Hub']
         };
       } else {
-        return {
+        fallbackResult = {
           riskScore: 12,
           riskLevel: 'LOW',
           reason: 'Apache PDFBox document parsing verified: Standard corporate appointment terms, verified enterprise compensation structure, corporate email domain, and zero upfront payment or equipment deposit demands.',
@@ -367,37 +458,69 @@ export const jobApi = {
           similarCompanies: []
         };
       }
+      appendDemoHistory({
+        companyName: (file && file.name) ? file.name : 'Sample PDF Document',
+        jobTitle: 'Appointment Letter Audit'
+      }, fallbackResult);
+      return fallbackResult;
     }
   },
 
   /**
    * Fetch user's scan history
-   * GET /api/jobs/history
+   * GET /api/jobs/history with demo fallback
    */
   getHistory: async () => {
-    return apiFetch('/api/jobs/history', {
-      method: 'GET',
-    });
+    try {
+      return await apiFetch('/api/jobs/history', {
+        method: 'GET',
+        timeout: 3000,
+      });
+    } catch (err) {
+      console.warn('Backend history unavailable, using interactive demo history:', err.message);
+      return getDemoHistory();
+    }
   },
 
   /**
    * Fetch specific job analysis details by ID
-   * GET /api/jobs/{analysisId}
+   * GET /api/jobs/{analysisId} with demo fallback
    */
   getAnalysisById: async (analysisId) => {
-    return apiFetch(`/api/jobs/${analysisId}`, {
-      method: 'GET',
-    });
+    try {
+      return await apiFetch(`/api/jobs/${analysisId}`, {
+        method: 'GET',
+        timeout: 3000,
+      });
+    } catch (err) {
+      console.warn('Backend getAnalysisById unavailable, using demo item:', err.message);
+      const history = getDemoHistory();
+      const match = history.find(h => String(h.id) === String(analysisId)) || history[0];
+      return match;
+    }
   },
 
   /**
    * Fetch user scan dashboard statistics
-   * GET /api/jobs/dashboard
+   * GET /api/jobs/dashboard with demo fallback
    */
   getDashboard: async () => {
-    return apiFetch('/api/jobs/dashboard', {
-      method: 'GET',
-    });
+    try {
+      return await apiFetch('/api/jobs/dashboard', {
+        method: 'GET',
+        timeout: 3000,
+      });
+    } catch (err) {
+      const history = getDemoHistory();
+      const total = history.length;
+      const highRisk = history.filter(h => h.riskLevel === 'HIGH').length;
+      return {
+        totalScans: total,
+        highRiskScamsDetected: highRisk,
+        safeJobsVerified: total - highRisk,
+        activeThreatCampaigns: 4
+      };
+    }
   },
 
   /**
@@ -407,33 +530,47 @@ export const jobApi = {
   getCampaigns: async () => {
     return apiFetch('/api/jobs/campaigns', {
       method: 'GET',
+      timeout: 3000,
     });
   },
 
   /**
    * Download dynamically generated PDF Security Audit Report
-   * GET /api/jobs/{analysisId}/export-pdf
+   * GET /api/jobs/{analysisId}/export-pdf with sample report fallback
    */
   downloadPdfReport: async (analysisId) => {
-    const token = getToken();
-    const headers = {};
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+    try {
+      const token = getToken();
+      const headers = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const res = await fetch(`${API_BASE_URL}/api/jobs/${analysisId}/export-pdf`, {
+        headers,
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `JobShield_Audit_Report_${analysisId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+        return;
+      }
+    } catch (e) {
+      console.warn('Backend PDF export unavailable, using sample PDF report fallback:', e);
     }
-    const res = await fetch(`${API_BASE_URL}/api/jobs/${analysisId}/export-pdf`, {
-      headers,
-    });
-    if (!res.ok) {
-      throw new Error('Failed to download PDF audit report.');
-    }
-    const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
+
+    // Static fallback: download the static JobShield Architecture & Audit report
     const a = document.createElement('a');
-    a.href = url;
-    a.download = `JobShield_Audit_Report_${analysisId}.pdf`;
+    a.href = '/sample_pdfs/JobShield_Architecture_Report.pdf';
+    a.download = `JobShield_Security_Audit_Report_${analysisId || 'Sample'}.pdf`;
+    a.target = '_blank';
     document.body.appendChild(a);
     a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   },
 };

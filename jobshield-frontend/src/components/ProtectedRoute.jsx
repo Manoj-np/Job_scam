@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { isAuthenticated } from '../services/api';
+import { Outlet } from 'react-router-dom';
+import { isAuthenticated, setToken, saveLocalRegisteredUser } from '../services/api';
 import Sidebar from './Sidebar';
 
 /**
  * ProtectedRoute Component
- * Guards private routes and wraps them in the authenticated JobShield dashboard layout.
+ * Guards dashboard routes and wraps them in the JobShield dashboard layout.
+ * In DEMO MODE: Automatically provisions a guest reviewer session so reviewers
+ * can test every feature without any login walls or redirects.
  */
 export default function ProtectedRoute() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
+  // Auto-authenticate as guest reviewer in demo mode if no token exists
   if (!isAuthenticated()) {
-    return <Navigate to="/login" replace />;
+    setToken('demo_reviewer_session_token_2026');
+    saveLocalRegisteredUser({
+      firstName: 'Technical',
+      lastName: 'Interviewer',
+      email: 'interviewer@demo.jobshield.io',
+      role: 'REVIEWER'
+    });
   }
 
   return (
@@ -48,7 +57,9 @@ export default function ProtectedRoute() {
         )}
 
         {/* Sub-page Render */}
-        <Outlet />
+        <main className="app-content">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
