@@ -77,7 +77,6 @@ export default function InterviewerDemoPage() {
   const [runningTest, setRunningTest] = useState(false);
   const [testResult, setTestResult] = useState(null);
   const [testError, setTestError] = useState(null);
-  const [loggingIn, setLoggingIn] = useState(false);
 
   // PDF demo state
   const [pdfScanning, setPdfScanning] = useState(false);
@@ -86,21 +85,6 @@ export default function InterviewerDemoPage() {
   const [currentPdfName, setCurrentPdfName] = useState('');
 
   const currentSample = SAMPLES[selectedSampleKey];
-
-  const handle1ClickLogin = async () => {
-    try {
-      setLoggingIn(true);
-      await authApi.login({
-        email: 'demo@jobshield.com',
-        password: 'Password@123',
-      });
-      navigate('/analyze');
-    } catch (err) {
-      navigate('/login');
-    } finally {
-      setLoggingIn(false);
-    }
-  };
 
   const handleRunLiveAnalysis = async (sampleKey) => {
     const sample = SAMPLES[sampleKey];
@@ -175,20 +159,23 @@ export default function InterviewerDemoPage() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <button
-                onClick={handle1ClickLogin}
-                disabled={loggingIn}
+              <Link
+                to="/analyze"
                 className="btn btn-navy btn-lg"
                 style={{
                   fontWeight: 800,
-                  cursor: 'pointer'
+                  textAlign: 'center'
                 }}
               >
-                <span>⚡ {loggingIn ? 'Logging In...' : '1-Click Login to Recruiter Portal'}</span>
-              </button>
-              <div style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                Pre-seeded with real scam scans & campaigns
-              </div>
+                <span>🛡️ Open Full Job Analyzer →</span>
+              </Link>
+              <Link
+                to="/campaigns"
+                className="btn btn-secondary"
+                style={{ textAlign: 'center', fontWeight: 700 }}
+              >
+                <span>📍 Bengaluru Scam Hotspots →</span>
+              </Link>
             </div>
           </div>
 
@@ -231,6 +218,38 @@ export default function InterviewerDemoPage() {
 
       {/* Main Tabbed Interactive Center */}
       <div style={{ maxWidth: '1100px', margin: '2rem auto 4rem', padding: '0 1rem' }}>
+        {/* HOW IT WORKS PIPELINE */}
+        <div className="card" style={{ marginBottom: '2rem', border: '1.5px solid #e2e8f0' }}>
+          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', margin: '0 0 1.25rem' }}>
+            🔍 How JobShield Works (The End-to-End Detection Pipeline)
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>1️⃣</div>
+              <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.4rem', fontSize: '1.05rem' }}>Document & Text Ingestion</h4>
+              <p style={{ fontSize: '0.875rem', color: '#475569', margin: 0, lineHeight: 1.55 }}>
+                User inputs raw job descriptions, WhatsApp transcripts, or uploads appointment letter PDFs. Apache PDFBox extracts text safely in memory without disk writes.
+              </p>
+            </div>
+
+            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>2️⃣</div>
+              <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.4rem', fontSize: '1.05rem' }}>Dual-Layer AI & Rule Engine</h4>
+              <p style={{ fontSize: '0.875rem', color: '#475569', margin: 0, lineHeight: 1.55 }}>
+                Google Gemini 2.5 Flash analyzes linguistic deception, Telegram interview redirects, and equipment check schemes. Deterministic heuristic regex acts as fail-safe fallback.
+              </p>
+            </div>
+
+            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>3️⃣</div>
+              <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.4rem', fontSize: '1.05rem' }}>Risk Score & Hotspot Warning</h4>
+              <p style={{ fontSize: '0.875rem', color: '#475569', margin: 0, lineHeight: 1.55 }}>
+                Computes 0–100 Fraud Score, flags critical indicators, detects reused company aliases, and cross-references walk-in consultancy scam zones in Bengaluru.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '0.65rem', borderBottom: '2px solid #e2e8f0', paddingBottom: '0.65rem', marginBottom: '1.75rem', flexWrap: 'wrap' }}>
           {[
@@ -447,13 +466,13 @@ export default function InterviewerDemoPage() {
               </div>
             </div>
 
-            <button
-              onClick={handle1ClickLogin}
+            <Link
+              to="/campaigns"
               className="btn btn-primary"
-              style={{ fontWeight: 700 }}
+              style={{ fontWeight: 700, display: 'inline-block' }}
             >
-              ⚡ Log in as Recruiter to View All Live Campaigns →
-            </button>
+              📍 Explore Live Bengaluru Scam Hotspot Tracker →
+            </Link>
           </div>
         )}
 
@@ -494,9 +513,9 @@ export default function InterviewerDemoPage() {
                   <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1rem', lineHeight: '1.5' }}>
                     Generated on-the-fly via Apache PDFBox with security verification stamps.
                   </p>
-                  <button onClick={handle1ClickLogin} className="btn btn-sm btn-secondary">
-                    View in Scan History ↗
-                  </button>
+                  <Link to="/analyze" className="btn btn-sm btn-secondary">
+                    Analyze Job & View Report ↗
+                  </Link>
                 </div>
               </div>
             </div>

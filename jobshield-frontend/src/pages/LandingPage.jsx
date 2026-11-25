@@ -82,24 +82,8 @@ export default function LandingPage() {
   const [runningTest, setRunningTest] = useState(false);
   const [testResult, setTestResult] = useState(null);
   const [testError, setTestError] = useState(null);
-  const [loggingIn, setLoggingIn] = useState(false);
 
   const currentSample = SAMPLES[selectedSampleKey];
-
-  const handle1ClickLogin = async () => {
-    try {
-      setLoggingIn(true);
-      await authApi.login({
-        email: 'demo@jobshield.com',
-        password: 'Password@123',
-      });
-      navigate('/analyze');
-    } catch (err) {
-      navigate('/login');
-    } finally {
-      setLoggingIn(false);
-    }
-  };
 
   const handleRunLiveAnalysis = async (sampleKey) => {
     const sample = SAMPLES[sampleKey];
@@ -486,15 +470,13 @@ export default function LandingPage() {
                 >
                   🚀 Launch Full Demo Center (/demo) →
                 </Link>
-                <button
-                  type="button"
-                  onClick={handle1ClickLogin}
-                  disabled={loggingIn}
+                <Link
+                  to="/analyze"
                   className="btn btn-navy"
-                  style={{ padding: '0.75rem 1.4rem', fontSize: '0.95rem', fontWeight: 700 }}
+                  style={{ padding: '0.75rem 1.4rem', fontSize: '0.95rem', fontWeight: 700, textAlign: 'center' }}
                 >
-                  ⚡ {loggingIn ? 'Logging In...' : '1-Click Recruiter Demo Login'}
-                </button>
+                  🛡️ Open Live Job Scanner →
+                </Link>
                 <a
                   href={getSwaggerUrl()}
                   target="_blank"
