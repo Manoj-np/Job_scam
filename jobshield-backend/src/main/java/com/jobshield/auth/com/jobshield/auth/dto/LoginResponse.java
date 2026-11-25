@@ -1,5 +1,3 @@
-
-
 package com.jobshield.auth.dto;
 
 public class LoginResponse {
