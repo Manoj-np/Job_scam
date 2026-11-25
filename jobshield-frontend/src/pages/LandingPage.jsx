@@ -542,42 +542,6 @@ export default function LandingPage() {
               />
             )}
           </div>
-
-          {/* Key Technical Interview Q&As */}
-          <div className="card" style={{ marginBottom: '2.5rem' }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 1.25rem', color: '#0f172a' }}>
-              Key Technical Interview Questions You Can Defend
-            </h3>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: 'var(--color-brand)' }}>
-                <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1rem' }}>
-                  Q: What happens if Google Gemini AI is down or rate-limited?
-                </h4>
-                <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
-                  <strong>Answer:</strong> The backend implements a resilient fallback architecture. In <code>GeminiServiceImpl</code>, if the external API call fails, it automatically delegates to a regex heuristic engine so the assessment completes with 0% downtime.
-                </p>
-              </div>
-
-              <div style={{ padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: 'var(--color-brand)' }}>
-                <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1rem' }}>
-                  Q: Why stateless JWT rather than server-side HTTP Sessions?
-                </h4>
-                <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
-                  <strong>Answer:</strong> Stateless JWT eliminates session storage on JVM heap memory, allowing horizontal scaling across cloud instances without sticky sessions or Redis cluster overhead.
-                </p>
-              </div>
-
-              <div style={{ padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeftWidth: '4px', borderLeftColor: 'var(--color-brand)' }}>
-                <h4 style={{ fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem', fontSize: '1rem' }}>
-                  Q: How do you prevent Out-Of-Memory (OOM) leaks during PDF text parsing?
-                </h4>
-                <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
-                  <strong>Answer:</strong> In <code>PdfServiceImpl</code>, the <code>PDDocument</code> is wrapped in a <code>try-with-resources</code> block, ensuring native file descriptors and memory buffers are reclaimed immediately upon parsing.
-                </p>
-              </div>
-            </div>
-          </div>
         </section>
       )}
 
